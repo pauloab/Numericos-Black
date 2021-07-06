@@ -2,13 +2,16 @@
 package Pruebas;
 
 import Modelos.Biseccion;
+import Modelos.FalsaPosicion;
+import Util.MetodosUniversales;
 
 
 public class pruebas {
 
     
     public static void main(String[] args) throws Exception {
-        mostrarBiseccion();
+        //mostrarBiseccion();
+        mostrarFalsaPosicion();
     }
     
     public static void mostrarBiseccion() throws Exception{
@@ -49,6 +52,12 @@ public class pruebas {
             res += "\n";
         }
         System.out.println(res);
+    }
+    
+        public static void mostrarFalsaPosicion() throws Exception{
+         FalsaPosicion op = new FalsaPosicion(" (pi*x^2*(9-x)/3)-30 ", 0, 3, 10 ,0.1);
+        System.out.println("El resultado es: "+ op.metodoFalsaPosicion());
+        MetodosUniversales.ImprimirFalsaPosicion(op.getMatriz());
     }
     
 }

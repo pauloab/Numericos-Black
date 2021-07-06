@@ -53,6 +53,18 @@ public class MetodosUniversales {
         }
 
     }
+    public static void ImprimirFalsaPosicion(double matriz [][]){
+        
+        System.out.format("%5s %20s %20s %20s %20s %20s %20s %20s",
+                "iter.", "xl","xu", "xr","fxl","fxu","fxr","ea\n");
+        for (int i = 0; i < matriz[0].length; i ++){
+            if (matriz[5][i] != 0) {
+                System.out.format("%5s %20s %20s %20s %20s %20s %20s %20s",
+                i, matriz[0][i], matriz[1][i], matriz[2][i], 
+                matriz[3][i], matriz[4][i], matriz[5][i], matriz[6][i] +"\n");
+            }
+        }
+    }
 
     public static double evaluarFuncion(String funcion, double x) throws Exception {
         double resultado = 0;
@@ -69,6 +81,8 @@ public class MetodosUniversales {
         }
         return resultado;
     }
+    
+    
 
     public static double errorAprox(double vactual, double vanterior) {
         double res = 0;
