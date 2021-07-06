@@ -12,27 +12,27 @@ import Util.MetodosUniversales;
 public class Biseccion {
     
     private String funcion ;
-    private double xl;
-    private double xu;
-    private int imax;
-    private double es;
+    private double cotaInferior;
+    private double cotaSuperior;
+    private int iteracionesMax;
+    private double errorTolerancia;
     private double matriz [][];
 
     /**
      * 
      * @param funcion funcion de la cual se desea obtener la raiz
-     * @param xl cota inferior del intervalo
-     * @param xu cota superior del intervalo
-     * @param imax valor maximo de iteraciones
-     * @param cifras cifras significativas que se desean
+     * @param cotaInferior cota inferior del intervalo
+     * @param cotaSuperior cota superior del intervalo
+     * @param iteracionesMax valor maximo de iteraciones
+     * @param errorTolerancia error de tolerancia
      */
-    public Biseccion(String funcion, double xl, double xu, int imax,double es) {
+    public Biseccion(String funcion, double cotaInferior, double cotaSuperior, int iteracionesMax,double errorTolerancia) {
         this.funcion = funcion;
-        this.xl = xl;
-        this.xu = xu;
-        this.imax = imax;
-        this.es = es;
-        this.matriz = new double [7][imax]; 
+        this.cotaInferior = cotaInferior;
+        this.cotaSuperior = cotaSuperior;
+        this.iteracionesMax = iteracionesMax;
+        this.errorTolerancia = errorTolerancia;
+        this.matriz = new double [7][iteracionesMax]; 
         
         
     }
@@ -46,42 +46,42 @@ public class Biseccion {
     }
 
     public double getXl() {
-        return xl;
+        return cotaInferior;
     }
 
-    public void setXl(double xl) {
-        this.xl = xl;
+    public void setXl(double cotaInferior) {
+        this.cotaInferior = cotaInferior;
     }
 
     public double getXu() {
-        return xu;
+        return cotaSuperior;
     }
 
-    public void setXu(double xu) {
-        this.xu = xu;
+    public void setXu(double cotaSuperior) {
+        this.cotaSuperior = cotaSuperior;
     }
 
     public int getImax() {
-        return imax;
+        return iteracionesMax;
     }
 
-    public void setImax(int imax) {
-        this.imax = imax;
+    public void setImax(int iteracionesMax) {
+        this.iteracionesMax = iteracionesMax;
     }
 
     public double getEs() {
-        return es;
+        return errorTolerancia;
     }
 
-    public void setEs(double es) {
-        this.es = es;
+    public void setEs(double errorTolerancia) {
+        this.errorTolerancia = errorTolerancia;
     }
     /**
-     * fila 1 = xl
-     * fila 2 = xu
+     * fila 1 = cotaInferior
+     * fila 2 = cotaSuperior
      * fila 3 = xr
-     * fila 4 = f(xl)
-     * fila 5 = f(xu)
+     * fila 4 = f(cotaInferior)
+     * fila 5 = f(cotaSuperior)
      * fila 6 = f(xr)
      * fila 7 = ea;
      * @return Matriz con los datos del algortimo
@@ -95,41 +95,41 @@ public class Biseccion {
       * @throws Exception Esta excepcion va a ocurrir cuando no se pueda evaluar la funcion en un determinado punto.
       */
     public double metodoBiseccion() throws Exception{
-        double ea = es + 1;
+        double ea = errorTolerancia + 1;
         int i = 0;
-        double xol = 0, fxr = 0, xr = 0,fxl = 0, fxu = 0, fxlx = 0;
+        double xol = 0, fxr = 0, xr = 0,fcotaInferior = 0, fcotaSuperior = 0, fcotaInferiorx = 0;
         
        do {
            xol = xr;
-           xr = (xl + xu)/2;
+           xr = (cotaInferior + cotaSuperior)/2;
            fxr = MetodosUniversales.evaluarFuncion(funcion, xr);
-           fxl = MetodosUniversales.evaluarFuncion(funcion, xl);
-           fxu =  MetodosUniversales.evaluarFuncion(funcion, xu);
-           fxlx = fxl * fxr;
+           fcotaInferior = MetodosUniversales.evaluarFuncion(funcion, cotaInferior);
+           fcotaSuperior =  MetodosUniversales.evaluarFuncion(funcion, cotaSuperior);
+           fcotaInferiorx = fcotaInferior * fxr;
            if (i > 0 ){
                  ea = MetodosUniversales.errorAprox(xr,xol);
            }
          
-               matriz [0][i] = xl;
-               matriz [1][i] = xu; 
+               matriz [0][i] = cotaInferior;
+               matriz [1][i] = cotaSuperior; 
                matriz [2][i] = xr; 
-               matriz [3][i] = fxl; 
-               matriz [4][i] = fxu; 
+               matriz [3][i] = fcotaInferior; 
+               matriz [4][i] = fcotaSuperior; 
                matriz [5][i] = fxr; 
-               matriz [6][i] = ea; 
+               matriz [6][i] = i==0?0:ea; 
                
            
-           if(fxlx < 0){
-               xu = xr;
-           }else if (fxlx > 0){
-               xl = xr;
+           if(fcotaInferiorx < 0){
+               cotaSuperior = xr;
+           }else if (fcotaInferiorx > 0){
+               cotaInferior = xr;
                
            }else {
                ea = 0;
            }
          i++;
          
-       }while (ea >= es && i < imax);
+       }while (ea >= errorTolerancia && i < iteracionesMax);
        return xr;
     }
     
