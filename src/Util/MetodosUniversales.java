@@ -77,19 +77,7 @@ public class MetodosUniversales {
     public static double errorTolerancia(int cifras) {
         return (0.5 * Math.pow(10, 2 - cifras)) / 100;
     }
-    public static void ImprimirBiseccion(double matriz [][]){
-        
-        System.out.format("%5s %20s %20s %20s %20s %20s %20s %20s",
-                "iter.", "xl","xu", "xr","f(xl)","f(xu)","f(xr)","ea\n");
-
-        for (int i = 0; i < matriz[0].length; i ++){
-            if (matriz[5][i] != 0) {
-                System.out.format("%5s %20s %20s %20s %20s %20s %20s %20s",
-                i, matriz[0][i], matriz[1][i], matriz[2][i], 
-                matriz[3][i], matriz[4][i], matriz[5][i], matriz[6][i] +"\n");
-            }
-        }
-    }
+    
         
     }
 

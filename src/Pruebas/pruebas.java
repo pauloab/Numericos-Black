@@ -13,9 +13,9 @@ public class pruebas {
     }
     
     public static void mostrarBiseccion() throws Exception{
-         Biseccion op = new Biseccion("((pi * x^2 * (9 - x))/3) - 30 ", 0, 3, 12 ,0.05);
+         Biseccion op = new Biseccion("x^3 - 7*x^2 + 14*x - 6 ", 3.1, 5, 20 ,0.01);
          System.out.println("El resultado es: "+ op.metodoBiseccion());
-         MetodosUniversales.ImprimirBiseccion(op.getMatriz());
+         op.imprimirResultados();
        
     }
     
