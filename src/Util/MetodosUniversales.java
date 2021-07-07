@@ -55,7 +55,6 @@ public class MetodosUniversales {
     }
 
     public static double evaluarFuncion(String funcion, double x) throws Exception {
-        double resultado = 0;
         JEP jep;
         jep = new JEP();
 
@@ -63,11 +62,10 @@ public class MetodosUniversales {
         jep.addStandardConstants();
         jep.addVariable("x", x);
         jep.parseExpression(funcion);
-        resultado = jep.getValue();
         if (jep.hasError()) {
             throw new Exception("No se pudo evaluar la funcion");
         }
-        return resultado;
+        return jep.getValue();
     }
 
     public static double errorAprox(double vactual, double vanterior) {
@@ -79,10 +77,8 @@ public class MetodosUniversales {
     public static double errorTolerancia(int cifras) {
         return (0.5 * Math.pow(10, 2 - cifras)) / 100;
     }
-
-    public static double errorVerdadero() {
-        double res = 0;
-        return res;
+    
+        
     }
 
-}
+
