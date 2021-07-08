@@ -53,7 +53,9 @@ public class pruebas {
         }
         System.out.println(res);
     }
-    
+    /*
+    Método de mostrarFalsaPosicion crea un objeto para inicializar una prueba
+    */
         public static void mostrarFalsaPosicion() throws Exception{
          FalsaPosicion op = new FalsaPosicion(" (pi*x^2*(9-x)/3)-30 ", 0, 3, 10 ,0.1);
         System.out.println("El resultado es: "+ op.metodoFalsaPosicion());

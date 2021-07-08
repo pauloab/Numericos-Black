@@ -19,7 +19,7 @@ public class FalsaPosicion {
     private double matriz [][];
 
     /**
-     * 
+     * Constructor de FalsaPosicion, crea el objeto con los parametros requeridos.
      * @param funcion funcion de la cual se desea obtener la raiz
      * @param cotaInferior cota inferior del intervalo
      * @param cotaSuperior cota superior del intervalo
@@ -36,39 +36,66 @@ public class FalsaPosicion {
         
         
     }
-
+    /**
+     * 
+     * @return 
+     */
     public String getFuncion() {
         return funcion;
     }
-
+    /**
+     * 
+     * @param funcion 
+     */
     public void setFuncion(String funcion) {
         this.funcion = funcion;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public double getXl() {
         return cotaInferior;
     }
-
+    /**
+     * 
+     * @param cotaInferior 
+     */
     public void setXl(double cotaInferior) {
         this.cotaInferior = cotaInferior;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public double getXu() {
         return cotaSuperior;
     }
-
+    /**
+     * 
+     * @param cotaSuperior 
+     */
     public void setXu(double cotaSuperior) {
         this.cotaSuperior = cotaSuperior;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public int getImax() {
         return iteracionesMaximas;
     }
-
+    /**
+     * 
+     * @param iteracionesMaximas 
+     */
     public void setImax(int iteracionesMaximas) {
         this.iteracionesMaximas = iteracionesMaximas;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public double getEs() {
         return es;
     }
@@ -77,13 +104,13 @@ public class FalsaPosicion {
         this.es = es;
     }
     /**
-     * fila 1 = cotaInferior
-     * fila 2 = cotaSuperior
-     * fila 3 = xr
-     * fila 4 = f(cotaInferior)
-     * fila 5 = f(cotaSuperior)
-     * fila 6 = f(xr)
-     * fila 7 = ea;
+     * columna 1 = cotaInferior
+     * columna 2 = cotaSuperior
+     * columna 3 = xr
+     * columna 4 = f(cotaInferior)
+     * columna 5 = f(cotaSuperior)
+     * columna 6 = f(xr)
+     * columna 7 = ea;
      * @return Matriz con los datos del algortimo
      */
      public double[][] getMatriz() {
