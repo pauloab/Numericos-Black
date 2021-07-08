@@ -3,7 +3,7 @@ package Pruebas;
 
 import Modelos.Biseccion;
 import Modelos.FalsaPosicion;
-import Util.MetodosUniversales;
+
 
 
 public class pruebas {
@@ -24,9 +24,10 @@ public class pruebas {
     Método de mostrarFalsaPosicion crea un objeto para inicializar una prueba
     */
         public static void mostrarFalsaPosicion() throws Exception{
-         FalsaPosicion op = new FalsaPosicion(" (pi*x^2*(9-x)/3)-30 ", 0, 3, 10 ,0.1);
+        FalsaPosicion op = new FalsaPosicion(" (pi*x^2*(9-x)/3)-30 ", 0, 3, 10 ,0.1);
         System.out.println("El resultado es: "+ op.metodoFalsaPosicion());
-        MetodosUniversales.ImprimirFalsaPosicion(op.getMatriz());
+        op.imprimirResultados();
+        
     }
     
 }
