@@ -67,6 +67,8 @@ public class MetodosUniversales {
         }
         return jep.getValue();
     }
+    
+    
 
     public static double errorAprox(double vactual, double vanterior) {
         double res = 0;
