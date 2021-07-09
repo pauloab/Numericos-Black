@@ -7,7 +7,7 @@ import org.nfunk.jep.ParseException;
 
 public class MetodosUniversales {
 
-    public static void derivar(String funcion) {
+    public static String derivar(String funcion) {
         DJep djep;
         Node nodoFuncion;
         Node nodoDerivada;
@@ -51,7 +51,7 @@ public class MetodosUniversales {
             funcion = "NaN";
             System.out.println("Error: " + e.getErrorInfo());
         }
-
+        return funcion;
     }
 
     public static double evaluarFuncion(String funcion, double x) throws Exception {
