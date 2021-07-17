@@ -11,7 +11,8 @@ public class pruebas {
     public static void main(String[] args) throws Exception {
         //mostrarBiseccion();
         //mostrarFalsaPosicion();
-        mostrarMetodoSecante();
+        //mostrarMetodoSecante();
+        mostrarNewtonRaphson();
     }
 
     public static void mostrarBiseccion() throws Exception {
@@ -35,7 +36,7 @@ public class pruebas {
     Método de NewtonRaphson crea un objeto para inicializar una prueba
      */
     public static void mostrarNewtonRaphson() throws Exception {
-        NewtonRaphson op = new NewtonRaphson(" x^3-7*x^2+14*x-6 ", 5, 10, 0.01);
+        NewtonRaphson op = new NewtonRaphson(" x^3-7*x^2+14*x-6 ", 5, 8, 0.01);
         System.out.println("El resultado es: " + op.metodoNewtonRaphson());
         op.imprimirResultados();
     }
