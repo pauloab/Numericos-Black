@@ -17,7 +17,7 @@ public class Muller implements MetodosNumericos {
     private double valorInicial;
     private double tamanioDePaso;
     private int iteracionesMaximas;
-    private double es;
+    private double errorAproximado;
     private double matriz[][];
 
     /**
@@ -30,12 +30,12 @@ public class Muller implements MetodosNumericos {
      * @param iteracionesMaximas valor maximo de iteraciones.
      * @param cifras cifras significativas que se desean.
      */
-    public Muller(String funcion, double valorInicial, double tamanioDePaso, int iteracionesMaximas, double es) {
+    public Muller(String funcion, double valorInicial, double tamanioDePaso, int iteracionesMaximas, double errorAproximado) {
         this.funcion = funcion;
         this.valorInicial = valorInicial;
         this.tamanioDePaso = tamanioDePaso;
         this.iteracionesMaximas = iteracionesMaximas;
-        this.es = es;
+        this.errorAproximado = errorAproximado;
         this.matriz = new double[5][iteracionesMaximas];
 
     }
@@ -108,16 +108,16 @@ public class Muller implements MetodosNumericos {
      *
      * @return
      */
-    public double getEs() {
-        return es;
+    public double getErrorAproxmado() {
+        return errorAproximado;
     }
 
     /**
      *
      * @param es
      */
-    public void setEs(double es) {
-        this.es = es;
+    public void setErrorAproxmado(double es) {
+        this.errorAproximado = es;
     }
 
     /**
@@ -139,7 +139,7 @@ public class Muller implements MetodosNumericos {
      * la funcion en un determinado punto.
      */
     public double metodoMuller() throws Exception {
-        double ea = es + 1;
+        double ea = errorAproximado + 1;
         int i = 0;
         double x0 = 0, x1 = 0, x2 = 0, xr = 0, h0 = 0, h1 = 0, d0 = 0, d1 = 0, a = 0, b = 0, c = 0, rad = 0, den = 0, fx0 = 0, fx1 = 0, fx2 = 0, dxr = 0;
 
@@ -184,11 +184,11 @@ public class Muller implements MetodosNumericos {
 
             }
             // Se evalua la condicionde parada
-            if (ea < es || i >= iteracionesMaximas) {
+            if (ea < errorAproximado || i >= iteracionesMaximas) {
                 break;
             }
 
-            // asignacion de los valores para la siguiente iteracion si es el caso
+            // asignacion de los valores para la siguiente iteracion si errorAproximado el caso
             x0 = x1;
             x1 = x2;
             x2 = xr;
@@ -212,7 +212,7 @@ public class Muller implements MetodosNumericos {
         System.out.format("%5s %20s %20s %20s %20s %20s",
                 "iter.", "x0", "x1", "x2", "xr", "ea\n");
         for (int i = 0; i < matriz[x0].length; i++) {
-            // La condición evalua si ea es diferente de cero, si resultada imprime.
+            // La condición evalua si ea errorAproximado diferente de cero, si resultada imprime.
             // Escogimos ea porque si se puede calcular desde la primera iteración, y también porque ea no va a llegar a ser cero por completo.
             // Porque la matriz se crea con iMax y algunos filas no siempre se llenan.
             if (matriz[ea][i] != 0) {
