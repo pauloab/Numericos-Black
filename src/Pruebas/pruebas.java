@@ -3,6 +3,7 @@ package Pruebas;
 
 import Modelos.Biseccion;
 import Modelos.FalsaPosicion;
+import Modelos.Muller;
 
 
 
@@ -11,7 +12,8 @@ public class pruebas {
     
     public static void main(String[] args) throws Exception {
         //mostrarBiseccion();
-        mostrarFalsaPosicion();
+        //mostrarFalsaPosicion();
+        mostarMuller();
     }
     
     public static void mostrarBiseccion() throws Exception{
@@ -29,5 +31,11 @@ public class pruebas {
         op.imprimirResultados();
         
     }
+        
+        public static void mostarMuller()throws Exception{
+           Muller op = new Muller(" -3*x^5+2*x^4+15*x^2-10*x-1 ", 1, 0.5, 1 ,0.0005);
+        System.out.println("El resultado es: "+ op.metodoMuller());
+        op.imprimirResultados(); 
+        }
     
 }
