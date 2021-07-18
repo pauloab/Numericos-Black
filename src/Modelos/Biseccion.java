@@ -137,12 +137,12 @@ public class Biseccion implements MetodosNumericos {
     public void imprimirResultados() {
         int  xl = 0, xu = 1, xr = 2, fxl =3, fxu = 4, fxr =5, ea=6;
         
-        System.out.format("%5s %20s %20s %20s %20s %20s %20s %20s",
+        System.out.format("%5s %20s %20s %20s %25s %25s %25s %25s",
                 "iter.", "xl","xu", "xr","f(xl)","f(xu)","f(xr)","ea\n");
 
         for (int i = 0; i < matriz[xl].length; i ++){
             if (matriz[fxu][i] != 0) {
-                System.out.format("%5s %20s %20s %20s %20s %20s %20s %20s",
+                System.out.format("%5s %20s %20s %20s %25s %25s %25s %25s",
                 i, matriz[xl][i], matriz[xu][i], matriz[xr][i], 
                 matriz[fxl][i], matriz[fxu][i], matriz[fxr][i], matriz[ea][i] +"\n");
             }
