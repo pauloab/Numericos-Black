@@ -1,6 +1,7 @@
 
-package Modelos;
+package Modelos.MetodosAbiertos;
 
+import Modelos.MetodosNumericos;
 import Util.MetodosUniversales;
 
 /**
