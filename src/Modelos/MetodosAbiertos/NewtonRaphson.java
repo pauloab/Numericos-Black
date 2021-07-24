@@ -140,21 +140,22 @@ public class NewtonRaphson implements MetodosNumericos{
        }while (ea >= es && i < iMax);
        return xi1;
     }
-    
+    /**
+     * Método encargado de mostrar los resultados del metodo de newtonRaphson en
+     * una matriz de datos
+     */
     @Override
     public void imprimirResultados() {
 
-        int ite = 0, xi = 1, fxi =2, fxip =3, ea = 4 ;  
+        int ite = 0, valorInicial = 1, fxi =2, fxip =3, erroAproximacion = 4 ;  
            System.out.format("%5s %20s %20s %20s %20s",
                 "iter.", "xi+1","f(xi)", "f'(xi)","ea\n");
         for (int i = 0; i < matriz[ite].length; i ++){
-            // La condición evalua si fxip es diferente de cero, si resultada imprime.
-            // Escogimos fxip porque es un valor que si es cero significa que esa zona de la matriz hacia abajo esta vacía.
-            // Porque la matriz se crea con iMax y algunos filas no siempre se llenan.
+            // Verifica que no se imprima la parte vacia de la matriz
             if (matriz [fxip][i] != 0 || i == 0 ) {
                 System.out.format("%5s %20s %20s %20s %20s", 
-                matriz[ite][i], matriz[xi][i], matriz[fxi][i], 
-                matriz[fxip][i], matriz[ea][i] + "\n");
+                matriz[ite][i], matriz[valorInicial][i], matriz[fxi][i], 
+                matriz[fxip][i], matriz[erroAproximacion][i] + "\n");
             }
             System.out.flush(); 
         } 

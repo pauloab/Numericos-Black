@@ -170,21 +170,22 @@ public class FalsaPosicion implements MetodosNumericos {
         } while (ea >= es && i < iteracionesMaximas);
         return xr;
     }
-
+    /**
+     * Método encargado de mostrar los resultados del metodo de falsaPosicion en
+     * una matriz de datos
+     */
     @Override
     public void imprimirResultados() {
 
-        int  xl = 0, xu = 1, xr = 2, fxl =3, fxu = 4, fxr =5, ea=6;  
+        int  xl = 0, xu = 1, xr = 2, fxl =3, fxu = 4, fxr =5, erroAproximacion=6;  
         System.out.format("%5s %20s %20s %20s %20s %20s %20s %20s",
                 "iter.", "xl","xu", "xr","f(xl)","f(xu)","f(xr)","ea\n");
         for (int i = 0; i < matriz[xl].length; i ++){
-            // La condición evalua si fxl es diferente de cero, si resultada imprime.
-            // Escogimos fxl porque es un valor que si es cero significa que esa zona de la matriz hacia abajo esta vacía.
-            // Porque la matriz se crea con iMax y algunos filas no siempre se llenan.
+            // Verifica que no se imprima la parte vacia de la matriz
             if (matriz[fxl][i] != 0) {
                 System.out.format("%5s %20s %20s %20s %20s %20s %20s %20s",
                 i, matriz[xl][i], matriz[xu][i], matriz[xr][i], 
-                matriz[fxl][i], matriz[fxu][i], matriz[fxr][i], matriz[ea][i] +"\n");
+                matriz[fxl][i], matriz[fxu][i], matriz[fxr][i], matriz[erroAproximacion][i] +"\n");
             }
         }
     }

@@ -28,7 +28,7 @@ public class Muller implements MetodosNumericos {
      * @param funcion funcion de la cual se desea obtener la raiz.
      * @param xSub2 valor inicial de xSub2 para construir la parabola.
      * @param xSub1 valor inicial de xSub1 para construir la parabola.
-     * @param  xSub0 valor inicial de xSub0 para construir la parabola.
+     * @param xSub0 valor inicial de xSub0 para construir la parabola.
      * @param iteracionesMaximas valor maximo de iteraciones.
      * @param cifras cifras significativas que se desean.
      */
@@ -106,7 +106,6 @@ public class Muller implements MetodosNumericos {
     public void setxSub0(double xSub0) {
         this.xSub0 = xSub0;
     }
-
 
     /**
      *
@@ -220,24 +219,21 @@ public class Muller implements MetodosNumericos {
     }
 
     /**
-     * Imprime en consola los datos obtenidos por al algoritmo mediante una
-     * matriz. Es necesario ejecutar el método de metodoMuller para que la
-     * matriz a prensentar posea datos.
+     * Método encargado de mostrar los resultados del metodo de muller en
+     * una matriz de datos
      */
     @Override
     public void imprimirResultados() {
 
-        int x0 = 0, x1 = 1, x2 = 2, xr = 3, ea = 4;
+        int x0 = 0, x1 = 1, x2 = 2, valorRaizAproximada = 3, erroAproximacion = 4;
         System.out.format("%5s %20s %20s %20s %20s %20s",
                 "iter.", "x0", "x1", "x2", "xr", "ea\n");
         for (int i = 0; i < matriz[x0].length; i++) {
-            // La condición evalua si ea errorAproximado diferente de cero, si resultada imprime.
-            // Escogimos ea porque si se puede calcular desde la primera iteración, y también porque ea no va a llegar a ser cero por completo.
-            // Porque la matriz se crea con iMax y algunos filas no siempre se llenan.
-            if (matriz[ea][i] != 0) {
+            // Verifica que no se imprima la parte vacia de la matriz
+            if (matriz[erroAproximacion][i] != 0) {
                 System.out.format("%5s %20s %20s %20s %20s %20s",
                         i, matriz[x0][i], matriz[x1][i], matriz[x2][i],
-                        matriz[xr][i], matriz[ea][i] + "\n");
+                        matriz[valorRaizAproximada][i], matriz[erroAproximacion][i] + "\n");
             }
         }
     }
