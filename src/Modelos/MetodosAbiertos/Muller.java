@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelos;
+package Modelos.MetodosAbiertos;
 
+import Modelos.MetodosNumericos;
 import Util.MetodosUniversales;
 
 /**
@@ -14,8 +15,9 @@ import Util.MetodosUniversales;
 public class Muller implements MetodosNumericos {
 
     private String funcion;
-    private double valorInicial;
-    private double tamanioDePaso;
+    private double xSub2;
+    private double xSub1;
+    private double xSub0;
     private int iteracionesMaximas;
     private double errorAproximado;
     private double matriz[][];
@@ -24,16 +26,17 @@ public class Muller implements MetodosNumericos {
      * Constructor de Muller, crea el objeto con los parametros requeridos.
      *
      * @param funcion funcion de la cual se desea obtener la raiz.
-     * @param valorInicial valor inicial para obtener los tres puntos para
-     * construir la parabola.
-     * @param tamanioDePaso tamanio de paso entre los tres puntos.
+     * @param xSub2 valor inicial de xSub2 para construir la parabola.
+     * @param xSub1 valor inicial de xSub1 para construir la parabola.
+     * @param xSub0 valor inicial de xSub0 para construir la parabola.
      * @param iteracionesMaximas valor maximo de iteraciones.
      * @param cifras cifras significativas que se desean.
      */
-    public Muller(String funcion, double valorInicial, double tamanioDePaso, int iteracionesMaximas, double errorAproximado) {
+    public Muller(String funcion, double xSub2, double xSub1, double xSub0, int iteracionesMaximas, double errorAproximado) {
         this.funcion = funcion;
-        this.valorInicial = valorInicial;
-        this.tamanioDePaso = tamanioDePaso;
+        this.xSub2 = xSub2;
+        this.xSub1 = xSub1;
+        this.xSub0 = xSub0;
         this.iteracionesMaximas = iteracionesMaximas;
         this.errorAproximado = errorAproximado;
         this.matriz = new double[5][iteracionesMaximas];
@@ -60,32 +63,48 @@ public class Muller implements MetodosNumericos {
      *
      * @return
      */
-    public double getValorInicial() {
-        return valorInicial;
+    public double getxSub2() {
+        return xSub2;
     }
 
     /**
      *
-     * @param valorInicial
+     * @param xSub2
      */
-    public void setValorInicial(double valorInicial) {
-        this.valorInicial = valorInicial;
+    public void setxSub2(double xSub2) {
+        this.xSub2 = xSub2;
     }
 
     /**
      *
      * @return
      */
-    public double getTamanioDePaso() {
-        return tamanioDePaso;
+    public double getxSub1() {
+        return xSub1;
     }
 
     /**
      *
-     * @param tamanioDePaso
+     * @param xSub1
      */
-    public void setTamanioDePaso(double tamanioDePaso) {
-        this.tamanioDePaso = tamanioDePaso;
+    public void setxSub1(double xSub1) {
+        this.xSub1 = xSub1;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public double getxSub0() {
+        return xSub0;
+    }
+
+    /**
+     *
+     * @param xSub0
+     */
+    public void setxSub0(double xSub0) {
+        this.xSub0 = xSub0;
     }
 
     /**
@@ -125,7 +144,7 @@ public class Muller implements MetodosNumericos {
      * columna 2 = x1. 
      * columna 3 = x2. 
      * columna 4 = xr. 
-     * columna 7 = ea.
+     * columna 7= ea.
      * @return Matriz con los datos del algortimo
      */
     public double[][] getMatriz() {
@@ -143,9 +162,9 @@ public class Muller implements MetodosNumericos {
         int i = 0;
         double x0 = 0, x1 = 0, x2 = 0, xr = 0, h0 = 0, h1 = 0, d0 = 0, d1 = 0, a = 0, b = 0, c = 0, rad = 0, den = 0, fx0 = 0, fx1 = 0, fx2 = 0, dxr = 0;
 
-        x2 = valorInicial;
-        x1 = valorInicial + tamanioDePaso * valorInicial;
-        x0 = valorInicial - tamanioDePaso * valorInicial;
+        x2 = xSub2;
+        x1 = xSub1;
+        x0 = xSub0;
 
         do {
 
@@ -200,25 +219,21 @@ public class Muller implements MetodosNumericos {
     }
 
     /**
-     * Imprime en consola los datos obtenidos por al algoritmo mediante una
-     * matriz. 
-     * Es necesario ejecutar el método de metodoMuller para que la
-     * matriz a prensentar posea datos.
+     * Método encargado de mostrar los resultados del metodo de muller en
+     * una matriz de datos
      */
     @Override
     public void imprimirResultados() {
 
-        int x0 = 0, x1 = 1, x2 = 2, xr = 3, ea = 4;
+        int x0 = 0, x1 = 1, x2 = 2, valorRaizAproximada = 3, erroAproximacion = 4;
         System.out.format("%5s %20s %20s %20s %20s %20s",
                 "iter.", "x0", "x1", "x2", "xr", "ea\n");
         for (int i = 0; i < matriz[x0].length; i++) {
-            // La condición evalua si ea errorAproximado diferente de cero, si resultada imprime.
-            // Escogimos ea porque si se puede calcular desde la primera iteración, y también porque ea no va a llegar a ser cero por completo.
-            // Porque la matriz se crea con iMax y algunos filas no siempre se llenan.
-            if (matriz[ea][i] != 0) {
+            // Verifica que no se imprima la parte vacia de la matriz
+            if (matriz[erroAproximacion][i] != 0) {
                 System.out.format("%5s %20s %20s %20s %20s %20s",
                         i, matriz[x0][i], matriz[x1][i], matriz[x2][i],
-                        matriz[xr][i], matriz[ea][i] + "\n");
+                        matriz[valorRaizAproximada][i], matriz[erroAproximacion][i] + "\n");
             }
         }
     }

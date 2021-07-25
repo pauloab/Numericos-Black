@@ -1,6 +1,7 @@
 
-package Modelos;
+package Modelos.MetodosAbiertos;
 
+import Modelos.MetodosNumericos;
 import Util.MetodosUniversales;
 
 /**
@@ -122,7 +123,7 @@ public class Secante implements MetodosNumericos {
         return valorXSubI;
     }
     /**
-     * @return Metodo encargado de mostrar los resultados del metodo de la secante en una matriz de datos
+     * Método encargado de mostrar los resultados del metodo de la secante en una matriz de datos
      */
     @Override
     public void imprimirResultados() {
@@ -132,9 +133,7 @@ public class Secante implements MetodosNumericos {
                 "iter.", "xi+1","fxi-1", "fxi","ea\n");
 
         for (int i = 0; i < matriz[xSubIMasUno].length; i ++){
-            // La condición evalua si el error de aproximacion es diferente de cero, si resulta asi, imprime.
-            // Escogimos el error de aporoximacion porque es un valor que si es cero significa que esa zona de la matriz hacia abajo esta vacía.
-            // Porque la matriz se crea con iMax y algunos filas no siempre se llenan.
+            // Verifica que no se imprima la parte vacia de la matriz
             if (matriz[errorAproximacion][i] != 0 || i == 0) {
                 System.out.format("%5s %20s %20s %20s %20s",
                 i, matriz[xSubIMasUno][i], matriz[fxSubIMenosUno][i], matriz[fxSubI][i], 
