@@ -26,7 +26,7 @@ public class FalsaPosicionTest {
         double errorTolerancia = 0.1;
         double valorEsperado = 2.02690572831;
         double resultadoRaizAproximadaMetodoFalsaPosicion = 0;
-        falsaposicion = new FalsaPosicion(funcion, cotaInferior, cotaSuperior, numeroIteracionesMaxima, errorTolerancia);
+        falsaposicion = new FalsaPosicion(funcion, errorTolerancia, numeroIteracionesMaxima, cotaInferior, cotaSuperior );
         resultadoRaizAproximadaMetodoFalsaPosicion = falsaposicion.metodoFalsaPosicion();
         System.out.println("Primer Caso:");
         System.out.println("El resultado es: " + resultadoRaizAproximadaMetodoFalsaPosicion);
@@ -43,7 +43,7 @@ public class FalsaPosicionTest {
         double errorTolerancia = 0.01;
         double valorEsperado = -1.6408123847858;
         double resultadoRaizAproximadaMetodoFalsaPosicion = 0;
-        falsaposicion = new FalsaPosicion(funcion, cotaInferior, cotaSuperior, numeroIteracionesMaxima, errorTolerancia);
+        falsaposicion = new FalsaPosicion(funcion, errorTolerancia, numeroIteracionesMaxima, cotaInferior, cotaSuperior );
         resultadoRaizAproximadaMetodoFalsaPosicion = falsaposicion.metodoFalsaPosicion();
         System.out.println("Segundo Caso:");
         System.out.println("El resultado es: " + resultadoRaizAproximadaMetodoFalsaPosicion);

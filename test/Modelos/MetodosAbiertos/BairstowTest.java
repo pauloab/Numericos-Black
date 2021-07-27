@@ -24,7 +24,7 @@ public class BairstowTest {
         double errorTolerancia = 1;
         double[] valoresEsperados = { 2.00708769652864,1.00002550154853,1.00002550154853,-1.000000036584600,0.499999971320072 };
         double[] a = {1.25,-3.875,2.125,2.75,-3.5,1};
-        bairstow = new Bairstow(funcion,r,s,grado,a,numeroIteracionesMaxima,errorTolerancia);
+        bairstow = new Bairstow(funcion,errorTolerancia,numeroIteracionesMaxima,r,s,grado,a);
         String[] resultados = null;
         String resultado;
         
@@ -50,7 +50,7 @@ public class BairstowTest {
         double errorTolerancia = 1;
         double[] valoresEsperados = { -2.55893986436024,-1.06861218909067,0.683222437709076,0.683222437709076,0.517732766503199,0.743033275158310 };
         double[] a = {1.25,-3.875,2.125,2.75,-3.5,1,1};
-        bairstow = new Bairstow(funcion,r,s,grado,a,numeroIteracionesMaxima,errorTolerancia);
+        bairstow = new Bairstow(funcion,errorTolerancia,numeroIteracionesMaxima,r,s,grado,a);
         String[] resultados = null;
         String resultado;
         

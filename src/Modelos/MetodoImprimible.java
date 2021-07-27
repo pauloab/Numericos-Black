@@ -2,6 +2,6 @@
 package Modelos;
 
 
-public interface MetodosNumericos {
+public interface MetodoImprimible {
     public void imprimirResultados();
 }

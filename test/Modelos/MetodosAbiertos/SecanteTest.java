@@ -26,7 +26,7 @@ public class SecanteTest {
         double errorTolerancia = 0.005;
         double valorEsperado = -0.4428544010371;
         double resultadoRaizAproximadaMetodoSecante = 0;
-        secante = new Secante(funcion, xSubI, xSubIMenos1, numeroIteracionesMaxima, errorTolerancia);
+        secante = new Secante(funcion,errorTolerancia,numeroIteracionesMaxima, xSubI, xSubIMenos1);
         resultadoRaizAproximadaMetodoSecante = secante.metodoSecante();
         System.out.println("Primer Caso:");
         System.out.println("El resultado es: " + resultadoRaizAproximadaMetodoSecante);
@@ -43,7 +43,7 @@ public class SecanteTest {
         double errorTolerancia = 0.005;
         double valorEsperado = -0.4428544010371;
         double resultadoRaizAproximadaMetodoSecante = 0;
-        secante = new Secante(funcion, xSubI, xSubIMenos1, numeroIteracionesMaxima, errorTolerancia);
+        secante = new Secante(funcion,errorTolerancia,numeroIteracionesMaxima, xSubI, xSubIMenos1);
         resultadoRaizAproximadaMetodoSecante = secante.metodoSecante();
         System.out.println("Segundo Caso:");
         System.out.println("El resultado es: " + resultadoRaizAproximadaMetodoSecante);

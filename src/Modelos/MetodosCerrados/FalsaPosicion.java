@@ -1,22 +1,27 @@
 
 package Modelos.MetodosCerrados;
 
-import Modelos.MetodosNumericos;
 import Util.MetodosUniversales;
+import Modelos.MetodoImprimible;
+import Modelos.MetodoNumerico;
 
 /**
- * 
- * @author Geovanny Vega Clase que contiene el metodo de falsa posición
+ * Clase que contiene el metodo de falsa posición.
+ * Forma de la matríz de datos
+ * columna 1 = cotaInferior. 
+ * columna 2 = cotaSuperior. 
+ * columna 3 = xr.
+ * columna 4 = f(cotaInferior). 
+ * columna 5 = f(cotaSuperior). 
+ * columna 6 = f(xr). 
+ * columna 7 = ea.
+ * @author Geovanny Vega 
  * @version 1.0
  */
-public class FalsaPosicion implements MetodosNumericos {
+public class FalsaPosicion extends MetodoNumerico implements MetodoImprimible {
 
-    private String funcion;
     private double cotaInferior;
     private double cotaSuperior;
-    private int iteracionesMaximas;
-    private double es;
-    private double matriz[][];
 
     /**
      * Constructor de FalsaPosicion, crea el objeto con los parametros requeridos.
@@ -25,137 +30,58 @@ public class FalsaPosicion implements MetodosNumericos {
      * @param cotaInferior       cota inferior del intervalo.
      * @param cotaSuperior       cota superior del intervalo.
      * @param iteracionesMaximas valor maximo de iteraciones.
-     * @param cifras             cifras significativas que se desean.
+     * @param es                 Errror de tolerancia.
      */
-    public FalsaPosicion(String funcion, double cotaInferior, double cotaSuperior, int iteracionesMaximas, double es) {
-        this.funcion = funcion;
+    public FalsaPosicion(String funcion, double es,int iteracionesMaximas, double cotaInferior, double cotaSuperior) {
+        super(funcion, es, iteracionesMaximas, new String[iteracionesMaximas][7]);
         this.cotaInferior = cotaInferior;
         this.cotaSuperior = cotaSuperior;
-        this.iteracionesMaximas = iteracionesMaximas;
-        this.es = es;
-        this.matriz = new double[7][iteracionesMaximas];
-
     }
 
-    /**
-     * 
-     * @return
-     */
-    public String getFuncion() {
-        return funcion;
-    }
-
-    /**
-     * 
-     * @param funcion
-     */
-    public void setFuncion(String funcion) {
-        this.funcion = funcion;
-    }
-
-    /**
-     * 
-     * @return
-     */
     public double getXl() {
         return cotaInferior;
     }
 
-    /**
-     * 
-     * @param cotaInferior
-     */
     public void setXl(double cotaInferior) {
         this.cotaInferior = cotaInferior;
     }
 
-    /**
-     * 
-     * @return
-     */
     public double getXu() {
         return cotaSuperior;
     }
 
-    /**
-     * 
-     * @param cotaSuperior
-     */
     public void setXu(double cotaSuperior) {
         this.cotaSuperior = cotaSuperior;
     }
 
     /**
-     * 
-     * @return
-     */
-    public int getImax() {
-        return iteracionesMaximas;
-    }
-
-    /**
-     * 
-     * @param iteracionesMaximas
-     */
-    public void setImax(int iteracionesMaximas) {
-        this.iteracionesMaximas = iteracionesMaximas;
-    }
-
-    /**
-     * 
-     * @return
-     */
-    public double getEs() {
-        return es;
-    }
-
-    public void setEs(double es) {
-        this.es = es;
-    }
-
-    /**
-     * columna 1 = cotaInferior. 
-     * columna 2 = cotaSuperior. 
-     * columna 3 = xr.
-     * columna 4 = f(cotaInferior). 
-     * columna 5 = f(cotaSuperior). 
-     * columna 6 = f(xr). 
-     * columna 7 = ea.
-     * @return Matriz con los datos del algortimo
-     */
-    public double[][] getMatriz() {
-        return matriz;
-    }
-
-    /**
      * Implementacion del metodo de falsa posición
-     * 
      * @throws Exception Esta excepcion va a ocurrir cuando no se pueda evaluar la
      *                   funcion en un determinado punto.
      */
     public double metodoFalsaPosicion() throws Exception {
-        double ea = es + 1;
+        double ea = getErrorTolerancia() + 1;
         int i = 0;
         double xol = 0, fxr = 0, xr = 0, fcotaInferior = 0, fcotaSuperior = 0, fcotaInferiorx = 0;
 
         do {
             xol = xr;
-            fxr = MetodosUniversales.evaluarFuncion(funcion, xr);
-            fcotaInferior = MetodosUniversales.evaluarFuncion(funcion, cotaInferior);
-            fcotaSuperior = MetodosUniversales.evaluarFuncion(funcion, cotaSuperior);
+            fxr = MetodosUniversales.evaluarFuncion(getFuncion(), xr);
+            fcotaInferior = MetodosUniversales.evaluarFuncion(getFuncion(), cotaInferior);
+            fcotaSuperior = MetodosUniversales.evaluarFuncion(getFuncion(), cotaSuperior);
             xr = cotaSuperior - ((fcotaSuperior * (cotaInferior - cotaSuperior)) / (fcotaInferior - fcotaSuperior));
             fcotaInferiorx = fcotaInferior * fxr;
             if (i > 0) {
                 ea = MetodosUniversales.errorAprox(xr, xol);
             }
 
-            matriz[0][i] = cotaInferior;
-            matriz[1][i] = cotaSuperior;
-            matriz[2][i] = xr;
-            matriz[3][i] = fcotaInferior;
-            matriz[4][i] = fcotaSuperior;
-            matriz[5][i] = fxr;
-            matriz[6][i] = ea;
+            getMatrizDeDatos()[i][0] = cotaInferior+"";
+            getMatrizDeDatos()[i][1] = cotaSuperior+"";
+            getMatrizDeDatos()[i][2] = xr+"";
+            getMatrizDeDatos()[i][3] = fcotaInferior+"";
+            getMatrizDeDatos()[i][4] = fcotaSuperior+"";
+            getMatrizDeDatos()[i][5] = fxr+"";
+            getMatrizDeDatos()[i][6] = i==0?"":ea+"";
 
             if (fcotaInferiorx < 0) {
                 cotaSuperior = xr;
@@ -167,9 +93,10 @@ public class FalsaPosicion implements MetodosNumericos {
             }
             i++;
 
-        } while (ea >= es && i < iteracionesMaximas);
+        } while (ea >= getErrorTolerancia() && i < getIteracionesMaximas());
         return xr;
     }
+    
     /**
      * Método encargado de mostrar los resultados del metodo de falsaPosicion en
      * una matriz de datos
@@ -180,12 +107,13 @@ public class FalsaPosicion implements MetodosNumericos {
         int  xl = 0, xu = 1, xr = 2, fxl =3, fxu = 4, fxr =5, erroAproximacion=6;  
         System.out.format("%5s %20s %20s %20s %20s %20s %20s %20s",
                 "iter.", "xl","xu", "xr","f(xl)","f(xu)","f(xr)","ea\n");
-        for (int i = 0; i < matriz[xl].length; i ++){
+        for (int i = 0; i < getMatrizDeDatos().length; i ++){
             // Verifica que no se imprima la parte vacia de la matriz
-            if (matriz[fxl][i] != 0) {
+            if (getMatrizDeDatos()[i][0] != null) {
                 System.out.format("%5s %20s %20s %20s %20s %20s %20s %20s",
-                i, matriz[xl][i], matriz[xu][i], matriz[xr][i], 
-                matriz[fxl][i], matriz[fxu][i], matriz[fxr][i], matriz[erroAproximacion][i] +"\n");
+                i, getMatrizDeDatos()[i][xl], getMatrizDeDatos()[i][xu], getMatrizDeDatos()[i][xr], 
+                getMatrizDeDatos()[i][fxl], getMatrizDeDatos()[i][fxu], getMatrizDeDatos()[i][fxr], 
+                getMatrizDeDatos()[i][erroAproximacion] +"\n");
             }
         }
     }
