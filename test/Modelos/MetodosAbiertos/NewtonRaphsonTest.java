@@ -25,7 +25,7 @@ public class NewtonRaphsonTest {
         double errorTolerancia = 0.01;
         double valorEsperado = 0.5857864376269;
         double resultadoRaizAproximadaMetodoNewtonRaphson = 0;
-        newtonraphson = new NewtonRaphson(funcion, valorInicial, numeroIteracionesMaxima, errorTolerancia);
+        newtonraphson = new NewtonRaphson(funcion, errorTolerancia, numeroIteracionesMaxima, valorInicial);
         resultadoRaizAproximadaMetodoNewtonRaphson = newtonraphson.metodoNewtonRaphson();
         System.out.println("Primer Caso:");
         System.out.println("El resultado es: " + resultadoRaizAproximadaMetodoNewtonRaphson);
@@ -41,7 +41,7 @@ public class NewtonRaphsonTest {
         double errorTolerancia = 0.01;
         double valorEsperado = 3;
         double resultadoRaizAproximadaMetodoNewtonRaphson = 0;
-        newtonraphson = new NewtonRaphson(funcion, valorInicial, numeroIteracionesMaxima, errorTolerancia);
+        newtonraphson = new NewtonRaphson(funcion, errorTolerancia, numeroIteracionesMaxima, valorInicial);
         resultadoRaizAproximadaMetodoNewtonRaphson = newtonraphson.metodoNewtonRaphson();
         System.out.println("Segundo Caso:");
         System.out.println("El resultado es: " + resultadoRaizAproximadaMetodoNewtonRaphson);
@@ -57,7 +57,7 @@ public class NewtonRaphsonTest {
         double errorTolerancia = 0.01;
         double valorEsperado = 3.4142135623731;
         double resultadoRaizAproximadaMetodoNewtonRaphson = 0;
-        newtonraphson = new NewtonRaphson(funcion, valorInicial, numeroIteracionesMaxima, errorTolerancia);
+        newtonraphson = new NewtonRaphson(funcion, errorTolerancia, numeroIteracionesMaxima, valorInicial);
         resultadoRaizAproximadaMetodoNewtonRaphson = newtonraphson.metodoNewtonRaphson();
         System.out.println("Tercer Caso:");
         System.out.println("El resultado es: " + resultadoRaizAproximadaMetodoNewtonRaphson);

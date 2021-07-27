@@ -26,7 +26,7 @@ public class BiseccionTest {
         double errorTolerancia = 0.01;
         double valorEsperado = 3;
         double resultadoRaizAproximadaMetodoBiseccion = 0;
-        biseccion = new Biseccion(funcion, cotaInferior, cotaSuperior, numeroIteracionesMaxima, errorTolerancia);
+        biseccion = new Biseccion(funcion, errorTolerancia, numeroIteracionesMaxima, cotaInferior, cotaSuperior);
         resultadoRaizAproximadaMetodoBiseccion = biseccion.metodoBiseccion();
         System.out.println("Primer Caso:");
         System.out.println("El resultado es: " + resultadoRaizAproximadaMetodoBiseccion);
@@ -43,7 +43,7 @@ public class BiseccionTest {
         double errorTolerancia = 0.01;
         double valorEsperado = 0.5857864376269;
         double resultadoRaizAproximadaMetodoBiseccion = 0;
-        biseccion = new Biseccion(funcion, cotaInferior, cotaSuperior, numeroIteracionesMaxima, errorTolerancia);
+        biseccion = new Biseccion(funcion, errorTolerancia, numeroIteracionesMaxima, cotaInferior, cotaSuperior);
         resultadoRaizAproximadaMetodoBiseccion = biseccion.metodoBiseccion();
         System.out.println("Segundo Caso:");
         System.out.println("El resultado es: " + resultadoRaizAproximadaMetodoBiseccion);
@@ -60,7 +60,7 @@ public class BiseccionTest {
         double errorTolerancia = 0.01;
         double valorEsperado = 3.4142135623731;
         double resultadoRaizAproximadaMetodoBiseccion = 0;
-        biseccion = new Biseccion(funcion, cotaInferior, cotaSuperior, numeroIteracionesMaxima, errorTolerancia);
+        biseccion = new Biseccion(funcion, errorTolerancia, numeroIteracionesMaxima, cotaInferior, cotaSuperior);
         resultadoRaizAproximadaMetodoBiseccion = biseccion.metodoBiseccion();
         System.out.println("Tecer Caso:");
         System.out.println("El resultado es: " + resultadoRaizAproximadaMetodoBiseccion);

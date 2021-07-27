@@ -27,7 +27,7 @@ public class MullerTest {
         double errorTolerancia = 0.0005;
         double valorEsperado = 0.762596089785;
         double resultadoRaizAproximadaMetodoMuller = 0;
-        muller = new Muller(funcion, xSub2, xSub1, xSub0, numeroIteracionesMaxima, errorTolerancia);
+        muller = new Muller(funcion, errorTolerancia, numeroIteracionesMaxima, xSub2, xSub1, xSub0);
         resultadoRaizAproximadaMetodoMuller = muller.metodoMuller();
         System.out.println("Primer Caso:");
         System.out.println("El resultado es: " + resultadoRaizAproximadaMetodoMuller);
@@ -45,7 +45,7 @@ public class MullerTest {
         double errorTolerancia = 0.0005;
         double valorEsperado = -4;
         double resultadoRaizAproximadaMetodoMuller = 0;
-        muller = new Muller(funcion, xSub2, xSub1, xSub0, numeroIteracionesMaxima, errorTolerancia);
+        muller = new Muller(funcion, errorTolerancia, numeroIteracionesMaxima, xSub2, xSub1, xSub0);
         resultadoRaizAproximadaMetodoMuller = muller.metodoMuller();
         System.out.println("Segundo Caso:");
         System.out.println("El resultado es: " + resultadoRaizAproximadaMetodoMuller);
