@@ -1,8 +1,8 @@
 package Modelos.MetodosAbiertos;
 
 import Modelos.Excepciones.IteracionesAlcanzadas;
-import Modelos.MetodosNumericos;
 import Modelos.Excepciones.ValoresResueltos;
+import Modelos.MetodoNumerico;
 
 /**
  * Aproxima las raices de un polinomio mediante el método de Bairstow. Contiene
@@ -11,27 +11,22 @@ import Modelos.Excepciones.ValoresResueltos;
  * @author Javier Matamoros
  * @version 1.0
  */
-public class Bairstow {
+public class Bairstow extends MetodoNumerico{
 
-    private double errorTolerancia;
     private double r;
     private double s;
     private int gradoFuncion;
-    private String funcion;
-    private int iteracionesMaximas;
     private double[] coeficientesA;
     private double[] coeficientesB;
     private double[] coeficientesC;
     private double[] raicesReales;
     private double[] raicesImaginarias;
 
-    public Bairstow(String funcion, double r, double s, int grado, double[] a, int imax, double es) {
-        this.funcion = funcion;
+    public Bairstow(String funcion, double es, int imax, double r, double s, int grado, double[] a ) {
+        super(funcion, es, imax, null);
         this.r = r;
         this.s = s;
         this.gradoFuncion = grado;
-        this.iteracionesMaximas = imax;
-        this.errorTolerancia = es;
         this.coeficientesA = a;
         this.coeficientesB = new double[grado+1];
         this.coeficientesC = new double[grado+1];
@@ -59,7 +54,7 @@ public class Bairstow {
         double[] resFormulaGeneral;
         String parteImaginaria = "";
         double errorAproxR = 1, errorAproxS = 1;
-        if (iterador < iteracionesMaximas) {
+        if (iterador < getIteracionesMaximas()) {
             if (gradoFuncion >= 3) {
                 do {
                     iterador++;
@@ -91,7 +86,7 @@ public class Bairstow {
                         s += 1;
                         iterador = 0;
                     }
-                } while ((errorAproxR > errorTolerancia || errorAproxS > errorTolerancia) && iterador < iteracionesMaximas);
+                } while ((errorAproxR > getErrorTolerancia() || errorAproxS > getErrorTolerancia()) && iterador < getIteracionesMaximas());
 
                 resFormulaGeneral = formulaGeneral(r, s);
 
@@ -195,10 +190,6 @@ public class Bairstow {
         return resultados;
     }
 
-    public double getErrorTolerancia() {
-        return errorTolerancia;
-    }
-
     public double getR() {
         return r;
     }
@@ -209,14 +200,6 @@ public class Bairstow {
 
     public int getGradoFuncion() {
         return gradoFuncion;
-    }
-
-    public String getFuncion() {
-        return funcion;
-    }
-
-    public int getIteracionesMaximas() {
-        return iteracionesMaximas;
     }
 
     public double[] getCoeficientesA() {
@@ -238,7 +221,4 @@ public class Bairstow {
     public double[] getRaicesImaginarias() {
         return raicesImaginarias;
     }
-
-    
-    
 }

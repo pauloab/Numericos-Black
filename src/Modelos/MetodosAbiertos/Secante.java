@@ -1,8 +1,9 @@
 
 package Modelos.MetodosAbiertos;
 
-import Modelos.MetodosNumericos;
 import Util.MetodosUniversales;
+import Modelos.MetodoImprimible;
+import Modelos.MetodoNumerico;
 
 /**
  * Clase creada para la implementacion del metodo de la secante.
@@ -10,40 +11,25 @@ import Util.MetodosUniversales;
  * @version 1.0
  * 
  */
-public class Secante implements MetodosNumericos {
+public class Secante extends MetodoNumerico implements MetodoImprimible {
     
-    
-    private String funcion;
     private double valorXSubI;
     private double valorXSubIMenosUno;
-    private int iteracionesMaximas;
-    private double errorTolerancia;
-    private double matriz [][];
 
     /**
      * Constructor del metodo de la secante encagardo de inicizalizar cada uno de los atributos
      * @param funcion variable encargado de guardar la funcion de la cual se desea obtener la raiz
-     * @param valorXSubI valores iniciales de valorXSubIMenosUno
-     * @param valorXSubIMenosUno valores iniciales de valorXSubIMenosUno
-     * @param iteracionesMaximas valor maximo de iteraciones
      * @param errorTolerancia error de tolerancia
+     * @param iteracionesMax valor maximo de iteraciones
+     * @param xSubI valores iniciales de valorXSubIMenosUno
+     * @param xSubIMenosUno valores iniciales de valorXSubIMenosUno
      */
-    public Secante(String funcion, double xSubI, double xSubIMenosUno, int iteracionesMax, double errorTolerancia) {
-        this.funcion = funcion;
+    public Secante(String funcion, double errorTolerancia, int iteracionesMax, double xSubI, double xSubIMenosUno) {
+        super(funcion, errorTolerancia, iteracionesMax+1, new String[iteracionesMax + 1][4]);
         this.valorXSubI = xSubI;
         this.valorXSubIMenosUno = xSubIMenosUno;
-        this.iteracionesMaximas = iteracionesMax + 1;
-        this.errorTolerancia = errorTolerancia;
-        this.matriz = new double [4][iteracionesMax + 1];
     }
 
-    public String getFuncion() {
-        return funcion;
-    }
-
-    public void setFuncion(String funcion) {
-        this.funcion = funcion;
-    }
 
     public double getValorXSubI() {
         return valorXSubI;
@@ -60,51 +46,31 @@ public class Secante implements MetodosNumericos {
     public void setValorXSubIMenosUno(double valorXSubIMenosUno) {
         this.valorXSubIMenosUno = valorXSubIMenosUno;
     }
-
-    public int getIteracionesMaximas() {
-        return iteracionesMaximas;
-    }
-
-    public void setIteracionesMaximas(int iteracionesMaximas) {
-        this.iteracionesMaximas = iteracionesMaximas;
-    }
-
-    public double getErrorTolerancia() {
-        return errorTolerancia;
-    }
-
-    public void setErrorTolerancia(double errorTolerancia) {
-        this.errorTolerancia = errorTolerancia;
-    }
-
+    
     /**
-     * fila 1 = valorXSubIMenosUno sub iterador menos 1
-       fila 2 = f(xi-1) funcion evaluada en el punto valorXSubIMenosUno sub iterador menos 1
-       fila 3 = f (xi) funcion evaluada en el punto valorXSubIMenosUno sub iterador
-       fila 4 = error de aproximacion (errorAproximacion)
-     * @return Retorna una matriz con los datos del metodo
-     */
-    public double[][] getMatriz() {
-        return matriz;
-    }
-    /**
-     * 
+     * Calcula la aproximación a travéz del método de la secante
      * @return Implementacion del metodo de la secante 
      * @throws Exception Esta excepcion va a ocurrir cuando no se pueda evaluar la funcion en un determinado punto.
      */
     public double metodoSecante() throws Exception{
         
-        double errorAproximacion = errorTolerancia + 1;
+        double errorAproximacion;
         int iterador = 2;
-        double auxiliar = 0, fxSubI = 0, fxSubIMenosUno = 0;
-        matriz[0][0] = valorXSubIMenosUno;
-        matriz[0][1] = valorXSubI;
+        double auxiliar, fxSubI, fxSubIMenosUno;
+        getMatrizDeDatos()[0][0] = valorXSubIMenosUno+"";
+        getMatrizDeDatos()[0][1] = "";
+        getMatrizDeDatos()[0][2] = "";
+        getMatrizDeDatos()[0][3] = "";
+        getMatrizDeDatos()[1][0] = valorXSubI+"";
+        getMatrizDeDatos()[1][1] = "";
+        getMatrizDeDatos()[1][2] = "";
+        getMatrizDeDatos()[1][3] = "";
         errorAproximacion = MetodosUniversales.errorAprox(valorXSubI,valorXSubIMenosUno);
-        matriz[3][1] = errorAproximacion;
+        getMatrizDeDatos()[1][3] = errorAproximacion+"";
         do {
           
-           fxSubI = MetodosUniversales.evaluarFuncion(funcion, valorXSubI);
-           fxSubIMenosUno = MetodosUniversales.evaluarFuncion(funcion, valorXSubIMenosUno);
+           fxSubI = MetodosUniversales.evaluarFuncion(getFuncion(), valorXSubI);
+           fxSubIMenosUno = MetodosUniversales.evaluarFuncion(getFuncion(), valorXSubIMenosUno);
            auxiliar = valorXSubI - (fxSubI*(valorXSubIMenosUno-valorXSubI)/(fxSubIMenosUno - fxSubI));
            
            valorXSubIMenosUno = valorXSubI;
@@ -112,14 +78,14 @@ public class Secante implements MetodosNumericos {
            if (iterador >= 0) {
                 errorAproximacion = MetodosUniversales.errorAprox(valorXSubI,valorXSubIMenosUno); 
             }
-           matriz[0][iterador] = auxiliar;
-           matriz[1][iterador] = fxSubIMenosUno;
-           matriz[2][iterador] = fxSubI;
-           matriz[3][iterador] = errorAproximacion;
+           getMatrizDeDatos()[iterador][0] = auxiliar+"";
+           getMatrizDeDatos()[iterador][1] = fxSubIMenosUno+"";
+           getMatrizDeDatos()[iterador][2] = fxSubI+"";
+           getMatrizDeDatos()[iterador][3] = errorAproximacion+"";
            
-            iterador++;
+           iterador++;
 
-        } while (errorAproximacion >= errorTolerancia && iterador < iteracionesMaximas);
+        } while (errorAproximacion >= getErrorTolerancia() && iterador < getIteracionesMaximas());
         return valorXSubI;
     }
     /**
@@ -132,12 +98,12 @@ public class Secante implements MetodosNumericos {
         System.out.format("%5s %20s %20s %20s %20s",
                 "iter.", "xi+1","fxi-1", "fxi","ea\n");
 
-        for (int i = 0; i < matriz[xSubIMasUno].length; i ++){
+        for (int i = 0; i < getMatrizDeDatos().length; i ++){
             // Verifica que no se imprima la parte vacia de la matriz
-            if (matriz[errorAproximacion][i] != 0 || i == 0) {
+            if (getMatrizDeDatos()[i][0] != null) {
                 System.out.format("%5s %20s %20s %20s %20s",
-                i, matriz[xSubIMasUno][i], matriz[fxSubIMenosUno][i], matriz[fxSubI][i], 
-                matriz[errorAproximacion][i] +"\n");
+                i, getMatrizDeDatos()[i][xSubIMasUno], getMatrizDeDatos()[i][fxSubIMenosUno], getMatrizDeDatos()[i][fxSubI], 
+                getMatrizDeDatos()[i][errorAproximacion] +"\n");
             }
         }
     }
