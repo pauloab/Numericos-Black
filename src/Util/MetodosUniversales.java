@@ -68,7 +68,18 @@ public class MetodosUniversales {
         return jep.getValue();
     }
     
-    
+    /**
+     * Calcula el factorial de un número dado
+     * @param n Número a calcular su factorial
+     * @return factorial de n
+     */
+    public static long factorial(int n){
+        long result = 1;
+        for (int i = n; i > 1; i--) {
+            result = i * result;
+        }
+        return result;
+    }
 
     public static double errorAprox(double vactual, double vanterior) {
         double res = 0;
