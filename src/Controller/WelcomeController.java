@@ -1,28 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
-
 import com.jfoenix.controls.JFXButton;
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.image.ImageView;
-import javafx.util.Duration;
-
-
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -31,86 +28,135 @@ import javafx.stage.Stage;
  */
 public class WelcomeController implements Initializable {
 
-    @FXML
-    private VBox pane2,vBoxIconos;
+  @FXML
+  private VBox pane2, vBoxIconos;
 
-    @FXML
-    private ImageView exit, menu, maximo, minimo;
-    
-    @FXML
-    private BorderPane  panedetras, panedelante;
+  @FXML
+  private ImageView exit, menu, maximo, minimo;
 
-    /*@FXML
-    private FlowPane leftfpane;*/
-    private boolean openPane = false;
-    
-    private ArrayList<JFXButton> itemLists;
+  @FXML
+  private BorderPane panedetras, panedelante, panefront;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        
+  @FXML
+  private Button btAbiertos;
 
-        
-        exit.setOnMouseClicked(event -> {
-            System.exit(0);
-        });
+  private int openPane;
 
-        maximo.setOnMouseClicked(event -> {
-            Stage stage;
-            stage = ((Stage) maximo.getScene().getWindow());
-            stage.setMaximized(!stage.isMaximized());
-        });
+  private ArrayList<JFXButton> itemLists;
 
-        minimo.setOnMouseClicked(event -> {
-            ((Stage) minimo.getScene().getWindow()).setIconified(true);
-        });
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    openPane = 0;
+    exit.setOnMouseClicked(
+      event -> {
+        System.exit(0);
+      }
+    );
 
-        panedelante.setVisible(false);
+    maximo.setOnMouseClicked(
+      event -> {
+        Stage stage;
+        stage = ((Stage) maximo.getScene().getWindow());
+        stage.setMaximized(!stage.isMaximized());
+      }
+    );
 
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), panedelante);
-        fadeTransition.setFromValue(1);
-        fadeTransition.setToValue(0);
-        fadeTransition.play();
+    minimo.setOnMouseClicked(
+      event -> {
+        ((Stage) minimo.getScene().getWindow()).setIconified(true);
+      }
+    );
 
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), pane2);
-        translateTransition.setByX(-600);
-        translateTransition.play();
+    panedelante.setVisible(false);
 
-        menu.setOnMouseClicked(event -> {
+    FadeTransition fadeTransition = new FadeTransition(
+      Duration.seconds(0.5),
+      panedelante
+    );
+    fadeTransition.setFromValue(1);
+    fadeTransition.setToValue(0);
+    fadeTransition.play();
 
-            
-            if (openPane == true) {
-                openPane = false;
-                panedetras.setVisible(true);
-                FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.2), panedelante);
-                fadeTransition1.setFromValue(0.15);
-                fadeTransition1.setToValue(0);
-                fadeTransition1.play();
+    TranslateTransition translateTransition = new TranslateTransition(
+      Duration.seconds(0.5),
+      pane2
+    );
+    translateTransition.setByX(-600);
+    translateTransition.play();
 
-                fadeTransition1.setOnFinished(event1 -> {
-                    panedelante.setVisible(false);
-                });
+    menu.setOnMouseClicked(
+      event -> {
+        if (openPane == 1) {
+          openPane = -1;
+          panedetras.setVisible(true);
 
-                TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), pane2);
-                translateTransition1.setByX(-600);
-                translateTransition1.play();
-            } else {
-                openPane = true;
-                panedelante.setVisible(true);
-                panedetras.setVisible(false);
-                FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), panedelante);
-                fadeTransition1.setFromValue(0);
-                fadeTransition1.setToValue(0.15);
-                fadeTransition1.play();
+          FadeTransition fadeTransition1 = new FadeTransition(
+            Duration.seconds(0.2),
+            panedelante
+          );
+          fadeTransition1.setFromValue(0.15);
+          fadeTransition1.setToValue(0);
+          fadeTransition1.play();
 
-                TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), pane2);
-                translateTransition1.setByX(+600);
-                translateTransition1.play();
-
+          fadeTransition1.setOnFinished(
+            event1 -> {
+              panedelante.setVisible(false);
+              panefront.setVisible(false);
             }
+          );
 
-        });
+          TranslateTransition translateTransition1 = new TranslateTransition(
+            Duration.seconds(0.5),
+            pane2
+          );
+          translateTransition1.setByX(-600);
+          translateTransition1.play();
+          translateTransition1.setOnFinished(
+            e -> {
+              openPane = 0;
+            }
+          );
+        } else if (openPane == 0) {
+          openPane = -1;
+          panedelante.setVisible(true);
+          panedetras.setVisible(false);
+          panefront.setVisible(true);
+          FadeTransition fadeTransition1 = new FadeTransition(
+            Duration.seconds(0.5),
+            panedelante
+          );
+          fadeTransition1.setFromValue(0);
+          fadeTransition1.setToValue(0.15);
+          fadeTransition1.play();
 
-    }
+          TranslateTransition translateTransition1 = new TranslateTransition(
+            Duration.seconds(0.5),
+            pane2
+          );
+          translateTransition1.setByX(+600);
+          translateTransition1.play();
+          translateTransition1.setOnFinished(
+            e -> {
+              openPane = 1;
+            }
+          );
+        }
+      }
+    );
 
+    btAbiertos.setOnMouseClicked(
+      e -> {
+        try {
+          BorderPane root = FXMLLoader.load(
+            getClass().getResource("/Vistas/VistaMuller.fxml")
+          );
+          panedetras.setCenter(root);
+        } catch (IOException ex) {
+          Logger
+            .getLogger(WelcomeController.class.getName())
+            .log(Level.SEVERE, null, ex);
+        }
+      }
+    );
+  }
 }

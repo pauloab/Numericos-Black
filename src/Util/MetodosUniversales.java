@@ -5,6 +5,8 @@ import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 
+
+
 public class MetodosUniversales {
 
     public static String derivar(String funcion) {
@@ -91,7 +93,29 @@ public class MetodosUniversales {
         return (0.5 * Math.pow(10, 2 - cifras)) / 100;
     }
     
-        
+    public static boolean validarExpresion(String exrpesion){
+        JEP jep = new JEP();
+
+        jep.addStandardFunctions();
+        jep.addStandardConstants();
+        jep.addVariable("x", 0);
+        jep.parseExpression(exrpesion);
+        return !jep.hasError();
     }
-
-
+    
+    /**
+     * Crea un vector de numeros con los valores en y de una función, basado
+     * en un arreglo de x.
+     * @param funcion Funcion de entrada a evaluar
+     * @param x Vector de valores en x sobre los que se va a evaluar.
+     * @return Arreglo de valores de y del input x
+     * @throws Exception Ocurre cuando no se puede evaluar la funci[on en un determinado punto
+     */
+    public static double[] graficarFuncion(String funcion, double[] x) throws Exception{
+        double[] results = new double[x.length];
+        for (int i = 0; i < x.length; i++) {
+            results[i] = evaluarFuncion(funcion, x[i]);
+        }
+        return results;
+    } 
+}
