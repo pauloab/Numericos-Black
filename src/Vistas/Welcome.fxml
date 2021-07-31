@@ -80,7 +80,7 @@
                </left>
             </BorderPane>
             <BorderPane fx:id="panedelante" prefHeight="200.0" prefWidth="200.0" styleClass="background" />
-            <BorderPane prefHeight="442.0" prefWidth="430.0">
+            <BorderPane fx:id="panefront" prefHeight="442.0" prefWidth="430.0">
                <left>
                   <HBox prefHeight="478.0" prefWidth="248.0" BorderPane.alignment="CENTER">
                      <children>
@@ -103,7 +103,7 @@
                         </VBox>
                         <VBox fx:id="pane2" prefHeight="687.0" prefWidth="181.0" spacing="18.0" style="-fx-background-color: #EEF0F1;">
                            <children>
-                              <JFXButton text="Métodos Cerrados">
+                              <JFXButton fx:id="btAbiertos" text="Métodos Cerrados">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
