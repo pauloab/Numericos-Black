@@ -15,7 +15,7 @@ public class main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/Vistas/Welcome.fxml"));
         primaryStage.initStyle(StageStyle.UNDECORATED);
-
+        
         root.setOnMousePressed(event -> {
             x = event.getSceneX();
             y = event.getSceneY();
@@ -26,7 +26,7 @@ public class main extends Application {
             primaryStage.setY(event.getScreenY() - y);
         });
 
-        primaryStage.setScene(new Scene(root, 800, 500));
+        primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
     }
 
