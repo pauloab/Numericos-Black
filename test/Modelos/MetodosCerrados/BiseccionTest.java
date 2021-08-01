@@ -64,14 +64,5 @@ public class BiseccionTest {
         biseccion.imprimirResultados();
     }
 
-    @Test
-    public void probrarCautoCaso() throws Exception {
-        String funcion = "(4-3)*(x^2)*x - 7*(1)*x*x + 14*(x^3)*(x^-1) - 9 + 3 ";
-        System.out.println(funcion);
-        String res = "";
-        res = Util.MetodosUniversales.simplificarExpresion(funcion);
-         System.out.println("Caurto Caso:"+ res);
-        
-    }
 
 }
