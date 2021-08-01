@@ -75,6 +75,7 @@ public class Graficos {
     public static void cargarEnTableView(TableView tableview, String[][] data, String[] headers){
         ObservableList<ObservableList> dataColumns = FXCollections.observableArrayList();
         String head = "#";
+        tableview.getColumns().clear();
         for (int i = -1; i < headers.length; i++) {
             final int j = i+1;
             head = i >=0 ? headers[i]: head;
@@ -91,6 +92,40 @@ public class Graficos {
         for (int i= 0; i < data.length; i++) {
             ObservableList<String> row = FXCollections.observableArrayList();
             row.add(data[i][0] != null  ? i+1+"": "");
+            for (int j = 0; j < headers.length; j++) {
+                row.add(data[i][j] == null ? "" : data[i][j]);
+            }
+            dataColumns.add(row);
+        }
+        tableview.setItems(dataColumns);
+    }
+    
+        /**
+     * Carga los datos de una matriz de datos en un tableview de JavaFx, 
+     * utilizando sus encabezados 
+     * @param tableview TableView sobre el que se va a aplicar la carga
+     * @param data Matriz de datos en String que se carga en las celdas
+     * @param headers Encabezados de el tableview
+     */
+    public static void cargarEnTableViewBairstow(TableView tableview, String[][] data, String[] headers){
+        ObservableList<ObservableList> dataColumns = FXCollections.observableArrayList();
+        String head = "";
+        tableview.getColumns().clear();
+        for (int i = 0; i < headers.length; i++) {
+            final int j = i;   
+            head =headers[i]; 
+            TableColumn col = new TableColumn(head);
+            col.setCellValueFactory(new Callback<CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(j).toString());
+                }
+            });
+
+            tableview.getColumns().addAll(col);
+        }
+
+        for (int i= 0; i < data.length; i++) {
+            ObservableList<String> row = FXCollections.observableArrayList();
             for (int j = 0; j < headers.length; j++) {
                 row.add(data[i][j] == null ? "" : data[i][j]);
             }
