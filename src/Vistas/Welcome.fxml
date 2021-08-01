@@ -82,9 +82,9 @@
             <BorderPane fx:id="panedelante" prefHeight="200.0" prefWidth="200.0" styleClass="background" />
             <BorderPane fx:id="panefront" prefHeight="442.0" prefWidth="430.0">
                <left>
-                  <HBox prefHeight="478.0" prefWidth="248.0" BorderPane.alignment="CENTER">
+                  <HBox prefHeight="687.0" prefWidth="298.0" BorderPane.alignment="CENTER">
                      <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="55.0" spacing="10.0" style="-fx-background-color: #42607B;">
+                        <VBox alignment="TOP_CENTER" prefHeight="687.0" prefWidth="53.0" spacing="10.0" style="-fx-background-color: #42607B;">
                            <children>
                               <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -101,16 +101,36 @@
                               <Insets top="10.0" />
                            </padding>
                         </VBox>
-                        <VBox fx:id="pane2" prefHeight="687.0" prefWidth="181.0" spacing="18.0" style="-fx-background-color: #EEF0F1;">
+                        <VBox fx:id="pane2" prefHeight="687.0" prefWidth="240.0" spacing="18.0" style="-fx-background-color: #EEF0F1;">
                            <children>
-                              <JFXButton fx:id="btAbiertos" text="Métodos Cerrados">
+                              <JFXButton fx:id="btBiseccion" text="Método Bisección">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font name="Britannic Bold" size="16.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton layoutX="25.0" layoutY="35.0" text="Métodos Abiertos">
+                              <JFXButton fx:id="btFalsaposicion" layoutX="25.0" layoutY="35.0" text="Método Falsa Posición">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font name="Britannic Bold" size="16.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="btNewtonRaphson" text="Método Newton-Raphson">
+                                 <font>
+                                    <Font name="Britannic Bold" size="16.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="btSecante" text="Método Secante">
+                                 <font>
+                                    <Font name="Britannic Bold" size="16.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="btMuller" text="Método Müller">
+                                 <font>
+                                    <Font name="Britannic Bold" size="16.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="btBairstow" text="Método Bairstow">
+                                 <font>
+                                    <Font name="Britannic Bold" size="16.0" />
                                  </font>
                               </JFXButton>
                            </children>
