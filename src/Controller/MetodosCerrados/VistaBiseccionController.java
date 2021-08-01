@@ -1,8 +1,9 @@
-package Controller;
+package Controller.MetodosCerrados;
+
 
 import Vistas.Components.Math.FormulaFunctionButtons;
 import Vistas.Components.Math.FormulaInput;
-import Modelos.MetodosAbiertos.Muller;
+import Modelos.MetodosCerrados.Biseccion;
 import Util.Graficos;
 import Util.MetodosUniversales;
 import java.net.URL;
@@ -13,23 +14,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 
 /**
- * FXML Controller class de la vista Muller
+ * FXML Controller class de la vista Biseccion
  *
- * @author Paulo Aguilar
+ * @author Geovanny Vega
  */
-public class VistaMullerController implements Initializable {
+public class VistaBiseccionController implements Initializable {
 
     @FXML
-    private TextField tfx0;
+    private TextField tfcotainferior;
     @FXML
-    private TextField tfx1;
-    @FXML
-    private TextField tfx2;
+    private TextField tfcotasuperior;
     @FXML
     private TextField tfErrorTolerancia;
     @FXML
@@ -44,8 +42,6 @@ public class VistaMullerController implements Initializable {
     private Button btProcesar;
     @FXML
     private Button btLimpiar;
-    @FXML
-    private BorderPane bpChart;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -57,28 +53,26 @@ public class VistaMullerController implements Initializable {
         pFormulaButtons.getChildren().add(formulaButtons);
         
         // Se agrega la validación de los inputs
-        Graficos.convertirEnInputFlotantes(tfx0);
-        Graficos.convertirEnInputFlotantes(tfx1);
-        Graficos.convertirEnInputFlotantes(tfx2);
+        Graficos.convertirEnInputFlotantes(tfcotainferior);
+        Graficos.convertirEnInputFlotantes(tfcotasuperior);
         Graficos.convertirEnInputFlotantes(tfErrorTolerancia);
         Graficos.convertirEnInputEnteros(tfIterMax);
         
         btProcesar.setOnMouseClicked(event -> {
             String funcion = formulaInput.getFormula();
-            Muller muller;
+            Biseccion biseccion;
             boolean error = false;
             if (MetodosUniversales.validarExpresion(funcion)) {
-                Double x0 = Graficos.validarTextFieldDouble(tfx0);
-                Double x1 = Graficos.validarTextFieldDouble(tfx1);
-                Double x2 = Graficos.validarTextFieldDouble(tfx2);
+                Double cotainferior = Graficos.validarTextFieldDouble(tfcotainferior);
+                Double cotasuperior = Graficos.validarTextFieldDouble(tfcotasuperior);
                 Double eTolerancia = Graficos.validarTextFieldDouble(tfErrorTolerancia);
                 Integer imax = Graficos.validarTextFieldEnteros(tfIterMax);
-                if (x0 != null && x1 != null && x2 != null && eTolerancia != null && imax != null) {
-                    muller = new Muller(funcion, eTolerancia, imax, x0, x1, x2);
+                if (cotainferior != null && cotasuperior != null && eTolerancia != null && imax != null) {
+                    biseccion = new Biseccion(funcion, eTolerancia, imax, cotainferior, cotasuperior);
                     try {
-                        muller.metodoMuller();
-                        String[] headers = {"x0", "x1", "x2", "xr", "Error de aproximación"};
-                        Graficos.cargarEnTableView(tvResultados, muller.getMatrizDeDatos(), headers);
+                        biseccion.metodoBiseccion();
+                        String[] headers = {"xl","xu", "xr","f(xl)","f(xu)","f(xr)", "Error de aproximación"};
+                        Graficos.cargarEnTableView(tvResultados, biseccion.getMatrizDeDatos(), headers);
                     } catch (Exception ex) {
                         error = true;
                         Graficos.lanzarMensajeError("Error de procesamiento", "Tuvimos un inconveniente al "
@@ -106,9 +100,8 @@ public class VistaMullerController implements Initializable {
             formulaInput.clearFormula();
             tfErrorTolerancia.setText("");
             tfIterMax.setText("");
-            tfx0.setText("");
-            tfx1.setText("");
-            tfx2.setText("");
+            tfcotainferior.setText("");
+            tfcotasuperior.setText("");
             tvResultados.getItems().clear();
         });
     }    
