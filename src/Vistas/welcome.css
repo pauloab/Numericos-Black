@@ -27,3 +27,23 @@
     -fx-background-radius: 3, 2, 4, 0;
     -fx-prompt-text-fill: transparent;
 }
+
+.side-navbar{
+    -fx-background-color : #42607B;
+}
+
+.side-navbar-items-container{
+    -fx-background-color: #FFFFFF;
+}
+
+.side-navbar-item{
+    -fx-background-color: #ECECEC;
+    -fx-font-size: 17px;
+    -fx-padding: 15px;
+}
+
+.side-navbar-item-selected{
+    -fx-background-color: #F3F3F3;
+    -fx-font-size: 17px;
+    -fx-padding: 15px;
+}
