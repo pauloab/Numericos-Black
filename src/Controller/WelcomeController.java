@@ -1,22 +1,22 @@
 package Controller;
 
+import Util.Graficos;
+import Vistas.Components.Utils.SidenavItem;
+import Vistas.Components.Utils.SidenavContainer;
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * FXML Controller class dela vista Principal
@@ -26,23 +26,63 @@ import javafx.util.Duration;
 public class WelcomeController implements Initializable {
 
     @FXML
-    private VBox pane2;
+    private Pane  panedelante;
 
     @FXML
-    private ImageView exit, menu, maximo, minimo;
+    private ImageView exit, menu, maximo, minimo, ivCerrados, ivAbiertos;
 
     @FXML
-    private BorderPane panedetras, panedelante, panefront;
+    private BorderPane panefront;
 
     @FXML
-    private Button btBiseccion, btFalsaposicion, btNewtonRaphson, btSecante, btMuller, btBairstow;
-
-    private int openPane;
-
+    private StackPane panelCarga;
+    
+    private SidenavContainer sidenavContainer;
+    
+    private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante, 
+                       bpBairstow, bpMuller;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        sidenavContainer = new SidenavContainer(menu, panedelante);
+        
+        precargarVistas();
+        
+        JFXButton bt;
+        ArrayList<JFXButton> buttonList = new ArrayList<>();
 
-        openPane = 1;
+        bt = new JFXButton("Método de Bisección");
+        bt.setOnMouseClicked(e -> CargarVista(bpBiseccion));
+        buttonList.add(bt);
+
+        bt = new JFXButton("Método de Falsa Posición");
+        bt.setOnMouseClicked(e -> CargarVista(bpFalsaPosicion));
+        buttonList.add(bt);
+
+        sidenavContainer.addItem(new SidenavItem("Métodos Cerrados", buttonList), ivCerrados);
+
+        buttonList = new ArrayList<>();
+
+        bt = new JFXButton("Método de Newton-Raphson");
+        bt.setOnMouseClicked(e -> CargarVista(bpNewtonRaphson));
+        buttonList.add(bt);
+
+        bt = new JFXButton("Método de la Secante");
+        bt.setOnMouseClicked(e -> CargarVista(bpSecante));
+        buttonList.add(bt);
+
+        bt = new JFXButton("Método de Müller");
+        bt.setOnMouseClicked(e -> CargarVista(bpMuller));
+        buttonList.add(bt);
+
+        bt = new JFXButton("Método de Bairstow");
+        bt.setOnMouseClicked(e -> CargarVista(bpBairstow));
+        buttonList.add(bt);
+        
+        sidenavContainer.addItem(new SidenavItem("Métodos Abiertos", buttonList), ivAbiertos);
+
+        panefront.setLeft(sidenavContainer);
+
         exit.setOnMouseClicked(
                 event -> {
                     System.exit(0);
@@ -63,123 +103,54 @@ public class WelcomeController implements Initializable {
                 }
         );
 
-        Transition(null);
-        menu.setOnMouseClicked(this::Transition);
-
-        btBiseccion.setOnMouseClicked(
-                e -> {
-                    CargarVista("/Vistas/MetodosCerrados/VistaBiseccion.fxml");
-                }
-        );
-
-        btFalsaposicion.setOnMouseClicked(
-                e -> {
-                    CargarVista("/Vistas/MetodosCerrados/VistaFalsaPosicion.fxml");
-                }
-        );
-
-        btNewtonRaphson.setOnMouseClicked(
-                e -> {
-                    CargarVista("/Vistas/MetodosAbiertos/VistaNewtonRaphson.fxml");
-                }
-        );
-
-        btSecante.setOnMouseClicked(
-                e -> {
-                    CargarVista("/Vistas/MetodosAbiertos/VistaSecante.fxml");
-                }
-        );
-
-        btMuller.setOnMouseClicked(
-                e -> {
-                    CargarVista("/Vistas/MetodosAbiertos/VistaMuller.fxml");
-                }
-        );
-
-        btBairstow.setOnMouseClicked(
-                e -> {
-                    CargarVista("/Vistas/MetodosAbiertos/VistaBairstow.fxml");
-                }
-        );
-
     }
 
+    public void precargarVistas(){
+        try {
+            bpBiseccion = FXMLLoader.load(
+                    getClass().getResource("/Vistas/MetodosCerrados/VistaBiseccion.fxml")
+            );
+            bpBiseccion.setPadding(new Insets(0, 0, 0,64 ));
+            
+            bpFalsaPosicion = FXMLLoader.load(
+                    getClass().getResource("/Vistas/MetodosCerrados/VistaFalsaPosicion.fxml")
+            );
+            bpFalsaPosicion.setPadding(new Insets(0, 0, 0,64 ));
+            
+            bpNewtonRaphson = FXMLLoader.load(
+                    getClass().getResource("/Vistas/MetodosAbiertos/VistaNewtonRaphson.fxml")
+            );
+            bpNewtonRaphson.setPadding(new Insets(0, 0, 0,64 ));
+            
+            bpSecante = FXMLLoader.load(
+                    getClass().getResource("/Vistas/MetodosAbiertos/VistaSecante.fxml")
+            );
+            bpSecante.setPadding(new Insets(0, 0, 0,64 ));
+            
+            bpMuller = FXMLLoader.load(
+                    getClass().getResource("/Vistas/MetodosAbiertos/VistaMuller.fxml")
+            );
+            bpMuller.setPadding(new Insets(0, 0, 0,64 ));
+            
+            bpBairstow = FXMLLoader.load(
+                    getClass().getResource("/Vistas/MetodosAbiertos/VistaBairstow.fxml")
+            );
+            bpBairstow.setPadding(new Insets(0, 0, 0,64 ));
+            
+        } catch (IOException ex) {
+            Graficos.lanzarMensajeError("Error de carga de recursos", "Existe un "
+                    + "problema al cargar la vista.");
+            System.exit(-1);
+        }
+    }
+    
     /**
      * Funcion para cargar las vistas
+     * @param panel Panel a cargar en la vista.
      */
-    public void CargarVista(String direccionVista) {
-
-        try {
-            BorderPane root = FXMLLoader.load(
-                    getClass().getResource(direccionVista)
-            );
-            panedetras.setCenter(root);
-        } catch (IOException ex) {
-            Logger
-                    .getLogger(WelcomeController.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        }
-        Transition(null);
+    public void CargarVista(BorderPane panel) {
+        panelCarga.getChildren().set(0,panel);
+        sidenavContainer.hideOrShow();
     }
 
-    /**
-     * Funcion para las transiciones de los paneles
-     */
-    public void Transition(Event evento) {
-        if (openPane == 1) {
-            openPane = -1;
-            panedetras.setVisible(true);
-
-            FadeTransition fadeTransition1 = new FadeTransition(
-                    Duration.seconds(0.2),
-                    panedelante
-            );
-            fadeTransition1.setFromValue(0.15);
-            fadeTransition1.setToValue(0);
-            fadeTransition1.play();
-
-            fadeTransition1.setOnFinished(
-                    event1 -> {
-                        panedelante.setVisible(false);
-                        panefront.setVisible(false);
-                    }
-            );
-
-            TranslateTransition translateTransition1 = new TranslateTransition(
-                    Duration.seconds(0.5),
-                    pane2
-            );
-            translateTransition1.setByX(-600);
-            translateTransition1.play();
-            translateTransition1.setOnFinished(
-                    e -> {
-                        openPane = 0;
-                    }
-            );
-        } else if (openPane == 0) {
-            openPane = -1;
-            panedelante.setVisible(true);
-            panedetras.setVisible(false);
-            panefront.setVisible(true);
-            FadeTransition fadeTransition1 = new FadeTransition(
-                    Duration.seconds(0.5),
-                    panedelante
-            );
-            fadeTransition1.setFromValue(0);
-            fadeTransition1.setToValue(0.15);
-            fadeTransition1.play();
-
-            TranslateTransition translateTransition1 = new TranslateTransition(
-                    Duration.seconds(0.5),
-                    pane2
-            );
-            translateTransition1.setByX(+600);
-            translateTransition1.play();
-            translateTransition1.setOnFinished(
-                    e -> {
-                        openPane = 1;
-                    }
-            );
-        }
-    }
 }
