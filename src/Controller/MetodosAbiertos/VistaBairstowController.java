@@ -66,6 +66,8 @@ public class VistaBairstowController implements Initializable {
         // Se agrega la validación de los inputs
         Graficos.convertirEnInputFlotantes(tfr);
         Graficos.convertirEnInputFlotantes(tfs);
+        Graficos.convertirEnInputFlotantes(tfa0);
+        Graficos.convertirEnInputFlotantes(tfa1);
         Graficos.convertirEnInputFlotantes(tfErrorTolerancia);
         Graficos.convertirEnInputEnteros(tfIterMax);
 
@@ -80,10 +82,10 @@ public class VistaBairstowController implements Initializable {
             tf.setPrefWidth(91);
             tf.setPrefHeight(26);
             label.setText("a" + (grado + 1));
-
             hBox.getChildren().addAll(label, tf);
             vBoxCoeficientes.getChildren().add(0, hBox);
             grado++;
+            Graficos.convertirEnInputFlotantes(tf);
 
         });
 
