@@ -63,14 +63,15 @@
       </BorderPane>
    </top>
    <center>
-      <StackPane fx:id="panelCarga" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="background" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="panedelante" prefHeight="200.0" prefWidth="200.0" styleClass="background" />
-            <BorderPane fx:id="panefront" prefHeight="442.0" prefWidth="430.0">
+            <BorderPane fx:id="panelCarga" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+            <Pane fx:id="panedelante" prefHeight="687.0" prefWidth="612.0" styleClass="background" />
+            <BorderPane fx:id="panefront" prefHeight="200.0" prefWidth="200.0">
                <left>
-                  <HBox prefHeight="687.0" prefWidth="63.0" BorderPane.alignment="CENTER">
+                  <HBox prefHeight="687.0" prefWidth="1179.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Pane prefHeight="687.0" prefWidth="64.0" style="-fx-background-color: #ffffff;">
+                        <Pane prefHeight="687.0" prefWidth="61.0" style="-fx-background-color: #ffffff;">
                            <children>
                               <ImageView fx:id="ivCerrados" fitHeight="48.0" fitWidth="44.0" layoutX="11.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -80,6 +81,11 @@
                               <ImageView fx:id="ivAbiertos" fitHeight="48.0" fitWidth="43.0" layoutX="10.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/candadoCerrado.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="ivOtros" fitHeight="49.0" fitWidth="45.0" layoutX="7.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/otherIcon.jpg" />
                                  </image>
                               </ImageView>
                            </children>

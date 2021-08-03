@@ -26,28 +26,27 @@ import javafx.stage.Stage;
 public class WelcomeController implements Initializable {
 
     @FXML
-    private Pane  panedelante;
+    private Pane panedelante;
 
     @FXML
-    private ImageView exit, menu, maximo, minimo, ivCerrados, ivAbiertos;
+    private ImageView exit, menu, maximo, minimo, ivCerrados, ivAbiertos, ivOtros;
 
     @FXML
-    private BorderPane panefront;
+    private BorderPane panefront, panelCarga;
 
-    @FXML
-    private StackPane panelCarga;
-    
     private SidenavContainer sidenavContainer;
-    
-    private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante, 
-                       bpBairstow, bpMuller;
-    
+
+    private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante,
+            bpBairstow, bpMuller, bpTaylor;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        panefront.setPickOnBounds(false);
+        panedelante.setPickOnBounds(false);
         sidenavContainer = new SidenavContainer(menu, panedelante);
-        
+        sidenavContainer.setPickOnBounds(false);
         precargarVistas();
-        
+
         JFXButton bt;
         ArrayList<JFXButton> buttonList = new ArrayList<>();
 
@@ -78,9 +77,16 @@ public class WelcomeController implements Initializable {
         bt = new JFXButton("Método de Bairstow");
         bt.setOnMouseClicked(e -> CargarVista(bpBairstow));
         buttonList.add(bt);
-        
+ 
         sidenavContainer.addItem(new SidenavItem("Métodos Abiertos", buttonList), ivAbiertos);
 
+        buttonList = new ArrayList<>();
+        bt = new JFXButton("Serie de Taylor");
+        bt.setOnMouseClicked(e -> CargarVista(bpTaylor));
+        buttonList.add(bt);
+        
+        sidenavContainer.addItem(new SidenavItem("Otros", buttonList), ivOtros);
+        
         panefront.setLeft(sidenavContainer);
 
         exit.setOnMouseClicked(
@@ -105,51 +111,57 @@ public class WelcomeController implements Initializable {
 
     }
 
-    public void precargarVistas(){
+    public void precargarVistas() {
         try {
             bpBiseccion = FXMLLoader.load(
                     getClass().getResource("/Vistas/MetodosCerrados/VistaBiseccion.fxml")
             );
-            bpBiseccion.setPadding(new Insets(0, 0, 0,64 ));
-            
+            bpBiseccion.setPadding(new Insets(0, 0, 0, 64));
+
             bpFalsaPosicion = FXMLLoader.load(
                     getClass().getResource("/Vistas/MetodosCerrados/VistaFalsaPosicion.fxml")
             );
-            bpFalsaPosicion.setPadding(new Insets(0, 0, 0,64 ));
-            
+            bpFalsaPosicion.setPadding(new Insets(0, 0, 0, 64));
+
             bpNewtonRaphson = FXMLLoader.load(
                     getClass().getResource("/Vistas/MetodosAbiertos/VistaNewtonRaphson.fxml")
             );
-            bpNewtonRaphson.setPadding(new Insets(0, 0, 0,64 ));
-            
+            bpNewtonRaphson.setPadding(new Insets(0, 0, 0, 64));
+
             bpSecante = FXMLLoader.load(
                     getClass().getResource("/Vistas/MetodosAbiertos/VistaSecante.fxml")
             );
-            bpSecante.setPadding(new Insets(0, 0, 0,64 ));
-            
+            bpSecante.setPadding(new Insets(0, 0, 0, 64));
+
             bpMuller = FXMLLoader.load(
                     getClass().getResource("/Vistas/MetodosAbiertos/VistaMuller.fxml")
             );
-            bpMuller.setPadding(new Insets(0, 0, 0,64 ));
-            
+            bpMuller.setPadding(new Insets(0, 0, 0, 64));
+
             bpBairstow = FXMLLoader.load(
                     getClass().getResource("/Vistas/MetodosAbiertos/VistaBairstow.fxml")
             );
-            bpBairstow.setPadding(new Insets(0, 0, 0,64 ));
-            
+            bpBairstow.setPadding(new Insets(0, 0, 0, 64));
+
+            bpTaylor = FXMLLoader.load(
+                    getClass().getResource("/Vistas/VistaSerieTaylor.fxml")
+            );
+            bpTaylor.setPadding(new Insets(0, 0, 0, 64));
         } catch (IOException ex) {
+            ex.printStackTrace();
             Graficos.lanzarMensajeError("Error de carga de recursos", "Existe un "
                     + "problema al cargar la vista.");
             System.exit(-1);
         }
     }
-    
+
     /**
      * Funcion para cargar las vistas
+     *
      * @param panel Panel a cargar en la vista.
      */
     public void CargarVista(BorderPane panel) {
-        panelCarga.getChildren().set(0,panel);
+        panelCarga.setCenter(panel);
         sidenavContainer.hideOrShow();
     }
 
