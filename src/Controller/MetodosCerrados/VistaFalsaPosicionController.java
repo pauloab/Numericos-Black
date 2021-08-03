@@ -1,8 +1,6 @@
 package Controller.MetodosCerrados;
 
 
-import Vistas.Components.Math.FormulaFunctionButtons;
-import Vistas.Components.Math.FormulaInput;
 import Modelos.MetodosCerrados.FalsaPosicion;
 import Util.Graficos;
 import Util.MetodosUniversales;
@@ -11,7 +9,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -25,6 +22,8 @@ import javafx.scene.layout.Pane;
 public class VistaFalsaPosicionController implements Initializable {
 
     @FXML
+    private TextField tfFormula;
+    @FXML
     private TextField tfcotainferior;
     @FXML
     private TextField tfcotasuperior;
@@ -35,9 +34,7 @@ public class VistaFalsaPosicionController implements Initializable {
     @FXML
     private TableView tvResultados;
     @FXML
-    private ScrollPane scrollPaneFormula;
-    @FXML
-    private Pane pFormulaButtons;
+    private Pane pFormula;
     @FXML
     private Button btProcesar;
     @FXML
@@ -46,12 +43,6 @@ public class VistaFalsaPosicionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        // Se carga el componente de fórmulas
-        FormulaInput formulaInput = new FormulaInput();
-        scrollPaneFormula.setContent(formulaInput);
-        FormulaFunctionButtons formulaButtons = new FormulaFunctionButtons(formulaInput);
-        pFormulaButtons.getChildren().add(formulaButtons);
-        
         // Se agrega la validación de los inputs
         Graficos.convertirEnInputFlotantes(tfcotainferior);
         Graficos.convertirEnInputFlotantes(tfcotasuperior);
@@ -59,7 +50,7 @@ public class VistaFalsaPosicionController implements Initializable {
         Graficos.convertirEnInputEnteros(tfIterMax);
         
         btProcesar.setOnMouseClicked(event -> {
-            String funcion = formulaInput.getFormula();
+            String funcion = tfFormula.getText();
             FalsaPosicion falsaposicion;
             boolean error = false;
             if (MetodosUniversales.validarExpresion(funcion)) {
@@ -97,12 +88,12 @@ public class VistaFalsaPosicionController implements Initializable {
             }
         });
         btLimpiar.setOnMouseClicked(e -> {
-            formulaInput.clearFormula();
             tfErrorTolerancia.setText("");
             tfIterMax.setText("");
             tfcotainferior.setText("");
             tfcotasuperior.setText("");
             tvResultados.getItems().clear();
+            tfFormula.clear();
         });
     }    
 }
