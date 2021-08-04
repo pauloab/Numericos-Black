@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="636.0" prefWidth="906.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MetodosAbiertos.VistaNewtonRaphsonController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="636.0" prefWidth="906.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MetodosAbiertos.VistaNewtonRaphsonController">
    <center>
       <SplitPane dividerPositions="0.7669902912621359" orientation="VERTICAL" prefHeight="530.0" prefWidth="1053.0" BorderPane.alignment="CENTER">
         <items>
@@ -59,7 +59,7 @@
             <AnchorPane prefHeight="61.0" prefWidth="906.0" />
             <AnchorPane prefHeight="114.0" prefWidth="906.0" style="-fx-background-color: #080b16;">
                <children>
-                  <Label layoutX="25.0" layoutY="24.0" prefHeight="48.0" prefWidth="582.0" text="Método de Newton-Raphson" textFill="WHITE">
+                  <Label layoutX="25.0" layoutY="24.0" prefHeight="70.0" prefWidth="687.0" text="Método de Newton-Raphson" textFill="WHITE">
                      <font>
                         <Font name="Britannic Bold" size="48.0" />
                      </font>
