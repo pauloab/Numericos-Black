@@ -37,7 +37,7 @@ public class WelcomeController implements Initializable {
     private SidenavContainer sidenavContainer;
 
     private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante,
-            bpBairstow, bpMuller, bpTaylor;
+            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -76,6 +76,10 @@ public class WelcomeController implements Initializable {
 
         bt = new JFXButton("Método de Bairstow");
         bt.setOnMouseClicked(e -> CargarVista(bpBairstow));
+        buttonList.add(bt);
+        
+        bt = new JFXButton("Método de Punto Fijo");
+        bt.setOnMouseClicked(e -> CargarVista(bpPuntoFijo));
         buttonList.add(bt);
  
         sidenavContainer.addItem(new SidenavItem("Métodos Abiertos", buttonList), ivAbiertos);
@@ -147,6 +151,10 @@ public class WelcomeController implements Initializable {
                     getClass().getResource("/Vistas/VistaSerieTaylor.fxml")
             );
             bpTaylor.setPadding(new Insets(0, 0, 0, 64));
+            bpPuntoFijo = FXMLLoader.load(
+                    getClass().getResource("/Vistas/MetodosAbiertos/VistaPuntoFijo.fxml")
+            );
+            bpPuntoFijo.setPadding(new Insets(0, 0, 0, 64));
         } catch (IOException ex) {
             ex.printStackTrace();
             Graficos.lanzarMensajeError("Error de carga de recursos", "Existe un "
