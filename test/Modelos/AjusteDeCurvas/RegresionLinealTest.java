@@ -27,8 +27,8 @@ public class RegresionLinealTest {
         regresor.regresionLineal();
         assertEquals(desviacionEsperada, regresor.getDesviacionEstandar(), delta);
         assertEquals(errorEstandar, regresor.getErrorEstandar(), delta);
-        assertEquals(coeficienteDeterminacion, regresor.getCoheficienteDeterminacion(), delta);
-        assertEquals(coeficienteCorrelacion , regresor.getCoheficienteCorrelacion(), delta);
+        assertEquals(coeficienteDeterminacion, regresor.getCoeficienteDeterminacion(), delta);
+        assertEquals(coeficienteCorrelacion , regresor.getCoeficienteCorrelacion(), delta);
         for (int i = 0; i < pronosticosEsperados.length; i++) {
             System.out.println("X = "+xCordenadas[i]+" Y = "+regresor.pronosticar(xCordenadas[i]));
             assertEquals(pronosticosEsperados[i], regresor.pronosticar(xCordenadas[i]), delta);
@@ -50,8 +50,8 @@ public class RegresionLinealTest {
         regresor.regresionLineal();
         assertEquals(desviacionEsperada, regresor.getDesviacionEstandar(), delta);
         assertEquals(errorEstandar, regresor.getErrorEstandar(), delta);
-        assertEquals(coeficienteDeterminacion, regresor.getCoheficienteDeterminacion(), delta);
-        assertEquals(coeficienteCorrelacion , regresor.getCoheficienteCorrelacion(), delta);
+        assertEquals(coeficienteDeterminacion, regresor.getCoeficienteDeterminacion(), delta);
+        assertEquals(coeficienteCorrelacion , regresor.getCoeficienteCorrelacion(), delta);
         for (int i = 0; i < pronosticosEsperados.length; i++) {
             System.out.println("X = "+xCordenadas[i]+" Y = "+regresor.pronosticar(xCordenadas[i]));
             assertEquals(pronosticosEsperados[i], regresor.pronosticar(xCordenadas[i]), delta);
