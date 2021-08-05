@@ -1,7 +1,5 @@
 package Controller.MetodosAbiertos;
 
-import Vistas.Components.Math.FormulaFunctionButtons;
-import Vistas.Components.Math.FormulaInput;
 import Modelos.MetodosAbiertos.PuntoFijo;
 import Util.Graficos;
 import Util.MetodosUniversales;
@@ -10,7 +8,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
