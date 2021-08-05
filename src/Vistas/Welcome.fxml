@@ -85,7 +85,7 @@
                               </ImageView>
                               <ImageView fx:id="ivOtros" fitHeight="49.0" fitWidth="45.0" layoutX="7.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/otherIcon.jpg" />
+                                    <Image url="@../images/logo%20verdeRecurso%201.png" />
                                  </image>
                               </ImageView>
                            </children>
