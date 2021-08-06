@@ -29,7 +29,8 @@ public class WelcomeController implements Initializable {
     private Pane panedelante;
 
     @FXML
-    private ImageView exit, menu, maximo, minimo, ivCerrados, ivAbiertos, ivOtros;
+    private ImageView exit, menu, maximo, minimo, ivCerrados, ivAbiertos,
+            ivOtros, ivCurves;
 
     @FXML
     private BorderPane panefront, panelCarga;
@@ -37,7 +38,7 @@ public class WelcomeController implements Initializable {
     private SidenavContainer sidenavContainer;
 
     private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante,
-            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo;
+            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -77,20 +78,27 @@ public class WelcomeController implements Initializable {
         bt = new JFXButton("Método de Bairstow");
         bt.setOnMouseClicked(e -> CargarVista(bpBairstow));
         buttonList.add(bt);
-        
+
         bt = new JFXButton("Método de Punto Fijo");
         bt.setOnMouseClicked(e -> CargarVista(bpPuntoFijo));
         buttonList.add(bt);
- 
+
         sidenavContainer.addItem(new SidenavItem("Métodos Abiertos", buttonList), ivAbiertos);
+
+        buttonList = new ArrayList<>();
+        bt = new JFXButton("Regresión Lineal");
+        bt.setOnMouseClicked(e -> CargarVista(bpRegresionLineal));
+        buttonList.add(bt);
+
+        sidenavContainer.addItem(new SidenavItem("Ajuste de curvas", buttonList), ivCurves);
 
         buttonList = new ArrayList<>();
         bt = new JFXButton("Serie de Taylor");
         bt.setOnMouseClicked(e -> CargarVista(bpTaylor));
         buttonList.add(bt);
-        
+
         sidenavContainer.addItem(new SidenavItem("Otros", buttonList), ivOtros);
-        
+
         panefront.setLeft(sidenavContainer);
 
         exit.setOnMouseClicked(
@@ -151,10 +159,16 @@ public class WelcomeController implements Initializable {
                     getClass().getResource("/Vistas/VistaSerieTaylor.fxml")
             );
             bpTaylor.setPadding(new Insets(0, 0, 0, 64));
+
             bpPuntoFijo = FXMLLoader.load(
                     getClass().getResource("/Vistas/MetodosAbiertos/VistaPuntoFijo.fxml")
             );
             bpPuntoFijo.setPadding(new Insets(0, 0, 0, 64));
+
+            bpRegresionLineal= FXMLLoader.load(
+                    getClass().getResource("/Vistas/AjusteCurvas/VistaRegresionLineal.fxml")
+            );
+            bpRegresionLineal.setPadding(new Insets(0, 0, 0, 64));
         } catch (IOException ex) {
             ex.printStackTrace();
             Graficos.lanzarMensajeError("Error de carga de recursos", "Existe un "

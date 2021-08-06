@@ -88,6 +88,11 @@
                                     <Image url="@../images/logo%20verdeRecurso%201.png" />
                                  </image>
                               </ImageView>
+                              <ImageView fx:id="ivCurves" fitHeight="49.0" fitWidth="45.0" layoutX="8.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/scatter-icon.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </Pane>
                      </children>
