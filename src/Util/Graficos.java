@@ -1,10 +1,15 @@
 package Util;
 
+import Plotter.Models.CoordinatePair;
+import Plotter.Models.Plotter;
+import java.util.ArrayList;
+import java.util.Collections;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import Plotter.Views.GraphManager;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -12,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.layout.Pane;
 
 
 /**
@@ -58,6 +64,20 @@ public class Graficos {
      */
     public static void lanzarMensajeError(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("Error - Numeric Blacks");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    
+    /**
+     * Lanza una alerta de advertencia con un encabezado y un comentario corto.
+     * @param header Encabezado de la ventana
+     * @param content Texto corto describiendo el eror.
+     */
+    public static void lanzarMensajeAdvertencia(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.initStyle(StageStyle.UTILITY);
         alert.setTitle("Error - Numeric Blacks");
         alert.setHeaderText(header);
@@ -166,5 +186,33 @@ public class Graficos {
             txt.getStyleClass().add("error");            
         }
         return d;
+    }
+    
+    /**
+     * Grafica funciones continuas en el mismo grafico basandose en vectores 
+     * de cordenadas
+     * @param coordinateArrayList Arreglo de vectores de coordenadas, un vector por funcion
+     * @param screen Panel padre de el gráfico
+     * @param graphManager Manejador de gráfico
+     * @param punto Punto remarcado del Panel
+     */
+    public static void plotPoints(ArrayList<CoordinatePair[]> coordinateArrayList, 
+            Pane screen, GraphManager graphManager, CoordinatePair punto) {
+        Plotter plotter = new Plotter(graphManager.getGraph(), screen);
+        ArrayList<CoordinatePair> allPoints = new ArrayList<>();
+        
+        System.gc();
+
+        for(CoordinatePair[] pairArray : coordinateArrayList) {
+            Collections.addAll(allPoints, pairArray);
+        }
+
+        ArrayList<CoordinatePair> intersections = plotter.findIntersections(allPoints);
+
+        for(CoordinatePair[] coordinateArray : coordinateArrayList) {
+            plotter.plot(coordinateArray, intersections, punto);
+        }
+
+        System.gc();
     }
 }
