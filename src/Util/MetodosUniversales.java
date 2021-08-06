@@ -1,5 +1,6 @@
 package Util;
 
+import Plotter.Models.CoordinatePair;
 import org.lsmp.djep.djep.DJep;
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
@@ -118,4 +119,25 @@ public class MetodosUniversales {
         }
         return results;
     } 
+    
+    /**
+     * Evalúa una función basado en su mínimo y máximo en fracciones de 1500
+     * @param funcion Funcion a evaluar
+     * @param xMin Valor minimo del dominio
+     * @param xMax Valor máximo del dominio
+     * @return Vector de pares de coordenadas 
+     */
+    public static CoordinatePair[] evaluarFuncion(String funcion, double xMin, double xMax) throws Exception{
+        int intervalo = 1500;
+        double paso = (xMax-xMin)/intervalo;
+        CoordinatePair[] paresCordenadas = new CoordinatePair[intervalo+1];
+        int iterador = 0;
+        for (double i = xMin; i < xMax ; i += paso) {
+            paresCordenadas[iterador] = new CoordinatePair(i, evaluarFuncion(funcion, i) );
+            iterador++;
+        }
+        return paresCordenadas;
+    }
+    
+    
 }

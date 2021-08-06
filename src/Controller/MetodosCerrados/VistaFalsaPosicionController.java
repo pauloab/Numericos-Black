@@ -1,18 +1,21 @@
 package Controller.MetodosCerrados;
 
-
 import Modelos.MetodosCerrados.FalsaPosicion;
+import Plotter.Models.CoordinatePair;
+import Plotter.Views.GraphManager;
 import Util.Graficos;
 import Util.MetodosUniversales;
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-
 
 /**
  * FXML Controller class de la vista Falsa Posicion
@@ -20,7 +23,7 @@ import javafx.scene.layout.Pane;
  * @author Geovanny Vega
  */
 public class VistaFalsaPosicionController implements Initializable {
-
+    
     @FXML
     private TextField tfFormula;
     @FXML
@@ -39,18 +42,49 @@ public class VistaFalsaPosicionController implements Initializable {
     private Button btProcesar;
     @FXML
     private Button btLimpiar;
+    @FXML
+    private BorderPane bpChart;
+    
+    @FXML
+    private TextField tfYU, tfYD, tfXL, tfXR;
+    @FXML
+    private JFXButton btAjustar;
+    private GraphManager graphManager;
+    private double yu = 50, yd = -50, xl = -50, xr = 50;
+    private final double DEFAULT_AXIS_VALUES = 50;
+    private String funcion;
+    private Double punto = null;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        graphManager = new GraphManager();
+        tfXL.setText(xl + "");
+        tfXR.setText(xr + "");
+        tfYU.setText(yu + "");
+        tfYD.setText(yd + "");
+        definirLimites();
         
-        // Se agrega la validación de los inputs
+        bpChart.setCenter(graphManager.getGraph());
+        funcion = null;
+        btAjustar.setOnMouseClicked(event -> {
+            boolean limitesDefinidos = definirLimites();
+            if (funcion != null && limitesDefinidos ) {
+                Graficar();
+            }
+        });
+        
+        Graficos.convertirEnInputFlotantes(tfXL);
+        Graficos.convertirEnInputFlotantes(tfXR);
+        Graficos.convertirEnInputFlotantes(tfYU);
+        Graficos.convertirEnInputFlotantes(tfYD);
+        
         Graficos.convertirEnInputFlotantes(tfcotainferior);
         Graficos.convertirEnInputFlotantes(tfcotasuperior);
         Graficos.convertirEnInputFlotantes(tfErrorTolerancia);
         Graficos.convertirEnInputEnteros(tfIterMax);
         
         btProcesar.setOnMouseClicked(event -> {
-            String funcion = tfFormula.getText();
+            funcion = tfFormula.getText();
             FalsaPosicion falsaposicion;
             boolean error = false;
             if (MetodosUniversales.validarExpresion(funcion)) {
@@ -61,8 +95,8 @@ public class VistaFalsaPosicionController implements Initializable {
                 if (cotainferior != null && cotasuperior != null && eTolerancia != null && imax != null) {
                     falsaposicion = new FalsaPosicion(funcion, eTolerancia, imax, cotainferior, cotasuperior);
                     try {
-                        falsaposicion.metodoFalsaPosicion();
-                        String[] headers = {"xl","xu", "xr","f(xl)","f(xu)","f(xr)", "Error de aproximación"};
+                        punto = falsaposicion.metodoFalsaPosicion();
+                        String[] headers = {"xl", "xu", "xr", "f(xl)", "f(xu)", "f(xr)", "Error de aproximación"};
                         Graficos.cargarEnTableView(tvResultados, falsaposicion.getMatrizDeDatos(), headers);
                     } catch (Exception ex) {
                         error = true;
@@ -71,23 +105,24 @@ public class VistaFalsaPosicionController implements Initializable {
                                 + "a travéz de este método.");
                     }
                     if (!error) {
-                        try {
-                           // Aquí se debe cargar la gráfica
-                        } catch (Exception e) {
-                            Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "
-                                    + "interpretar o procesar la función "
-                                    + "a travéz de este método, por tanto"
-                                    + "la gráfica no se pudo procesar.");
-                        }
-                    }    
-                }else{
-                    Graficos.lanzarMensajeError("Error de conversión","Por favor, verifica el ingreso de datos antes de proceder.");
+                        Graficar();
+                    }
+                } else {
+                    Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
                 }
             } else {
                 Graficos.lanzarMensajeError("Error de conversión", "Hubo un error al interpretar la fórmula ingresada.");
             }
         });
         btLimpiar.setOnMouseClicked(e -> {
+            graphManager.getGraph().getData().clear();
+            funcion = null;
+            graphManager.setDomain(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
+            graphManager.setRange(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
+            tfXL.setText("-"+DEFAULT_AXIS_VALUES);
+            tfXR.setText(""+DEFAULT_AXIS_VALUES);
+            tfYU.setText(""+DEFAULT_AXIS_VALUES);
+            tfYD.setText("-"+DEFAULT_AXIS_VALUES);
             tfErrorTolerancia.setText("");
             tfIterMax.setText("");
             tfcotainferior.setText("");
@@ -95,5 +130,48 @@ public class VistaFalsaPosicionController implements Initializable {
             tvResultados.getItems().clear();
             tfFormula.clear();
         });
-    }    
+    }
+    
+    private void Graficar() {
+        try {
+            CoordinatePair puntoCords = new CoordinatePair(punto, 
+                    MetodosUniversales.evaluarFuncion(funcion,punto));
+            
+            ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
+            dataset.add(MetodosUniversales.evaluarFuncion(funcion, xl, xr));
+            Graficos.plotPoints(dataset, bpChart, graphManager, puntoCords);
+        } catch (Exception e) {
+            Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "
+                    + "interpretar o procesar la función "
+                    + "a travéz de este método, por tanto"
+                    + "la gráfica no se pudo procesar.");
+        }
+    }
+    
+    private boolean definirLimites() {
+        boolean res = true;
+        Double xl = Graficos.validarTextFieldDouble(tfXL);
+        Double xr = Graficos.validarTextFieldDouble(tfXR);
+        Double yu = Graficos.validarTextFieldDouble(tfYU);
+        Double yd = Graficos.validarTextFieldDouble(tfYD);
+        if (xl != null && xr != null && yu != null && yd != null) {
+            if (xl < xr && yu > yd) {
+                this.xl = xl;
+                this.xr = xr;
+                this.yu = yu;
+                this.yd = yd;
+                graphManager.setDomain(xl, xr);
+                graphManager.setRange(yd, yu);
+            }else{
+                Graficos.lanzarMensajeAdvertencia("Verifique los intervalos.", 
+                        "Verifique que el rango y el dominio. El intervalo debe ir de menor a mayor.");
+                res = false;
+            }
+        } else {
+            Graficos.lanzarMensajeError("Error de conversión.",
+                    "Verifique los valores ingresados en los campos de control de gráfica.");
+            res = false;
+        }
+        return res;
+    }
 }
