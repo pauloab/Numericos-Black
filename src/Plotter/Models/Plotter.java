@@ -120,7 +120,75 @@ public class Plotter {
         dataSeries.getData().add(rootPoint);
 
         allPoints.add(punto);
-        
+
+        graph.getData().add(dataSeries);
+    }
+
+    public void plot(CoordinatePair[] pointsArray,
+        ArrayList<CoordinatePair> intersections, boolean arePoints) {
+        ArrayList<CoordinatePair> allPoints = new ArrayList<>();
+
+        XYChart.Series dataSeries = new XYChart.Series();
+
+        for (final CoordinatePair point : pointsArray) {
+            if (point == null) {
+                continue;
+            }
+            XYChart.Data dataPoint = new XYChart.Data<>(point.getKey(), point.getValue());
+
+            final Circle graphPoint = new Circle(5);
+            graphPoint.setFill(Color.BLACK);  // only here to later check whether it has been initialized
+
+            for (CoordinatePair intersection : intersections) {
+
+                if (roundPair(intersection).equals(roundPair(point))) {
+                    graphPoint.setFill(Color.RED);
+                    graphPoint.setOnMouseClicked(event -> {
+                        coordinateView = new CoordinateView(roundDecimals(point.getKey(), 3), roundDecimals(point.getValue(), 3));
+
+                        coordinateView.setLayoutX(graphPoint.getLayoutX() + 50);
+                        coordinateView.setLayoutY(graphPoint.getLayoutY() + 50);
+
+                        screen.getChildren().add(coordinateView);
+                    });
+                    graphPoint.setOnMouseReleased(event -> {
+                        screen.getChildren().remove(coordinateView);
+
+                        coordinateView = null;
+                    });
+                    break;
+                }
+            }
+            
+            if (graphPoint.getFill().equals(Color.BLACK)) {
+                graphPoint.setFill(Color.TRANSPARENT);
+            }
+            if (arePoints) {
+                graphPoint.setFill(Color.BLUE);
+            }
+
+            graphPoint.setOnMouseEntered(event -> {
+                coordinateView = new CoordinateView(roundDecimals(point.getKey(), 3), roundDecimals(point.getValue(), 3));
+
+                coordinateView.setLayoutX(graphPoint.getLayoutX() + 50);
+                coordinateView.setLayoutY(graphPoint.getLayoutY() + 50);
+
+                screen.getChildren().add(coordinateView);
+            });
+
+            graphPoint.setOnMouseExited(event -> {
+                screen.getChildren().remove(coordinateView);
+
+                coordinateView = null;
+            });
+
+            dataPoint.setNode(graphPoint);
+            point.setGraphPoint(graphPoint);
+
+            dataSeries.getData().add(dataPoint);
+
+            allPoints.add(point);
+        }
         graph.getData().add(dataSeries);
     }
 

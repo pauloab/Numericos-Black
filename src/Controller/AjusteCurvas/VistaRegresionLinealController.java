@@ -1,22 +1,20 @@
 package Controller.AjusteCurvas;
 
-import Controller.MetodosAbiertos.*;
 import Modelos.AjusteDeCurvas.RegresionLineal;
-import Modelos.Excepciones.IteracionesAlcanzadas;
-import Modelos.Excepciones.ValoresResueltos;
-import Modelos.MetodosAbiertos.Bairstow;
+import Plotter.Models.CoordinatePair;
+import Plotter.Views.GraphManager;
 import Util.Graficos;
+import Util.MetodosUniversales;
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -39,16 +37,45 @@ public class VistaRegresionLinealController implements Initializable {
     @FXML
     private VBox vbXValues, vbYValues;
     @FXML
-    private Label lbPendiente, lbInterseccion, lbDerviacion,lbErrorEstandar,
-            lbCoeficienteDet,lbCoeficienteCor;
+    private Label lbPendiente, lbInterseccion, lbDerviacion, lbErrorEstandar,
+            lbCoeficienteDet, lbCoeficienteCor;
     @FXML
     private TextField tfInput, tfOutput;
+    @FXML
+    private TextField tfYU, tfYD, tfXL, tfXR;
+    @FXML
+    private JFXButton btAjustar;
+    @FXML
+    private BorderPane bpChart;
     
-    private RegresionLineal regresor;
+    private GraphManager graphManager;
+    private double yu = 50, yd = -50, xl = -50, xr = 50;
+    private final double DEFAULT_AXIS_VALUES = 50;
 
+    private RegresionLineal regresor;
+    private CoordinatePair[] dataInput;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        graphManager = new GraphManager();
+        tfXL.setText(xl + "");
+        tfXR.setText(xr + "");
+        tfYU.setText(yu + "");
+        tfYD.setText(yd + "");
+        definirLimites();
+        
+        bpChart.setCenter(graphManager.getGraph());
+        btAjustar.setOnMouseClicked(event -> {
+            boolean limitesDefinidos = definirLimites();
+            if (regresor != null && limitesDefinidos ) {
+                Graficar(dataInput,regresor.getInterseccion(),regresor.getPendiente());
+            }
+        });
+        
+        Graficos.convertirEnInputFlotantes(tfXL);
+        Graficos.convertirEnInputFlotantes(tfXR);
+        Graficos.convertirEnInputFlotantes(tfYU);
+        Graficos.convertirEnInputFlotantes(tfYD);
+        
         addCordFilds();
         addCordFilds();
 
@@ -79,21 +106,18 @@ public class VistaRegresionLinealController implements Initializable {
             if (error == false) {
                 regresor = new RegresionLineal(x, y);
                 regresor.regresionLineal();
-                lbPendiente.setText("a1 = "+regresor.getPendiente());
-                lbInterseccion.setText("a0 = "+regresor.getInterseccion());
-                lbDerviacion.setText("Sy = "+regresor.getDesviacionEstandar());
-                lbErrorEstandar.setText("Sy/x = "+regresor.getErrorEstandar());
-                lbCoeficienteCor.setText("r2 = "+regresor.getCoeficienteCorrelacion());
-                lbCoeficienteDet.setText("r = "+regresor.getCoeficienteDeterminacion());
+                lbPendiente.setText("a1 = " + regresor.getPendiente());
+                lbInterseccion.setText("a0 = " + regresor.getInterseccion());
+                lbDerviacion.setText("Sy = " + regresor.getDesviacionEstandar());
+                lbErrorEstandar.setText("Sy/x = " + regresor.getErrorEstandar());
+                lbCoeficienteCor.setText("r2 = " + regresor.getCoeficienteCorrelacion());
+                lbCoeficienteDet.setText("r = " + regresor.getCoeficienteDeterminacion());
                 btPronosticar.setDisable(false);
-                try {
-                    // Aquí se debe cargar la gráfica
-                } catch (Exception e) {
-                    Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "
-                            + "interpretar o procesar la función "
-                            + "a travéz de este método, por tanto"
-                            + "la gráfica no se pudo procesar.");
+                dataInput = new CoordinatePair[n];
+                for (int i = 0; i < n; i++) {
+                    dataInput[i] = new CoordinatePair(x[i], y[i]);
                 }
+                Graficar(dataInput, regresor.getInterseccion(), regresor.getPendiente());
             } else {
                 Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
             }
@@ -121,6 +145,14 @@ public class VistaRegresionLinealController implements Initializable {
         });
 
         btLimpiar.setOnMouseClicked(e -> {
+            graphManager.getGraph().getData().clear();
+            graphManager.setDomain(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
+            graphManager.setRange(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
+            tfXL.setText("-"+DEFAULT_AXIS_VALUES);
+            tfXR.setText(""+DEFAULT_AXIS_VALUES);
+            tfYU.setText(""+DEFAULT_AXIS_VALUES);
+            tfYD.setText("-"+DEFAULT_AXIS_VALUES);
+            definirLimites();
             lbPendiente.setText("");
             lbInterseccion.setText("");
             lbDerviacion.setText("");
@@ -150,5 +182,47 @@ public class VistaRegresionLinealController implements Initializable {
         tf = new TextField();
         Graficos.convertirEnInputFlotantes(tf);
         vbYValues.getChildren().add(tf);
+    }
+    
+    private void Graficar(CoordinatePair[] dataInput, double a0, double a1) {
+        try {
+            graphManager.getGraph().getData().clear();
+            ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
+            dataset.add(dataInput);
+            dataset.add(MetodosUniversales.evaluarRegresionLineal(a0, a1, xl, xr));
+            Graficos.plotRegresionLineal(dataset, bpChart, graphManager);
+        } catch (Exception e) {
+            Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "
+                    + "interpretar o procesar la función "
+                    + "a travéz de este método, por tanto"
+                    + "la gráfica no se pudo procesar.");
+        }
+    }
+    
+    private boolean definirLimites() {
+        boolean res = true;
+        Double xl = Graficos.validarTextFieldDouble(tfXL);
+        Double xr = Graficos.validarTextFieldDouble(tfXR);
+        Double yu = Graficos.validarTextFieldDouble(tfYU);
+        Double yd = Graficos.validarTextFieldDouble(tfYD);
+        if (xl != null && xr != null && yu != null && yd != null) {
+            if (xl < xr && yu > yd) {
+                this.xl = xl;
+                this.xr = xr;
+                this.yu = yu;
+                this.yd = yd;
+                graphManager.setDomain(xl, xr);
+                graphManager.setRange(yd, yu);
+            }else{
+                Graficos.lanzarMensajeAdvertencia("Verifique los intervalos.", 
+                        "Verifique que el rango y el dominio. El intervalo debe ir de menor a mayor.");
+                res = false;
+            }
+        } else {
+            Graficos.lanzarMensajeError("Error de conversión.",
+                    "Verifique los valores ingresados en los campos de control de gráfica.");
+            res = false;
+        }
+        return res;
     }
 }
