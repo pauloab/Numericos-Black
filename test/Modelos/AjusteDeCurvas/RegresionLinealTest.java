@@ -1,6 +1,6 @@
 package Modelos.AjusteDeCurvas;
 
-import Modelos.MetodosAbiertos.Bairstow;
+import Modelos.MetodosAproxRaices.Bairstow;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

@@ -15,7 +15,6 @@ import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -29,8 +28,8 @@ public class WelcomeController implements Initializable {
     private Pane panedelante;
 
     @FXML
-    private ImageView exit, menu, maximo, minimo, ivCerrados, ivAbiertos,
-            ivOtros, ivCurves;
+    private ImageView exit, menu, maximo, minimo, ivAproximacionRaices,
+            ivTaylor, ivCurves, ivIntegracionNumerica, ivRungeKutta;
 
     @FXML
     private BorderPane panefront, panelCarga;
@@ -51,15 +50,13 @@ public class WelcomeController implements Initializable {
         JFXButton bt;
         ArrayList<JFXButton> buttonList = new ArrayList<>();
 
-        bt = new JFXButton("Método de Bisección");
-        bt.setOnMouseClicked(e -> CargarVista(bpBiseccion));
+        buttonList = new ArrayList<>();
+
+        bt = new JFXButton("Serie de Taylor");
+        bt.setOnMouseClicked(e -> CargarVista(bpTaylor));
         buttonList.add(bt);
 
-        bt = new JFXButton("Método de Falsa Posición");
-        bt.setOnMouseClicked(e -> CargarVista(bpFalsaPosicion));
-        buttonList.add(bt);
-
-        sidenavContainer.addItem(new SidenavItem("Métodos Cerrados", buttonList), ivCerrados);
+        sidenavContainer.addItem(new SidenavItem("Serie de Taylor", buttonList), ivTaylor);
 
         buttonList = new ArrayList<>();
 
@@ -83,7 +80,14 @@ public class WelcomeController implements Initializable {
         bt.setOnMouseClicked(e -> CargarVista(bpPuntoFijo));
         buttonList.add(bt);
 
-        sidenavContainer.addItem(new SidenavItem("Métodos Abiertos", buttonList), ivAbiertos);
+        bt = new JFXButton("Método de Bisección");
+        bt.setOnMouseClicked(e -> CargarVista(bpBiseccion));
+        buttonList.add(bt);
+
+        bt = new JFXButton("Método de Falsa Posición");
+        bt.setOnMouseClicked(e -> CargarVista(bpFalsaPosicion));
+        buttonList.add(bt);
+        sidenavContainer.addItem(new SidenavItem("Aproximación de raíces", buttonList), ivAproximacionRaices);
 
         buttonList = new ArrayList<>();
         bt = new JFXButton("Regresión Lineal");
@@ -92,13 +96,12 @@ public class WelcomeController implements Initializable {
 
         sidenavContainer.addItem(new SidenavItem("Ajuste de curvas", buttonList), ivCurves);
 
+        
         buttonList = new ArrayList<>();
-        bt = new JFXButton("Serie de Taylor");
-        bt.setOnMouseClicked(e -> CargarVista(bpTaylor));
-        buttonList.add(bt);
-
-        sidenavContainer.addItem(new SidenavItem("Otros", buttonList), ivOtros);
-
+        sidenavContainer.addItem(new SidenavItem("Integración numérica", buttonList), ivIntegracionNumerica);
+        
+        buttonList = new ArrayList<>();
+        sidenavContainer.addItem(new SidenavItem("Métodos Runge-Kutta", buttonList), ivRungeKutta);
         panefront.setLeft(sidenavContainer);
 
         exit.setOnMouseClicked(
@@ -125,47 +128,47 @@ public class WelcomeController implements Initializable {
 
     public void precargarVistas() {
         try {
-            bpBiseccion = FXMLLoader.load(
-                    getClass().getResource("/Vistas/MetodosCerrados/VistaBiseccion.fxml")
+           bpBiseccion = FXMLLoader.load(
+                    getClass().getResource("/Vistas/MetodosAproxRaices/VistaBiseccion.fxml")
             );
             bpBiseccion.setPadding(new Insets(0, 0, 0, 64));
 
             bpFalsaPosicion = FXMLLoader.load(
-                    getClass().getResource("/Vistas/MetodosCerrados/VistaFalsaPosicion.fxml")
+                    getClass().getResource("/Vistas/MetodosAproxRaices/VistaFalsaPosicion.fxml")
             );
             bpFalsaPosicion.setPadding(new Insets(0, 0, 0, 64));
 
             bpNewtonRaphson = FXMLLoader.load(
-                    getClass().getResource("/Vistas/MetodosAbiertos/VistaNewtonRaphson.fxml")
+                    getClass().getResource("/Vistas/MetodosAproxRaices/VistaNewtonRaphson.fxml")
             );
             bpNewtonRaphson.setPadding(new Insets(0, 0, 0, 64));
 
             bpSecante = FXMLLoader.load(
-                    getClass().getResource("/Vistas/MetodosAbiertos/VistaSecante.fxml")
+                    getClass().getResource("/Vistas/MetodosAproxRaices/VistaSecante.fxml")
             );
             bpSecante.setPadding(new Insets(0, 0, 0, 64));
 
             bpMuller = FXMLLoader.load(
-                    getClass().getResource("/Vistas/MetodosAbiertos/VistaMuller.fxml")
+                    getClass().getResource("/Vistas/MetodosAproxRaices/VistaMuller.fxml")
             );
             bpMuller.setPadding(new Insets(0, 0, 0, 64));
 
             bpBairstow = FXMLLoader.load(
-                    getClass().getResource("/Vistas/MetodosAbiertos/VistaBairstow.fxml")
+                    getClass().getResource("/Vistas/MetodosAproxRaices/VistaBairstow.fxml")
             );
             bpBairstow.setPadding(new Insets(0, 0, 0, 64));
 
             bpTaylor = FXMLLoader.load(
-                    getClass().getResource("/Vistas/VistaSerieTaylor.fxml")
+                    getClass().getResource("/Vistas/SerieTaylor/VistaSerieTaylor.fxml")
             );
             bpTaylor.setPadding(new Insets(0, 0, 0, 64));
 
             bpPuntoFijo = FXMLLoader.load(
-                    getClass().getResource("/Vistas/MetodosAbiertos/VistaPuntoFijo.fxml")
+                    getClass().getResource("/Vistas/MetodosAproxRaices/VistaPuntoFijo.fxml")
             );
             bpPuntoFijo.setPadding(new Insets(0, 0, 0, 64));
 
-            bpRegresionLineal= FXMLLoader.load(
+            bpRegresionLineal = FXMLLoader.load(
                     getClass().getResource("/Vistas/AjusteCurvas/VistaRegresionLineal.fxml")
             );
             bpRegresionLineal.setPadding(new Insets(0, 0, 0, 64));
