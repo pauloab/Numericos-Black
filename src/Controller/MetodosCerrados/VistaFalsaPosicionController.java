@@ -123,6 +123,7 @@ public class VistaFalsaPosicionController implements Initializable {
             tfXR.setText(""+DEFAULT_AXIS_VALUES);
             tfYU.setText(""+DEFAULT_AXIS_VALUES);
             tfYD.setText("-"+DEFAULT_AXIS_VALUES);
+            definirLimites();
             tfErrorTolerancia.setText("");
             tfIterMax.setText("");
             tfcotainferior.setText("");
