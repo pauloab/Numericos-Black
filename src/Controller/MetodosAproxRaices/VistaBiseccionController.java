@@ -4,7 +4,7 @@ package Controller.MetodosAproxRaices;
 
 import Modelos.MetodosAproxRaices.Biseccion;
 import Util.Graficos;
-import Util.MetodosUniversales;
+import Util.Matematico;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -56,7 +56,7 @@ public class VistaBiseccionController implements Initializable {
             String funcion = tfFormula.getText();
             Biseccion biseccion;
             boolean error = false;
-            if (MetodosUniversales.validarExpresion(funcion)) {
+            if (Matematico.validarExpresion(funcion)) {
                 Double cotainferior = Graficos.validarTextFieldDouble(tfcotainferior);
                 Double cotasuperior = Graficos.validarTextFieldDouble(tfcotasuperior);
                 Double eTolerancia = Graficos.validarTextFieldDouble(tfErrorTolerancia);

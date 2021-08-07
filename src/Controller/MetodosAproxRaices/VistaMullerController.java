@@ -2,7 +2,7 @@ package Controller.MetodosAproxRaices;
 
 import Modelos.MetodosAproxRaices.Muller;
 import Util.Graficos;
-import Util.MetodosUniversales;
+import Util.Matematico;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -56,7 +56,7 @@ public class VistaMullerController implements Initializable {
             String funcion = tfFormula.getText();
             Muller muller;
             boolean error = false;
-            if (MetodosUniversales.validarExpresion(funcion)) {
+            if (Matematico.validarExpresion(funcion)) {
                 Double x0 = Graficos.validarTextFieldDouble(tfx0);
                 Double x1 = Graficos.validarTextFieldDouble(tfx1);
                 Double x2 = Graficos.validarTextFieldDouble(tfx2);

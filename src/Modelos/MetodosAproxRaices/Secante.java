@@ -1,9 +1,9 @@
 
 package Modelos.MetodosAproxRaices;
 
-import Util.MetodosUniversales;
+import Util.Matematico;
 import Modelos.MetodoImprimible;
-import Modelos.MetodoNumerico;
+import Modelos.MetodoAproximadorRaices;
 
 /**
  * Clase creada para la implementacion del metodo de la secante.
@@ -11,7 +11,7 @@ import Modelos.MetodoNumerico;
  * @version 1.0
  * 
  */
-public class Secante extends MetodoNumerico implements MetodoImprimible {
+public class Secante extends MetodoAproximadorRaices implements MetodoImprimible {
     
     private double valorXSubI;
     private double valorXSubIMenosUno;
@@ -65,18 +65,18 @@ public class Secante extends MetodoNumerico implements MetodoImprimible {
         getMatrizDeDatos()[1][1] = "";
         getMatrizDeDatos()[1][2] = "";
         getMatrizDeDatos()[1][3] = "";
-        errorAproximacion = MetodosUniversales.errorAprox(valorXSubI,valorXSubIMenosUno);
+        errorAproximacion = Matematico.errorAprox(valorXSubI,valorXSubIMenosUno);
         getMatrizDeDatos()[1][3] = errorAproximacion+"";
         do {
           
-           fxSubI = MetodosUniversales.evaluarFuncion(getFuncion(), valorXSubI);
-           fxSubIMenosUno = MetodosUniversales.evaluarFuncion(getFuncion(), valorXSubIMenosUno);
+           fxSubI = Matematico.evaluarFuncion(getFuncion(), valorXSubI);
+           fxSubIMenosUno = Matematico.evaluarFuncion(getFuncion(), valorXSubIMenosUno);
            auxiliar = valorXSubI - (fxSubI*(valorXSubIMenosUno-valorXSubI)/(fxSubIMenosUno - fxSubI));
            
            valorXSubIMenosUno = valorXSubI;
            valorXSubI= auxiliar;
            if (iterador >= 0) {
-                errorAproximacion = MetodosUniversales.errorAprox(valorXSubI,valorXSubIMenosUno); 
+                errorAproximacion = Matematico.errorAprox(valorXSubI,valorXSubIMenosUno); 
             }
            getMatrizDeDatos()[iterador][0] = auxiliar+"";
            getMatrizDeDatos()[iterador][1] = fxSubIMenosUno+"";

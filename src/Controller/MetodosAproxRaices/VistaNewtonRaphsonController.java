@@ -1,7 +1,7 @@
 package Controller.MetodosAproxRaices;
 import Modelos.MetodosAproxRaices.NewtonRaphson;
 import Util.Graficos;
-import Util.MetodosUniversales;
+import Util.Matematico;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -50,7 +50,7 @@ public class VistaNewtonRaphsonController implements Initializable {
             String funcion = tfFormula.getText();
             NewtonRaphson newtonraphson;
             boolean error = false;
-            if (MetodosUniversales.validarExpresion(funcion)) {
+            if (Matematico.validarExpresion(funcion)) {
                 Double x0 = Graficos.validarTextFieldDouble(tfx0);
                 Double eTolerancia = Graficos.validarTextFieldDouble(tfErrorTolerancia);
                 Integer imax = Graficos.validarTextFieldEnteros(tfIterMax);

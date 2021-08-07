@@ -4,7 +4,7 @@ import Modelos.AjusteDeCurvas.RegresionLineal;
 import Plotter.Models.CoordinatePair;
 import Plotter.Views.GraphManager;
 import Util.Graficos;
-import Util.MetodosUniversales;
+import Util.Matematico;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ArrayList;
@@ -189,7 +189,7 @@ public class VistaRegresionLinealController implements Initializable {
             graphManager.getGraph().getData().clear();
             ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
             dataset.add(dataInput);
-            dataset.add(MetodosUniversales.evaluarRegresionLineal(a0, a1, xl, xr));
+            dataset.add(Matematico.evaluarRegresionLineal(a0, a1, xl, xr));
             Graficos.plotRegresionLineal(dataset, bpChart, graphManager);
         } catch (Exception e) {
             Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "

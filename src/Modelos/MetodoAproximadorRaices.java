@@ -1,10 +1,10 @@
 package Modelos;
 
 /**
- * Clase padre de todos los métodos numéricos
+ * Clase padre de todos los métodos numéricos de aproximación de raices
  * @author Paulo Aguilar
  */
-public class MetodoNumerico {
+public class MetodoAproximadorRaices {
     private String funcion;
     private double errorTolerancia;
     private int iteracionesMaximas;
@@ -17,7 +17,7 @@ public class MetodoNumerico {
      * @param iteracionesMaximas Número límite de iteraciones
      * @param matriz Matriz de datos vacía
      */
-    public MetodoNumerico(String funcion, double errorTolerancia, int iteracionesMaximas,String[][] matriz){
+    public MetodoAproximadorRaices(String funcion, double errorTolerancia, int iteracionesMaximas,String[][] matriz){
         super();
         this.funcion = funcion;
         this.errorTolerancia = errorTolerancia;

@@ -6,14 +6,13 @@ import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 
-public class MetodosUniversales {
+public class Matematico {
 
-  public static String derivar(String funcion) {
+  public static String derivar(String funcion) throws ParseException {
     DJep djep;
     Node nodoFuncion;
     Node nodoDerivada;
 
-    try {
       djep = new DJep();
       // agrega funciones estandares cos(x), sin(x)
       djep.addStandardFunctions();
@@ -47,10 +46,7 @@ public class MetodosUniversales {
 
       // Convertimos el valor simplificado en un String
       funcion = djep.toString(nodoDerivada);
-    } catch (ParseException e) {
-      funcion = "NaN";
-      System.out.println("Error: " + e.getErrorInfo());
-    }
+
     return funcion;
   }
 

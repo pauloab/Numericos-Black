@@ -3,7 +3,7 @@ package Controller.MetodosAproxRaices;
 
 import Modelos.MetodosAproxRaices.Secante;
 import Util.Graficos;
-import Util.MetodosUniversales;
+import Util.Matematico;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -55,7 +55,7 @@ public class VistaSecanteController implements Initializable {
             String funcion = tfFormula.getText();
             Secante secante;
             boolean error = false;
-            if (MetodosUniversales.validarExpresion(funcion)) {
+            if (Matematico.validarExpresion(funcion)) {
                 Double xi = Graficos.validarTextFieldDouble(tfxi);
                 Double ximenos1 = Graficos.validarTextFieldDouble(tfximenos1);
                 Double eTolerancia = Graficos.validarTextFieldDouble(tfErrorTolerancia);

@@ -1,7 +1,7 @@
 package Modelos.MetodosAproxRaices;
-import Util.MetodosUniversales;
+import Util.Matematico;
 import Modelos.MetodoImprimible;
-import Modelos.MetodoNumerico;
+import Modelos.MetodoAproximadorRaices;
 
 /**
  * Clase que contiene el metodo de Punto Fijo Formato de la matríz de datos
@@ -11,7 +11,7 @@ import Modelos.MetodoNumerico;
  * @author Freddy Lamar
  * @version 1.0
  */
-public class PuntoFijo extends MetodoNumerico implements MetodoImprimible {
+public class PuntoFijo extends MetodoAproximadorRaices implements MetodoImprimible {
 
     private double x0;
     /**
@@ -51,10 +51,10 @@ public class PuntoFijo extends MetodoNumerico implements MetodoImprimible {
         do {
             i++;
             xol = xr;
-            xr = MetodosUniversales.evaluarFuncion(getFuncion(), xr);
+            xr = Matematico.evaluarFuncion(getFuncion(), xr);
 
             if (i > 0 && xr != 0) {
-                ea = MetodosUniversales.errorAprox(xr, xol);
+                ea = Matematico.errorAprox(xr, xol);
             }
 
             getMatrizDeDatos()[i][0] = xr + "";

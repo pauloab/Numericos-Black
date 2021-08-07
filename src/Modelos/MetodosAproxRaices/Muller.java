@@ -5,9 +5,9 @@
  */
 package Modelos.MetodosAproxRaices;
 
-import Util.MetodosUniversales;
+import Util.Matematico;
 import Modelos.MetodoImprimible;
-import Modelos.MetodoNumerico;
+import Modelos.MetodoAproximadorRaices;
 
 /**
  * columna 1 = x0. 
@@ -17,7 +17,7 @@ import Modelos.MetodoNumerico;
  * columna 5 = ea.
  * @author Geovanny Vega
  */
-public class Muller extends MetodoNumerico implements MetodoImprimible {
+public class Muller extends MetodoAproximadorRaices implements MetodoImprimible {
 
     private double xSub2;
     private double xSub1;
@@ -85,9 +85,9 @@ public class Muller extends MetodoNumerico implements MetodoImprimible {
             h0 = x1 - x0;
             h1 = x2 - x1;
             // funcion evaluada en x0, x1, x2
-            fx0 = MetodosUniversales.evaluarFuncion(getFuncion(), x0);
-            fx1 = MetodosUniversales.evaluarFuncion(getFuncion(), x1);
-            fx2 = MetodosUniversales.evaluarFuncion(getFuncion(), x2);
+            fx0 = Matematico.evaluarFuncion(getFuncion(), x0);
+            fx1 = Matematico.evaluarFuncion(getFuncion(), x1);
+            fx2 = Matematico.evaluarFuncion(getFuncion(), x2);
             // Pendientes de los intervalos
             d0 = (fx1 - fx0) / h0;
             d1 = (fx2 - fx1) / h1;
@@ -104,7 +104,7 @@ public class Muller extends MetodoNumerico implements MetodoImprimible {
             // calculo de fórmula cuadrática 
             xr = x2 + dxr;
             // calculo del error aproximado
-            ea = MetodosUniversales.errorAprox(xr, x2);
+            ea = Matematico.errorAprox(xr, x2);
 
             // Se evalua que no haya superado el tamaño de la matriz
             if (!(i >= getIteracionesMaximas())) {

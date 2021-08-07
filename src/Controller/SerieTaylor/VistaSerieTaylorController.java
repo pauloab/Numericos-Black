@@ -4,7 +4,7 @@ import Modelos.SerieDeTaylor.SerieTaylor;
 import Plotter.Models.CoordinatePair;
 import Plotter.Views.GraphManager;
 import Util.Graficos;
-import Util.MetodosUniversales;
+import Util.Matematico;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ArrayList;
@@ -87,7 +87,7 @@ public class VistaSerieTaylorController implements Initializable {
             funcion = tfFormula.getText();
             SerieTaylor taylor;
             boolean error = false;
-            if (MetodosUniversales.validarExpresion(funcion)) {
+            if (Matematico.validarExpresion(funcion)) {
                 Double x1 = Graficos.validarTextFieldDouble(tfX1);
                 Double h = Graficos.validarTextFieldDouble(tfH);
                 Double eTolerancia = Graficos.validarTextFieldDouble(tfErrorTolerancia);
@@ -136,10 +136,10 @@ public class VistaSerieTaylorController implements Initializable {
     private void Graficar() {
         try {
             CoordinatePair puntoCords = new CoordinatePair(punto,
-                    MetodosUniversales.evaluarFuncion(funcion, punto));
+                    Matematico.evaluarFuncion(funcion, punto));
 
             ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
-            dataset.add(MetodosUniversales.evaluarFuncion(funcion, xl, xr));
+            dataset.add(Matematico.evaluarFuncion(funcion, xl, xr));
             Graficos.plotPoints(dataset, bpChart, graphManager, puntoCords);
         } catch (Exception e) {
             Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "

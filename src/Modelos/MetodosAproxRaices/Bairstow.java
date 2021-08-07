@@ -2,7 +2,7 @@ package Modelos.MetodosAproxRaices;
 
 import Modelos.Excepciones.IteracionesAlcanzadas;
 import Modelos.Excepciones.ValoresResueltos;
-import Modelos.MetodoNumerico;
+import Modelos.MetodoAproximadorRaices;
 
 /**
  * Aproxima las raices de un polinomio mediante el método de Bairstow. Contiene
@@ -11,7 +11,7 @@ import Modelos.MetodoNumerico;
  * @author Javier Matamoros
  * @version 1.0
  */
-public class Bairstow extends MetodoNumerico{
+public class Bairstow extends MetodoAproximadorRaices{
 
     private double r;
     private double s;

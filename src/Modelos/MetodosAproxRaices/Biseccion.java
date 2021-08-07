@@ -1,9 +1,9 @@
 
 package Modelos.MetodosAproxRaices;
 
-import Util.MetodosUniversales;
+import Util.Matematico;
 import Modelos.MetodoImprimible;
-import Modelos.MetodoNumerico;
+import Modelos.MetodoAproximadorRaices;
 
 /**
  * Clase que contiene el metodo de biseccion
@@ -18,7 +18,7 @@ import Modelos.MetodoNumerico;
  * @author Javier Matamoros
  * @version 1.0
  */
-public class Biseccion extends MetodoNumerico implements MetodoImprimible {
+public class Biseccion extends MetodoAproximadorRaices implements MetodoImprimible {
     
     private double cotaInferior;
     private double cotaSuperior;
@@ -66,12 +66,12 @@ public class Biseccion extends MetodoNumerico implements MetodoImprimible {
         do {
            xol = xr;
            xr = (cotaInferior + cotaSuperior)/2;
-           fxr = MetodosUniversales.evaluarFuncion(getFuncion(), xr);
-           fcotaInferior = MetodosUniversales.evaluarFuncion(getFuncion(), cotaInferior);
-           fcotaSuperior =  MetodosUniversales.evaluarFuncion(getFuncion(), cotaSuperior);
+           fxr = Matematico.evaluarFuncion(getFuncion(), xr);
+           fcotaInferior = Matematico.evaluarFuncion(getFuncion(), cotaInferior);
+           fcotaSuperior =  Matematico.evaluarFuncion(getFuncion(), cotaSuperior);
            fcotaInferiorx = fcotaInferior * fxr;
            if (i > 0 ){
-                 ea = MetodosUniversales.errorAprox(xr,xol);
+                 ea = Matematico.errorAprox(xr,xol);
            }
          
                getMatrizDeDatos()[i][0] = cotaInferior+"";

@@ -1,15 +1,15 @@
 package Modelos.SerieDeTaylor;
 
 import Modelos.MetodoImprimible;
-import Modelos.MetodoNumerico;
-import Util.MetodosUniversales;
+import Modelos.MetodoAproximadorRaices;
+import Util.Matematico;
 
 /**
  * Clase que aproxima un valor mediante la serie de Taylor
  *
  * @author Paulo Aguilar
  */
-public class SerieTaylor extends MetodoNumerico implements MetodoImprimible {
+public class SerieTaylor extends MetodoAproximadorRaices implements MetodoImprimible {
 
     private double valorAproximar;
     private double tamanoPaso;
@@ -34,7 +34,7 @@ public class SerieTaylor extends MetodoNumerico implements MetodoImprimible {
         super(funcion, errorTolerancia, iteracionesMaximas, new String[iteracionesMaximas][3]);
         this.valorAproximar = valorAproximar;
         this.tamanoPaso = tamanoPaso;
-        this.valorVerdadero = MetodosUniversales.evaluarFuncion(getFuncion(), valorAproximar);
+        this.valorVerdadero = Matematico.evaluarFuncion(getFuncion(), valorAproximar);
     }
 
     /**
@@ -52,19 +52,19 @@ public class SerieTaylor extends MetodoNumerico implements MetodoImprimible {
         do {
             valorAnt = valorAproximado;
             if (i == 0) {
-                valorAproximado = MetodosUniversales.evaluarFuncion(getFuncion(), valorInicial);
+                valorAproximado = Matematico.evaluarFuncion(getFuncion(), valorInicial);
             } else {
-                derivada = MetodosUniversales.derivar(funcion);
+                derivada = Matematico.derivar(funcion);
                 funcion = derivada;
                 terminoN = "((" + derivada + ")*(" + tamanoPaso + "^" + i + "))/"
-                        + MetodosUniversales.factorial(i);
-                valorAproximado += MetodosUniversales.evaluarFuncion(terminoN, valorInicial);
+                        + Matematico.factorial(i);
+                valorAproximado += Matematico.evaluarFuncion(terminoN, valorInicial);
             }
             if (i >= 1) {
-                errorAprox = MetodosUniversales.errorAprox(valorAproximado, valorAnt);
+                errorAprox = Matematico.errorAprox(valorAproximado, valorAnt);
                 getMatrizDeDatos()[i][2] = errorAprox + " %";
             }
-            errorVerdadero = MetodosUniversales.errorAprox(valorVerdadero, valorAproximado);
+            errorVerdadero = Matematico.errorAprox(valorVerdadero, valorAproximado);
             getMatrizDeDatos()[i][0] = valorAproximado + "";
             getMatrizDeDatos()[i][1] = errorAprox + " %";
             i++;

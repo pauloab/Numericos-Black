@@ -1,8 +1,8 @@
 
 package Modelos.MetodosAproxRaices;
-import Util.MetodosUniversales;
+import Util.Matematico;
 import Modelos.MetodoImprimible;
-import Modelos.MetodoNumerico;
+import Modelos.MetodoAproximadorRaices;
 
 /**
  * Columna 1 = xi + 1
@@ -14,7 +14,7 @@ import Modelos.MetodoNumerico;
  */
 
 
-public class NewtonRaphson extends MetodoNumerico implements MetodoImprimible{
+public class NewtonRaphson extends MetodoAproximadorRaices implements MetodoImprimible{
 
     private double x0;
     
@@ -59,15 +59,15 @@ public class NewtonRaphson extends MetodoNumerico implements MetodoImprimible{
 
         do {
             xol = xi1;
-            fxi1 = MetodosUniversales.evaluarFuncion(getFuncion(), xol);
-            fxi1p = MetodosUniversales.evaluarFuncion(MetodosUniversales.derivar(getFuncion()), xol);
+            fxi1 = Matematico.evaluarFuncion(getFuncion(), xol);
+            fxi1p = Matematico.evaluarFuncion(Matematico.derivar(getFuncion()), xol);
 
             if (fxi1p == 0) {
                 return xi1;
             } else {
                 xi1 = xol - (fxi1 / fxi1p);
             }
-            ea = MetodosUniversales.errorAprox(xi1, xol);
+            ea = Matematico.errorAprox(xi1, xol);
 
             getMatrizDeDatos()[i][0] = xi1 + "";
             getMatrizDeDatos()[i][1] = fxi1 + "";
