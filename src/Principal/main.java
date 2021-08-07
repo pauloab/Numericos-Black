@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -15,6 +16,9 @@ public class main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/Vistas/Welcome.fxml"));
         primaryStage.initStyle(StageStyle.UNDECORATED);
+        
+        Image image = new Image(getClass().getResource("/images/logoapp.png").toExternalForm());
+        primaryStage.getIcons().add(image);
         
         root.setOnMousePressed(event -> {
             x = event.getSceneX();
