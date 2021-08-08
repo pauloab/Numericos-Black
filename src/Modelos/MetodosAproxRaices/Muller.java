@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelos.MetodosAproxRaices;
 
 import Util.Matematico;
@@ -104,7 +99,7 @@ public class Muller extends MetodoAproximadorRaices implements MetodoImprimible 
             // calculo de fórmula cuadrática 
             xr = x2 + dxr;
             // calculo del error aproximado
-            ea = Matematico.errorAprox(xr, x2);
+            ea = Matematico.errorAprox(x2, x1);
 
             // Se evalua que no haya superado el tamaño de la matriz
             if (!(i >= getIteracionesMaximas())) {
