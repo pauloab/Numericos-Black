@@ -113,6 +113,15 @@ public class VistaNewtonRaphsonController implements Initializable {
             }
         });
         btLimpiar.setOnMouseClicked(e -> {
+            graphManager.getGraph().getData().clear();
+            funcion = null;
+            graphManager.setDomain(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
+            graphManager.setRange(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
+            tfXL.setText("-" + DEFAULT_AXIS_VALUES);
+            tfXR.setText("" + DEFAULT_AXIS_VALUES);
+            tfYU.setText("" + DEFAULT_AXIS_VALUES);
+            tfYD.setText("-" + DEFAULT_AXIS_VALUES);
+            definirLimites();
             tfFormula.clear();
             tfErrorTolerancia.setText("");
             tfIterMax.setText("");
