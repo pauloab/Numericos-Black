@@ -253,5 +253,33 @@ public class Graficos {
 
         System.gc();
     }
+    
+    /**
+     * Imprime los valores de varios sets de datos como funcionaes continuas
+     *
+     * @param coordinateArrayList Arreglo de coordenadas
+     * @param screen Panel donde se imprime el gráfico
+     * @param graphManager Manejador de gráfico
+     */
+    
+    public static void plotBairstow(ArrayList<CoordinatePair[]> coordinateArrayList,
+            Pane screen, GraphManager graphManager) {
+        Plotter plotter = new Plotter(graphManager.getGraph(), screen);
+
+        ArrayList<CoordinatePair> allPoints = new ArrayList<>();
+
+        System.gc();
+
+        for (CoordinatePair[] pairArray : coordinateArrayList) {
+            Collections.addAll(allPoints, pairArray);
+        }
+
+        ArrayList<CoordinatePair> intersections = plotter.findIntersections(allPoints);
+        for (CoordinatePair[] coordinateArray : coordinateArrayList) {
+            plotter.plot(coordinateArray, intersections, false);
+        }
+
+        System.gc();
+    }
 
 }
