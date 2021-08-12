@@ -1,4 +1,4 @@
-package Modelos.AjusteDeCurvas;
+package Modelos.Interpolacion;
 
 /**
  * Modelo para procesamiento del método de ajuste de curvas de interpolación de

@@ -1,5 +1,6 @@
-package Modelos.AjusteDeCurvas;
+package Modelos.Interpolacion;
 
+import Modelos.Interpolacion.InterpolacionLagrange;
 import Util.Matematico;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
