@@ -232,7 +232,7 @@ public class Graficos {
      * @param screen Panel donde se imprime el gráfico
      * @param graphManager Manejador de gráfico
      */
-    public static void plotRegresionLineal(ArrayList<CoordinatePair[]> coordinateArrayList,
+    public static void plotPuntosLineas(ArrayList<CoordinatePair[]> coordinateArrayList,
             Pane screen, GraphManager graphManager) {
         Plotter plotter = new Plotter(graphManager.getGraph(), screen);
 

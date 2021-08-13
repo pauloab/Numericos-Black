@@ -1,6 +1,6 @@
-package Controller.AjusteCurvas;
+package Controller.Interpolacion;
 
-import Modelos.AjusteDeCurvas.RegresionLineal;
+import Modelos.Interpolacion.InterpolacionLagrange;
 import Plotter.Models.CoordinatePair;
 import Plotter.Views.GraphManager;
 import Util.Graficos;
@@ -13,16 +13,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 /**
- * FXML Controller class de la vista Baistow
+ * FXML Controller class de la vista de interpolación de Lagrange
  *
  * @author Paulo Aguilar
  */
-public class VistaRegresionLinealController implements Initializable {
+public class VistaLagrangeController implements Initializable {
 
     @FXML
     private Button btProcesar;
@@ -33,14 +34,13 @@ public class VistaRegresionLinealController implements Initializable {
     @FXML
     private Button btRemove;
     @FXML
-    private Button btPronosticar;
-    @FXML
     private VBox vbXValues, vbYValues;
     @FXML
-    private Label lbPendiente, lbInterseccion, lbDerviacion, lbErrorEstandar,
-            lbCoeficienteDet, lbCoeficienteCor;
+    private Label lbResultado, lbGrado;
     @FXML
-    private TextField tfInput, tfOutput;
+    private TextArea taFuncion;
+    @FXML
+    private TextField tfX;
     @FXML
     private TextField tfYU, tfYD, tfXL, tfXR;
     @FXML
@@ -51,9 +51,11 @@ public class VistaRegresionLinealController implements Initializable {
     private GraphManager graphManager;
     private double yu = 50, yd = -50, xl = -50, xr = 50;
     private final double DEFAULT_AXIS_VALUES = 50;
+    private final int MAX_PUNTOS = 11;
 
-    private RegresionLineal regresor;
+    private InterpolacionLagrange interpolador;
     private CoordinatePair[] dataInput;
+    private String funcion;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,8 +69,8 @@ public class VistaRegresionLinealController implements Initializable {
         bpChart.setCenter(graphManager.getGraph());
         btAjustar.setOnMouseClicked(event -> {
             boolean limitesDefinidos = definirLimites();
-            if (regresor != null && limitesDefinidos) {
-                Graficar(dataInput, regresor.getInterseccion(), regresor.getPendiente());
+            if (interpolador != null && limitesDefinidos) {
+                Graficar(dataInput);
             }
         });
 
@@ -76,13 +78,18 @@ public class VistaRegresionLinealController implements Initializable {
         Graficos.convertirEnInputFlotantes(tfXR);
         Graficos.convertirEnInputFlotantes(tfYU);
         Graficos.convertirEnInputFlotantes(tfYD);
-
+        Graficos.convertirEnInputFlotantes(tfX);
         addCordFilds();
         addCordFilds();
 
         // Se agrega un elemnto al vector de coeficientes
         btAdd.setOnMouseClicked(event -> {
-            addCordFilds();
+            if (vbXValues.getChildren().size() == MAX_PUNTOS) {
+                Graficos.lanzarMensajeAdvertencia("Máximo de puntos",
+                        "Ha alcanzado el número máximo de puntos a agregar.");
+            } else {
+                addCordFilds();
+            }
         });
 
         btProcesar.setOnMouseClicked(event -> {
@@ -90,7 +97,9 @@ public class VistaRegresionLinealController implements Initializable {
             int n = vbXValues.getChildren().size();
             double[] x = new double[n];
             double[] y = new double[n];
-            Double xTemp, yTemp;
+            Double xTemp, yTemp, xIn;
+            double res;
+            xIn = Graficos.validarTextFieldDouble(tfX);
             for (int i = 0; i < n; i++) {
                 TextField xField = (TextField) vbXValues.getChildren().get(i);
                 TextField yField = (TextField) vbYValues.getChildren().get(i);
@@ -103,48 +112,41 @@ public class VistaRegresionLinealController implements Initializable {
                     error = true;
                 }
             }
+
             if (Matematico.validarRepetidosDouble(x)) {
-                if (error == false) {
-                    regresor = new RegresionLineal(x, y);
-                    regresor.regresionLineal();
-                    lbPendiente.setText("a1 = " + regresor.getPendiente());
-                    lbInterseccion.setText("a0 = " + regresor.getInterseccion());
-                    lbDerviacion.setText("Sy = " + regresor.getDesviacionEstandar());
-                    lbErrorEstandar.setText("Sy/x = " + regresor.getErrorEstandar());
-                    lbCoeficienteCor.setText("r2 = " + regresor.getCoeficienteCorrelacion());
-                    lbCoeficienteDet.setText("r = " + regresor.getCoeficienteDeterminacion());
-                    btPronosticar.setDisable(false);
-                    dataInput = new CoordinatePair[n];
-                    for (int i = 0; i < n; i++) {
-                        dataInput[i] = new CoordinatePair(x[i], y[i]);
+                if (error == false && xIn != null) {
+                    try {
+                        interpolador = new InterpolacionLagrange(x, y, xIn);
+                    } catch (Exception ex) {
+                        error = true;
+                        Graficos.lanzarMensajeError("Error de validación",
+                                "Verifique que x se encuentre en el dominio de los datos");
                     }
-                    Graficar(dataInput, regresor.getInterseccion(), regresor.getPendiente());
+                    if (!error) {
+                        res = interpolador.interpolacion();
+                        lbResultado.setText("" + res);
+                        funcion = interpolador.getFuncion();
+                        taFuncion.setText("f" + (n - 1) + "(x) = " + funcion);
+                        dataInput = new CoordinatePair[n];
+                        for (int i = 0; i < n; i++) {
+                            dataInput[i] = new CoordinatePair(x[i], y[i]);
+                        }
+                        Graficar(dataInput);
+                    }
                 } else {
                     Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
                 }
             } else {
                 Graficos.lanzarMensajeError("Error de validación", "Verifique que los puntos de x sean en las coordenadas distintos.");
             }
-        });
 
-        btPronosticar.setOnAction(event -> {
-            if (regresor != null) {
-                Double in = Graficos.validarTextFieldDouble(tfInput);
-                if (in != null) {
-                    tfOutput.setText("" + regresor.pronosticar(in));
-                }
-            }
         });
 
         btRemove.setOnMouseClicked(e -> {
             if (vbXValues.getChildren().size() > 2) {
                 vbYValues.getChildren().remove(vbYValues.getChildren().size() - 1);
                 vbXValues.getChildren().remove(vbXValues.getChildren().size() - 1);
-            }
-            if (vbXValues.getChildren().size() == 2) {
-                btPronosticar.setDisable(true);
-            } else {
-                btPronosticar.setDisable(false);
+                lbGrado.setText("" + (vbXValues.getChildren().size() - 1));
             }
         });
 
@@ -157,16 +159,10 @@ public class VistaRegresionLinealController implements Initializable {
             tfYU.setText("" + DEFAULT_AXIS_VALUES);
             tfYD.setText("-" + DEFAULT_AXIS_VALUES);
             definirLimites();
-            lbPendiente.setText("");
-            lbInterseccion.setText("");
-            lbDerviacion.setText("");
-            lbErrorEstandar.setText("");
-            lbCoeficienteCor.setText("");
-            lbCoeficienteDet.setText("");
-            regresor = null;
-            tfOutput.clear();
-            tfInput.clear();
-            btPronosticar.setDisable(true);
+            lbResultado.setText("");
+            taFuncion.setText("");
+            interpolador = null;
+            tfX.clear();
             for (int i = vbXValues.getChildren().size() - 1; i >= 0; i--) {
                 if (i > 1) {
                     vbYValues.getChildren().remove(vbYValues.getChildren().size() - 1);
@@ -176,9 +172,14 @@ public class VistaRegresionLinealController implements Initializable {
                     ((TextField) vbYValues.getChildren().get(i)).clear();
                 }
             }
+            lbGrado.setText("" + (vbXValues.getChildren().size() - 1));
+
         });
     }
 
+    /**
+     * Añade un input de par de coordenadas en la vista.
+     */
     private void addCordFilds() {
         TextField tf = new TextField();
         Graficos.convertirEnInputFlotantes(tf);
@@ -186,14 +187,21 @@ public class VistaRegresionLinealController implements Initializable {
         tf = new TextField();
         Graficos.convertirEnInputFlotantes(tf);
         vbYValues.getChildren().add(tf);
+        lbGrado.setText("" + (vbXValues.getChildren().size() - 1));
     }
 
-    private void Graficar(CoordinatePair[] dataInput, double a0, double a1) {
+    /**
+     * Se encarga de procesar y gestionar los sets de datos para ser impresos en
+     * la gráfica.
+     *
+     * @param dataInput Set de datos de entrada.
+     */
+    private void Graficar(CoordinatePair[] dataInput) {
         try {
             graphManager.getGraph().getData().clear();
             ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
             dataset.add(dataInput);
-            dataset.add(Matematico.evaluarRegresionLineal(a0, a1, xl, xr));
+            dataset.add(Matematico.evaluarFuncion(funcion, xl, xr));
             Graficos.plotPuntosLineas(dataset, bpChart, graphManager);
         } catch (Exception e) {
             Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "
@@ -203,6 +211,11 @@ public class VistaRegresionLinealController implements Initializable {
         }
     }
 
+    /**
+     * Intenta definir los límites de la gráfica (top,left,right,bottom)
+     *
+     * @return true si cosiguió definir los límites correctamente
+     */
     private boolean definirLimites() {
         boolean res = true;
         Double xl = Graficos.validarTextFieldDouble(tfXL);
