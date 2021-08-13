@@ -167,4 +167,21 @@ public class Matematico {
     }
     return paresCordenadas;
   }
+  
+  /**
+   * Valida en un vector de doubles que no se repita ningún valor
+   * @param x Vector de doubles
+   * @return true si no hubo errores, false si los hubo
+   */
+  public static boolean validarRepetidosDouble(double[] x){
+      boolean error = false;
+      for (int i = 0; i < x.length && !error; i++) {
+          for (int j = 0; j < x.length && !error; j++) {
+              if (i!=j) {
+                  error = x[j]==x[i];
+              }
+          }
+      }
+      return !error;
+  }
 }
