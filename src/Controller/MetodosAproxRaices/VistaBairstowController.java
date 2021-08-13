@@ -204,7 +204,7 @@ public class VistaBairstowController implements Initializable {
             tfXR.setText("" + DEFAULT_AXIS_VALUES);
             tfYU.setText("" + DEFAULT_AXIS_VALUES);
             tfYD.setText("-" + DEFAULT_AXIS_VALUES);
-            grado =2;
+            grado =1;
             tfErrorTolerancia.setText("");
             tfIterMax.setText("");
             tfr.setText("");
