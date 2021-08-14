@@ -253,7 +253,6 @@ public class Graficos {
 
         System.gc();
     }
-    
     /**
      * Imprime los valores de varios sets de datos como funcionaes continuas
      *
@@ -261,7 +260,6 @@ public class Graficos {
      * @param screen Panel donde se imprime el gráfico
      * @param graphManager Manejador de gráfico
      */
-    
     public static void plotBairstow(ArrayList<CoordinatePair[]> coordinateArrayList,
             Pane screen, GraphManager graphManager) {
         Plotter plotter = new Plotter(graphManager.getGraph(), screen);
@@ -281,5 +279,4 @@ public class Graficos {
 
         System.gc();
     }
-
 }
