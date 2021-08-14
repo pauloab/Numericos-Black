@@ -20,14 +20,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFFFF;" stylesheets="@../plotting.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AjusteCurvas.VistaRegresionPolinomialController">
+<BorderPane prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFFFF;" stylesheets="@../plotting.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AjusteCurvas.VistaRegresionCuadraticaController">
    <top>
       <VBox prefHeight="140.0" prefWidth="906.0" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane prefHeight="61.0" prefWidth="906.0" />
             <AnchorPane prefHeight="114.0" prefWidth="906.0" style="-fx-background-color: #080b16;">
                <children>
-                  <Label layoutX="25.0" layoutY="24.0" prefHeight="48.0" prefWidth="442.0" text="Regresión Lineal" textFill="WHITE">
+                  <Label layoutX="25.0" layoutY="24.0" prefHeight="48.0" prefWidth="476.0" text="Regresión Cuadrática" textFill="WHITE">
                      <font>
                         <Font name="Britannic Bold" size="48.0" />
                      </font>
@@ -77,9 +77,10 @@
                                           <Button fx:id="btRemove" layoutX="157.0" layoutY="295.0" mnemonicParsing="false" text="-" />
                                           <VBox layoutX="256.0" layoutY="92.0" prefHeight="212.0" prefWidth="223.0" spacing="8.0">
                                              <children>
-                                                <Label fx:id="lbInterseccion" prefHeight="21.0" prefWidth="220.0" VBox.vgrow="ALWAYS" />
-                                                <Label fx:id="lbPendiente" prefHeight="21.0" prefWidth="220.0" VBox.vgrow="ALWAYS" />
-                                                <Label fx:id="lbDerviacion" prefHeight="21.0" prefWidth="220.0" VBox.vgrow="ALWAYS" />
+                                                <Label fx:id="lbasubcero" prefHeight="21.0" prefWidth="220.0" VBox.vgrow="ALWAYS" />
+                                                <Label fx:id="lbasubuno" prefHeight="21.0" prefWidth="220.0" VBox.vgrow="ALWAYS" />
+                                                <Label fx:id="lbasubdos" prefHeight="21.0" prefWidth="220.0" />
+                                                <Label fx:id="lbDesviacion" prefHeight="21.0" prefWidth="220.0" VBox.vgrow="ALWAYS" />
                                                 <Label fx:id="lbErrorEstandar" prefHeight="21.0" prefWidth="220.0" VBox.vgrow="ALWAYS" />
                                                 <Label fx:id="lbCoeficienteDet" prefHeight="21.0" prefWidth="220.0" VBox.vgrow="ALWAYS" />
                                                 <Label fx:id="lbCoeficienteCor" prefHeight="21.0" prefWidth="220.0" VBox.vgrow="ALWAYS" />

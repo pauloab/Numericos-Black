@@ -11,7 +11,7 @@ import Util.Matematico;
  *
  * @author Paulo Aguilar
  */
-public class RegresionPolinomial {
+public class RegresionCuadratica {
        
     private double[] xCordenadas;
     private double[] yCordenadas;
@@ -28,7 +28,7 @@ public class RegresionPolinomial {
      * @param yCordenadas Vector de datos de entrada en Y
      * @param grado Grado del que se desea el polinomio resultante
      */
-    public RegresionPolinomial(double[] xCordenadas, double[] yCordenadas, int grado){
+    public RegresionCuadratica(double[] xCordenadas, double[] yCordenadas, int grado){
         this.xCordenadas = xCordenadas;
         this.yCordenadas = yCordenadas;
         this.funcionRegresion = null;
@@ -67,7 +67,7 @@ public class RegresionPolinomial {
     /**
      * Genera la ecuación de regresión cuadrática
      */
-    public void regresionLineal() throws Exception{
+    public void regresionPolinomial() throws Exception{
         double elementoIX, tIndependienteY;
         int n = xCordenadas.length;
         double yi = 0, promedioY;
@@ -83,13 +83,6 @@ public class RegresionPolinomial {
                 coeficientes[i][j] = elementoIX;   
             }
         }
-        for (int i = 0; i < coeficientes.length; i++) {
-            for (int j = 0; j < coeficientes.length; j++) {
-                System.out.print(coeficientes[i][j]+" ");
-            }
-            System.out.println("");
-        }
-        System.out.println("");
         for (int i = 0; i < tIndependientes.length; i++) {
             tIndependienteY = 0;
             for (int j = 0; j < xCordenadas.length; j++) {

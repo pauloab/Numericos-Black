@@ -37,7 +37,7 @@ public class WelcomeController implements Initializable {
     private SidenavContainer sidenavContainer;
 
     private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante,
-            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange;
+            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange, bpPolinomial;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -93,6 +93,10 @@ public class WelcomeController implements Initializable {
         bt = new JFXButton("Regresión Lineal");
         bt.setOnMouseClicked(e -> CargarVista(bpRegresionLineal));
         buttonList.add(bt);
+        
+        bt = new JFXButton("Regresión Cuadrática");
+        bt.setOnMouseClicked(e -> CargarVista(bpPolinomial));
+        buttonList.add(bt);
 
         sidenavContainer.addItem(new SidenavItem("Ajuste de curvas", buttonList), ivCurves);
         
@@ -100,6 +104,7 @@ public class WelcomeController implements Initializable {
         bt = new JFXButton("Lagrange");
         bt.setOnMouseClicked(e -> CargarVista(bpLagrange));
         buttonList.add(bt);
+        
         sidenavContainer.addItem(new SidenavItem("Interpolación", buttonList), ivInterpolacion);
         
         buttonList = new ArrayList<>();
@@ -177,11 +182,19 @@ public class WelcomeController implements Initializable {
                     getClass().getResource("/Vistas/AjusteCurvas/VistaRegresionLineal.fxml")
             );
             bpRegresionLineal.setPadding(new Insets(0, 0, 0, 64));
-            
+            bpPolinomial = FXMLLoader.load(
+                    getClass().getResource("/Vistas/AjusteCurvas/VistaRegresionCuadratica.fxml")
+            );
+             bpPolinomial.setPadding(new Insets(0, 0, 0, 64));
+   
             bpLagrange = FXMLLoader.load(
                     getClass().getResource("/Vistas/Interpolacion/VistaLagrange.fxml")
             );
             bpLagrange.setPadding(new Insets(0, 0, 0, 64));
+            
+            
+            
+            
         } catch (IOException ex) {
             ex.printStackTrace();
             Graficos.lanzarMensajeError("Error de carga de recursos", "Existe un "
