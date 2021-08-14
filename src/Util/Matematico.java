@@ -1,6 +1,7 @@
 package Util;
 
 import Plotter.Models.CoordinatePair;
+import static javax.swing.text.html.HTML.Tag.HEAD;
 import org.lsmp.djep.djep.DJep;
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
@@ -167,6 +168,7 @@ public class Matematico {
     }
     return paresCordenadas;
   }
+
   public static double[] resovlerSistemaEcuaiones(double[][] coheficientes, double[] tIndependientes) throws Exception {
         double[] resultado = new double[tIndependientes.length];
         double[][] matrizInversa = matrizInversa(coheficientes);
@@ -363,4 +365,23 @@ public class Matematico {
         return resultado;
     }
   
+
+  
+  /**
+   * Valida en un vector de doubles que no se repita ningún valor
+   * @param x Vector de doubles
+   * @return true si no hubo errores, false si los hubo
+   */
+  public static boolean validarRepetidosDouble(double[] x){
+      boolean error = false;
+      for (int i = 0; i < x.length && !error; i++) {
+          for (int j = 0; j < x.length && !error; j++) {
+              if (i!=j) {
+                  error = x[j]==x[i];
+              }
+          }
+      }
+      return !error;
+  }
+
 }

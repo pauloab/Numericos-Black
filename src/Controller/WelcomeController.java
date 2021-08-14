@@ -29,7 +29,7 @@ public class WelcomeController implements Initializable {
 
     @FXML
     private ImageView exit, menu, maximo, minimo, ivAproximacionRaices,
-            ivTaylor, ivCurves, ivIntegracionNumerica, ivRungeKutta;
+            ivTaylor, ivCurves, ivIntegracionNumerica, ivRungeKutta, ivInterpolacion;
 
     @FXML
     private BorderPane panefront, panelCarga;
@@ -37,7 +37,7 @@ public class WelcomeController implements Initializable {
     private SidenavContainer sidenavContainer;
 
     private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante,
-            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal;
+            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -95,7 +95,12 @@ public class WelcomeController implements Initializable {
         buttonList.add(bt);
 
         sidenavContainer.addItem(new SidenavItem("Ajuste de curvas", buttonList), ivCurves);
-
+        
+        buttonList = new ArrayList<>();
+        bt = new JFXButton("Lagrange");
+        bt.setOnMouseClicked(e -> CargarVista(bpLagrange));
+        buttonList.add(bt);
+        sidenavContainer.addItem(new SidenavItem("Interpolación", buttonList), ivInterpolacion);
         
         buttonList = new ArrayList<>();
         sidenavContainer.addItem(new SidenavItem("Integración numérica", buttonList), ivIntegracionNumerica);
@@ -172,6 +177,11 @@ public class WelcomeController implements Initializable {
                     getClass().getResource("/Vistas/AjusteCurvas/VistaRegresionLineal.fxml")
             );
             bpRegresionLineal.setPadding(new Insets(0, 0, 0, 64));
+            
+            bpLagrange = FXMLLoader.load(
+                    getClass().getResource("/Vistas/Interpolacion/VistaLagrange.fxml")
+            );
+            bpLagrange.setPadding(new Insets(0, 0, 0, 64));
         } catch (IOException ex) {
             ex.printStackTrace();
             Graficos.lanzarMensajeError("Error de carga de recursos", "Existe un "
