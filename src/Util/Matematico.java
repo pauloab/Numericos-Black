@@ -1,6 +1,7 @@
 package Util;
 
 import Plotter.Models.CoordinatePair;
+import static javax.swing.text.html.HTML.Tag.HEAD;
 import org.lsmp.djep.djep.DJep;
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
@@ -167,6 +168,204 @@ public class Matematico {
     }
     return paresCordenadas;
   }
+
+  public static double[] resovlerSistemaEcuaiones(double[][] coheficientes, double[] tIndependientes) throws Exception {
+        double[] resultado = new double[tIndependientes.length];
+        double[][] matrizInversa = matrizInversa(coheficientes);
+        double elementoI;
+        for (int i = 0; i < tIndependientes.length; i++) {
+            System.out.print (tIndependientes[i]+ " ");
+        }
+        for (int i = 0; i < coheficientes.length; i++) {
+            elementoI=0;
+            for (int j = 0; j < tIndependientes.length; j++) {
+                elementoI += matrizInversa[i][j]*tIndependientes[j];
+            }
+            resultado[i] = elementoI;
+        }
+        return resultado;
+    }
+    
+    private static double[][] matrizInversa(double[][] matriz) throws Exception{
+        double determinante = determinanteN(matriz);
+        double subDeterminante;
+        double[] filaInvertida = new double[matriz.length];
+        double[][] matrizInvertida = new double[matriz.length][matriz.length];
+        if (determinante==0) {
+            throw new Exception("Error de cálculo, no existe inversa");
+        }
+        int maxLen = matriz.length-1;
+        double[] subVector = new double[maxLen];
+        double[][] subMatriz = new double[maxLen][maxLen];
+        double[][][] matrizDeMatrices = new double[(maxLen+1)*(maxLen+1)][maxLen][maxLen];
+        int i = 0, j = 0, k =0, f=0;
+        //bucle de bloqueo en X
+        for (int bloqX = 0; bloqX < matriz.length; bloqX++) {
+            // bucle de bloqueo en Y
+            for (int bloqY = 0; bloqY < matriz[bloqX].length; bloqY++) {
+                // bucle de acceso en x
+                for (int accX = 0; accX < matriz.length; accX++) {
+                    if (accX != bloqX) {
+                        // bucle de acceso en Y
+                        for (int accY = 0; accY < matriz[accX].length; accY++) {
+                            if (accY != bloqY) {
+                                subVector[i++] = matriz[accX][accY];
+                                if (i==maxLen) {
+                                    subMatriz[j++] = subVector; 
+                                    i = 0;
+                                    subVector = new double[maxLen];
+                                    if (j == maxLen) {
+                                        j = 0;
+                                        matrizDeMatrices[k++] = subMatriz;
+                                        subMatriz = new double[maxLen][maxLen];   
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        i=1;
+        f=1;
+        maxLen++;
+        //Operando con adjuntas
+        for (int l = 0; l < matrizDeMatrices.length; l++) {
+            subMatriz = matrizDeMatrices[l];
+            subDeterminante = determinanteN(subMatriz);
+            if ((i+f)%2==0)  {
+                filaInvertida[i-1] = subDeterminante/determinante;
+            }else{
+                filaInvertida[i-1] = subDeterminante*-1/determinante;
+            }
+            if (i==maxLen) {
+                f+=1;
+                i=0;
+                matrizInvertida[f-2] = filaInvertida;
+                filaInvertida =  new double[matriz.length]; 
+            }
+            i+=1;
+        }
+        
+        matrizInvertida = transponer(matrizInvertida);
+        
+
+        
+        return matrizInvertida;
+    }
+
+    private static double sarows(double[][] matriz) {
+        double diagJ, diagI;
+        double diagP=0, diagS=0;
+        int j = 0, l = 0;
+        double[][] matrixAux = new double[5][3];
+        for (int i = 0; i < matriz.length; i++) {
+            for (int k = 0; k < matriz.length; k++) {
+                matrixAux[i][k] = matriz[i][k];
+                if (i<2) {
+                    matrixAux[i+3][k] = matriz[i][k];
+                }
+            }
+        }
+        for (int k = matrixAux[0].length-1; k >= 0 ; k--) {
+            j = l++;
+            diagI = 1;
+            diagJ = 1;
+            for (int i = 0; i < matrixAux[k].length; i++) {
+                diagI *= matrixAux[j][i];
+                diagJ *= matrixAux[j][3-i-1];
+                j++;
+            }
+            diagP+=diagI;
+            diagS+=diagJ;
+        }   
+        return diagP-diagS;
+    }
+
+    private static double determinanteN(double[][] matriz){
+        double determinante = 0;
+        int maxLen = matriz.length-1;
+        double[] subVector = new double[maxLen];
+        double[][] subMatriz = new double[maxLen][maxLen];
+        double[][][] matrizDeMatrices = new double[(maxLen+1)*(maxLen+1)][maxLen][maxLen];
+        int i = 0, j = 0, k =0;
+        double cofactor;
+        switch (matriz.length) {
+            case 3:
+                //Resolución por Sarrows
+                return sarows(matriz);
+            case 2:
+                // multiplicación simple
+                return matriz[0][0]*matriz[1][1]
+                        - matriz[0][1]*matriz[1][0];
+            case 1:
+                return matriz[0][0];
+        }
+        //bucle de bloqueo en X
+        for (int bloqX = 0; bloqX < matriz.length; bloqX++) {
+            // bucle de bloqueo en Y
+            for (int bloqY = 0; bloqY < matriz[bloqX].length; bloqY++) {
+                // bucle de acceso en x
+                for (int accX = 0; accX < matriz.length; accX++) {
+                    if (accX != bloqX) {
+                        // bucle de acceso en Y
+                        for (int accY = 0; accY < matriz[accX].length; accY++) {
+                            if (accY != bloqY) {
+                                subVector[i++] = matriz[accX][accY];
+                                if (i==maxLen) {
+                                    subMatriz[j++] = subVector; 
+                                    i = 0;
+                                    subVector = new double[maxLen];
+                                    if (j == maxLen) {
+                                        j = 0;
+                                        matrizDeMatrices[k++] = subMatriz;
+                                        subMatriz = new double[maxLen][maxLen];   
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        j = 0;
+        i = 0;
+        // Operacion con co-factores
+        for (int l = 0; l < matrizDeMatrices.length; l++) {
+            subMatriz = matrizDeMatrices[l];
+            
+            if (subMatriz.length == 3) {
+                cofactor = sarows(subMatriz);
+                // Verifica si el cofactor es par
+                if ((j+1)%2==0) {
+                    determinante += matriz[i][j]*cofactor*-1;
+                }else{
+                    determinante += matriz[i][j]*cofactor;
+                }
+                if (j==subMatriz.length) {
+                    i++;
+                    break;
+                }
+                j++;
+            } else{
+                determinante = determinanteN(subMatriz);
+                break;
+            }
+        }
+        return determinante;
+    }
+
+    private static double[][] transponer(double[][] matriz){
+        double[][] resultado = new double[matriz.length][matriz[0].length];
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                resultado[i][j] = matriz[j][i];
+            }
+        }
+        return resultado;
+    }
+  
+
   
   /**
    * Valida en un vector de doubles que no se repita ningún valor
@@ -184,4 +383,5 @@ public class Matematico {
       }
       return !error;
   }
+
 }
