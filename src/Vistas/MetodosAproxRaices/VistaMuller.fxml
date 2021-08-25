@@ -48,15 +48,15 @@
                <children>
                   <TitledPane animated="false" minWidth="314.0" prefHeight="339.0" prefWidth="484.0" text="Ingreso de datos" HBox.hgrow="NEVER">
                      <content>
-                        <VBox minHeight="303.0" prefHeight="303.0" prefWidth="482.0">
+                        <VBox minHeight="274.0" prefHeight="274.0" prefWidth="482.0">
                            <children>
-                              <Pane fx:id="pFormula" prefHeight="143.0" prefWidth="458.0">
+                              <Pane fx:id="pFormula" prefHeight="116.0" prefWidth="458.0">
                                  <children>
                                     <TextField fx:id="tfFormula" layoutX="19.0" layoutY="53.0" prefHeight="43.0" prefWidth="420.0" />
                                     <Label layoutX="19.0" layoutY="26.0" text="Ingresar la fórmula:" />
                                  </children>
                               </Pane>
-                              <AnchorPane prefHeight="142.0" prefWidth="463.0">
+                              <AnchorPane prefHeight="159.0" prefWidth="458.0">
                                  <children>
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="18.0" text="X0" />
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="47.0" text="x1" />
