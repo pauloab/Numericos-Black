@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -44,7 +45,9 @@ public class VistaSerieTaylorController implements Initializable {
     private Button btLimpiar;
     @FXML
     private BorderPane bpChart;
-
+    @FXML
+    private Label lbResultado;
+    
     @FXML
     private TextField tfYU, tfYD, tfXL, tfXR;
     @FXML
@@ -96,6 +99,7 @@ public class VistaSerieTaylorController implements Initializable {
                     try {
                         taylor = new SerieTaylor(funcion, eTolerancia, imax, x1, h);
                         punto = taylor.SerieTaylor();
+                        lbResultado.setText(""+punto);
                         String[] headers = {"xAprox", "Error verdadero", "Error de aproximación"};
                         Graficos.cargarEnTableView(tvResultados, taylor.getMatrizDeDatos(), headers);
                     } catch (Exception ex) {
@@ -115,6 +119,7 @@ public class VistaSerieTaylorController implements Initializable {
             }
         });
         btLimpiar.setOnMouseClicked(e -> {
+            lbResultado.setText("");
             graphManager.getGraph().getData().clear();
             funcion = null;
             graphManager.setDomain(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);

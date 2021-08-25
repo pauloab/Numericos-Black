@@ -61,7 +61,7 @@ public class PuntoFijo extends MetodoAproximadorRaices implements MetodoImprimib
             getMatrizDeDatos()[i][1] = xr + "";
             getMatrizDeDatos()[i][2] = ea + "";
 
-        } while (ea >= getErrorTolerancia() && i+1 < getIteracionesMaximas());
+        } while (ea >= getErrorTolerancia() && i < getIteracionesMaximas());
         return xr;
     }
 

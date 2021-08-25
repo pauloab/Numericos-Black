@@ -1,7 +1,5 @@
 package Controller.MetodosAproxRaices;
 
-
-
 import Modelos.MetodosAproxRaices.Biseccion;
 import Plotter.Models.CoordinatePair;
 import Plotter.Views.GraphManager;
@@ -14,11 +12,11 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-
 
 /**
  * FXML Controller class de la vista Biseccion
@@ -26,7 +24,7 @@ import javafx.scene.layout.Pane;
  * @author Freddy Lamar
  */
 public class VistaBiseccionController implements Initializable {
-
+    
     @FXML
     private TextField tfFormula;
     @FXML
@@ -50,6 +48,9 @@ public class VistaBiseccionController implements Initializable {
     @FXML
     private TextField tfYU, tfYD, tfXL, tfXR;
     @FXML
+    private Label lbResultado;
+    
+    @FXML
     private JFXButton btAjustar;
     private GraphManager graphManager;
     private double yu = 50, yd = -50, xl = -50, xr = 50;
@@ -66,7 +67,7 @@ public class VistaBiseccionController implements Initializable {
         tfYU.setText(yu + "");
         tfYD.setText(yd + "");
         definirLimites();
-
+        
         bpChart1.setCenter(graphManager.getGraph());
         funcion = null;
         btAjustar.setOnMouseClicked(event -> {
@@ -75,12 +76,12 @@ public class VistaBiseccionController implements Initializable {
                 Graficar();
             }
         });
-
+        
         Graficos.convertirEnInputFlotantes(tfXL);
         Graficos.convertirEnInputFlotantes(tfXR);
         Graficos.convertirEnInputFlotantes(tfYU);
         Graficos.convertirEnInputFlotantes(tfYD);
-           
+
         // Se agrega la validación de los inputs
         Graficos.convertirEnInputFlotantes(tfcotainferior);
         Graficos.convertirEnInputFlotantes(tfcotasuperior);
@@ -100,7 +101,8 @@ public class VistaBiseccionController implements Initializable {
                     biseccion = new Biseccion(funcion, eTolerancia, imax, cotainferior, cotasuperior);
                     try {
                         punto = biseccion.metodoBiseccion();
-                        String[] headers = {"xl","xu", "xr","f(xl)","f(xu)","f(xr)", "Error de aproximación"};
+                        lbResultado.setText("" + punto);
+                        String[] headers = {"xl", "xu", "xr", "f(xl)", "f(xu)", "f(xr)", "Error de aproximación"};
                         Graficos.cargarEnTableView(tvResultados, biseccion.getMatrizDeDatos(), headers);
                     } catch (Exception ex) {
                         error = true;
@@ -111,16 +113,16 @@ public class VistaBiseccionController implements Initializable {
                     if (!error) {
                         Graficar();
                         
-                    }    
-                }else{
-                    Graficos.lanzarMensajeError("Error de conversión","Por favor, verifica el ingreso de datos antes de proceder.");
+                    }                    
+                } else {
+                    Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
                 }
             } else {
                 Graficos.lanzarMensajeError("Error de conversión", "Hubo un error al interpretar la fórmula ingresada.");
             }
         });
         btLimpiar.setOnMouseClicked(e -> {
-            
+            lbResultado.setText("");
             graphManager.getGraph().getData().clear();
             funcion = null;
             graphManager.setDomain(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
@@ -137,14 +139,14 @@ public class VistaBiseccionController implements Initializable {
             tfcotasuperior.setText("");
             tvResultados.getItems().clear();
         });
-               
-    }   
+        
+    }    
     
-     private void Graficar() {
+    private void Graficar() {
         try {
             CoordinatePair puntoCords = new CoordinatePair(punto,
                     Matematico.evaluarFuncion(funcion, punto));
-
+            
             ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
             dataset.add(Matematico.evaluarFuncion(funcion, xl, xr));
             Graficos.plotPoints(dataset, bpChart1, graphManager, puntoCords);
@@ -157,7 +159,7 @@ public class VistaBiseccionController implements Initializable {
         }
     }
     
-     private boolean definirLimites() {
+    private boolean definirLimites() {
         boolean res = true;
         Double xl = Graficos.validarTextFieldDouble(tfXL);
         Double xr = Graficos.validarTextFieldDouble(tfXR);
