@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -44,6 +45,9 @@ public class VistaNewtonRaphsonController implements Initializable {
     private BorderPane bpChart;
     @FXML
     private TextField tfYU, tfYD, tfXL, tfXR;
+    @FXML
+    private Label lbResultado;
+            
     @FXML
     private JFXButton btAjustar;
     private GraphManager graphManager;
@@ -94,6 +98,7 @@ public class VistaNewtonRaphsonController implements Initializable {
                     newtonraphson = new NewtonRaphson(funcion, eTolerancia, imax, x0);
                     try {
                         punto = newtonraphson.metodoNewtonRaphson();
+                        lbResultado.setText(""+punto);
                         String[] headers = {"xi+1","f(xi)", "f'(xi)", "Error de aproximación"};
                         Graficos.cargarEnTableView(tvResultados, newtonraphson.getMatrizDeDatos(), headers);
                     } catch (Exception ex) {
@@ -115,6 +120,7 @@ public class VistaNewtonRaphsonController implements Initializable {
         btLimpiar.setOnMouseClicked(e -> {
             graphManager.getGraph().getData().clear();
             funcion = null;
+            lbResultado.setText("");
             graphManager.setDomain(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
             graphManager.setRange(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
             tfXL.setText("-" + DEFAULT_AXIS_VALUES);

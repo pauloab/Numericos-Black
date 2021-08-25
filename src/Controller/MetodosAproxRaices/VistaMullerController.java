@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -47,7 +48,9 @@ public class VistaMullerController implements Initializable {
     private Button btLimpiar;
     @FXML
     private BorderPane bpChart;
-
+    @FXML
+    private Label lbResultado;
+    
     @FXML
     private TextField tfYU, tfYD, tfXL, tfXR;
     @FXML
@@ -102,6 +105,7 @@ public class VistaMullerController implements Initializable {
                     muller = new Muller(funcion, eTolerancia, imax, x2, x1, x0);
                     try {
                         punto = muller.metodoMuller();
+                        lbResultado.setText(""+punto);
                         String[] headers = {"x0", "x1", "x2", "xr", "Error de aproximación"};
                         Graficos.cargarEnTableView(tvResultados, muller.getMatrizDeDatos(), headers);
                     } catch (Exception ex) {
@@ -123,6 +127,7 @@ public class VistaMullerController implements Initializable {
         btLimpiar.setOnMouseClicked(e -> {
             graphManager.getGraph().getData().clear();
             funcion = null;
+            lbResultado.setText("");
             graphManager.setDomain(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
             graphManager.setRange(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
             tfXL.setText("-" + DEFAULT_AXIS_VALUES);

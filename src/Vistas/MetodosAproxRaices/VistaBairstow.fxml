@@ -74,8 +74,8 @@
                                           </VBox>
                                        </content>
                                     </ScrollPane>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="118.0" layoutY="78.0" text="r" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="115.0" layoutY="114.0" text="s" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="134.0" layoutY="78.0" text="r" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="134.0" layoutY="114.0" text="s" />
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="150.0" text="Error de tolerancia:" />
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="65.0" layoutY="189.0" text="Iteraciones" />
                                     <TextField fx:id="tfr" layoutX="148.0" layoutY="73.0" prefHeight="26.0" prefWidth="91.0" />

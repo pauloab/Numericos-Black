@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -44,6 +45,8 @@ public class VistaFalsaPosicionController implements Initializable {
     private Button btLimpiar;
     @FXML
     private BorderPane bpChart;
+    @FXML
+    private Label lbResultado;
     
     @FXML
     private TextField tfYU, tfYD, tfXL, tfXR;
@@ -96,6 +99,7 @@ public class VistaFalsaPosicionController implements Initializable {
                     falsaposicion = new FalsaPosicion(funcion, eTolerancia, imax, cotainferior, cotasuperior);
                     try {
                         punto = falsaposicion.metodoFalsaPosicion();
+                        lbResultado.setText(""+punto);
                         String[] headers = {"xl", "xu", "xr", "f(xl)", "f(xu)", "f(xr)", "Error de aproximación"};
                         Graficos.cargarEnTableView(tvResultados, falsaposicion.getMatrizDeDatos(), headers);
                     } catch (Exception ex) {
@@ -117,6 +121,7 @@ public class VistaFalsaPosicionController implements Initializable {
         btLimpiar.setOnMouseClicked(e -> {
             graphManager.getGraph().getData().clear();
             funcion = null;
+            lbResultado.setText("");
             graphManager.setDomain(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
             graphManager.setRange(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
             tfXL.setText("-"+DEFAULT_AXIS_VALUES);

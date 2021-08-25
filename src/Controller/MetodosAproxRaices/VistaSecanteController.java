@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -26,7 +27,7 @@ import javafx.scene.layout.Pane;
  */
 public class VistaSecanteController implements Initializable {
 
-     @FXML
+    @FXML
     private TextField tfFormula;
     @FXML
     private TextField tfxi;
@@ -46,7 +47,9 @@ public class VistaSecanteController implements Initializable {
     private Button btLimpiar;
     @FXML
     private BorderPane bpChart;
-
+    @FXML
+    private Label lbResultado;
+    
     @FXML
     private TextField tfYU, tfYD, tfXL, tfXR;
     @FXML
@@ -100,6 +103,7 @@ public class VistaSecanteController implements Initializable {
                     secante = new Secante(funcion, eTolerancia, imax, xi, ximenos1);
                     try {
                         punto = secante.metodoSecante();
+                        lbResultado.setText(""+punto);
                         String[] headers = {"xi+1","fxi-1", "fxi", "Error de aproximación"};
                         Graficos.cargarEnTableView(tvResultados, secante.getMatrizDeDatos(), headers);
                     } catch (Exception ex) {
@@ -121,6 +125,7 @@ public class VistaSecanteController implements Initializable {
         btLimpiar.setOnMouseClicked(e -> {
             graphManager.getGraph().getData().clear();
             funcion = null;
+            lbResultado.setText("");
             graphManager.setDomain(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
             graphManager.setRange(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
             tfXL.setText("-" + DEFAULT_AXIS_VALUES);

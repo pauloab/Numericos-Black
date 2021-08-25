@@ -47,24 +47,26 @@
                      <content>
                         <VBox minHeight="316.0" prefHeight="328.0" prefWidth="482.0">
                            <children>
-                              <Pane fx:id="pFormula" prefHeight="143.0" prefWidth="458.0">
+                              <Pane fx:id="pFormula" prefHeight="117.0" prefWidth="458.0">
                                  <children>
                                     <TextField fx:id="tfFormula" layoutX="19.0" layoutY="53.0" prefHeight="43.0" prefWidth="420.0" />
                                     <Label layoutX="19.0" layoutY="26.0" text="Ingresar la fórmula:" />
                                  </children>
                               </Pane>
-                              <AnchorPane prefHeight="142.0" prefWidth="463.0">
+                              <AnchorPane prefHeight="192.0" prefWidth="458.0">
                                  <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="18.0" text="Xi" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="56.0" text="xi-1" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="110.0" text="Error de tolerancia:" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="272.0" layoutY="110.0" text="Iteraciones" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" layoutY="15.0" text="Xi" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="115.0" layoutY="56.0" text="xi-1" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="107.0" text="Error de tolerancia:" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="267.0" layoutY="107.0" text="Iteraciones" />
                                     <TextField fx:id="tfxi" layoutX="150.0" layoutY="10.0" prefHeight="26.0" prefWidth="91.0" />
                                     <TextField fx:id="tfximenos1" layoutX="150.0" layoutY="51.0" prefHeight="26.0" prefWidth="91.0" />
                                     <TextField fx:id="tfErrorTolerancia" layoutX="150.0" layoutY="102.0" prefHeight="26.0" prefWidth="91.0" />
-                                    <TextField fx:id="tfIterMax" layoutX="353.0" layoutY="102.0" prefHeight="26.0" prefWidth="91.0" />
-                                    <Button fx:id="btProcesar" layoutX="349.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Procesar" />
-                                    <Button fx:id="btLimpiar" layoutX="349.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Limpiar" />
+                                    <TextField fx:id="tfIterMax" layoutX="347.0" layoutY="102.0" prefHeight="26.0" prefWidth="91.0" />
+                                    <Button fx:id="btProcesar" layoutX="350.0" layoutY="10.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Procesar" />
+                                    <Button fx:id="btLimpiar" layoutX="350.0" layoutY="51.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Limpiar" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="71.0" layoutY="143.0" text="Resultado:" />
+                                    <Label fx:id="lbResultado" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="143.0" />
                                  </children>
                               </AnchorPane>
                            </children>

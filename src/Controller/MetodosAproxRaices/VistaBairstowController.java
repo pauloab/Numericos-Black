@@ -64,14 +64,13 @@ public class VistaBairstowController implements Initializable {
     private double yu = 50, yd = -50, xl = -50, xr = 50;
     private final double DEFAULT_AXIS_VALUES = 50;
     private String funcion;
- 
 
     private int grado;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         grado = 1;
-        
+
         graphManager = new GraphManager();
         tfXL.setText(xl + "");
         tfXR.setText(xr + "");
@@ -145,8 +144,8 @@ public class VistaBairstowController implements Initializable {
 
             }
             funcion = "";
-            for (int i = 0; i < a.length; i++) {              
-                funcion += "+("+a[i]+"*(x^"+ i +"))";               
+            for (int i = 0; i < a.length; i++) {
+                funcion += "+(" + a[i] + "*(x^" + i + "))";
             }
 
             if (r != null && s != null && eTolerancia != null && imax != null && error == false) {
@@ -195,7 +194,7 @@ public class VistaBairstowController implements Initializable {
             }
         });
 
-        btLimpiar.setOnMouseClicked(e -> {       
+        btLimpiar.setOnMouseClicked(e -> {
             graphManager.getGraph().getData().clear();
             funcion = null;
             graphManager.setDomain(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
@@ -204,7 +203,7 @@ public class VistaBairstowController implements Initializable {
             tfXR.setText("" + DEFAULT_AXIS_VALUES);
             tfYU.setText("" + DEFAULT_AXIS_VALUES);
             tfYD.setText("-" + DEFAULT_AXIS_VALUES);
-            grado =1;
+            grado = 1;
             tfErrorTolerancia.setText("");
             tfIterMax.setText("");
             tfr.setText("");
@@ -217,8 +216,8 @@ public class VistaBairstowController implements Initializable {
             }
         });
     }
-    
-     private boolean definirLimites() {
+
+    private boolean definirLimites() {
         boolean res = true;
         Double xl = Graficos.validarTextFieldDouble(tfXL);
         Double xr = Graficos.validarTextFieldDouble(tfXR);
@@ -244,8 +243,9 @@ public class VistaBairstowController implements Initializable {
         }
         return res;
     }
-      private void Graficar() {
-        try {        
+
+    private void Graficar() {
+        try {
             System.out.println(funcion);
             ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
             dataset.add(Matematico.evaluarFuncion(funcion, xl, xr));
@@ -258,6 +258,5 @@ public class VistaBairstowController implements Initializable {
                     + "la gráfica no se pudo procesar.");
         }
     }
-    
-    
+
 }

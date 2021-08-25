@@ -46,24 +46,26 @@
                      <content>
                         <VBox minHeight="219.0" prefHeight="219.0" prefWidth="526.0">
                            <children>
-                              <Pane fx:id="pFormula" prefHeight="135.0" prefWidth="509.0">
+                              <Pane fx:id="pFormula" prefHeight="115.0" prefWidth="472.0">
                                  <children>
                                     <TextField fx:id="tfFormula" layoutX="19.0" layoutY="53.0" prefHeight="43.0" prefWidth="420.0" />
                                     <Label layoutX="19.0" layoutY="26.0" text="Ingresar la fórmula:" />
                                  </children>
                               </Pane>
-                              <AnchorPane prefHeight="142.0" prefWidth="463.0">
+                              <AnchorPane prefHeight="159.0" prefWidth="472.0">
                                  <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="18.0" text="xl" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="47.0" text="xu" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="110.0" text="Error de tolerancia:" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="272.0" layoutY="110.0" text="Iteraciones" />
-                                    <TextField fx:id="tfcotainferior" layoutX="150.0" layoutY="10.0" prefHeight="26.0" prefWidth="91.0" />
-                                    <TextField fx:id="tfcotasuperior" layoutX="150.0" layoutY="39.0" prefHeight="26.0" prefWidth="91.0" />
-                                    <TextField fx:id="tfErrorTolerancia" layoutX="150.0" layoutY="102.0" prefHeight="26.0" prefWidth="91.0" />
-                                    <TextField fx:id="tfIterMax" layoutX="349.0" layoutY="105.0" prefHeight="26.0" prefWidth="91.0" />
-                                    <Button fx:id="btProcesar" layoutX="349.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Procesar" />
-                                    <Button fx:id="btLimpiar" layoutX="349.0" layoutY="42.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Limpiar" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="130.0" layoutY="8.0" text="xl" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" layoutY="47.0" text="xu" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="84.0" text="Error de tolerancia:" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="290.0" layoutY="84.0" text="Iteraciones" />
+                                    <TextField fx:id="tfcotainferior" layoutX="150.0" layoutY="3.0" prefHeight="26.0" prefWidth="91.0" />
+                                    <TextField fx:id="tfcotasuperior" layoutX="150.0" layoutY="42.0" prefHeight="26.0" prefWidth="91.0" />
+                                    <TextField fx:id="tfErrorTolerancia" layoutX="150.0" layoutY="79.0" prefHeight="26.0" prefWidth="91.0" />
+                                    <TextField fx:id="tfIterMax" layoutX="367.0" layoutY="79.0" prefHeight="26.0" prefWidth="91.0" />
+                                    <Button fx:id="btProcesar" layoutX="268.0" layoutY="3.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Procesar" />
+                                    <Button fx:id="btLimpiar" layoutX="364.0" layoutY="3.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Limpiar" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="75.0" layoutY="124.0" text="Resultado:" />
+                                    <Label fx:id="lbResultado" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="124.0" />
                                  </children>
                               </AnchorPane>
                            </children>

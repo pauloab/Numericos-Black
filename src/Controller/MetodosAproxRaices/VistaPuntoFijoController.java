@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -41,7 +42,9 @@ public class VistaPuntoFijoController implements Initializable {
     private Button btProcesar;
     @FXML
     private Button btLimpiar;
-     @FXML
+    @FXML
+    private Label lbResultado;
+    @FXML
     private BorderPane bpChart;
     @FXML
     private TextField tfYU, tfYD, tfXL, tfXR;
@@ -94,7 +97,8 @@ public class VistaPuntoFijoController implements Initializable {
                 if (x0 != null && eTolerancia != null && imax != null) {
                     puntofijo = new PuntoFijo(funcion, eTolerancia, imax, x0);
                     try {
-                    punto = puntofijo.metodoPuntoFijo();
+                        punto = puntofijo.metodoPuntoFijo();
+                        lbResultado.setText(""+punto);
                         String[] headers = {"xi+1","g(x)", "Error de aproximación"};
                         Graficos.cargarEnTableView(tvResultados, puntofijo.getMatrizDeDatos(), headers);
                     } catch (Exception ex) {
@@ -116,6 +120,7 @@ public class VistaPuntoFijoController implements Initializable {
         });
         btLimpiar.setOnMouseClicked(e -> {
             graphManager.getGraph().getData().clear();
+            lbResultado.setText("");
             funcion = null;
             graphManager.setDomain(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
             graphManager.setRange(-DEFAULT_AXIS_VALUES, DEFAULT_AXIS_VALUES);
