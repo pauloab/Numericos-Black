@@ -44,6 +44,10 @@ public class InterpolacionLagrange {
         return funcion;
     }
     
+    /**
+     * Método para calcular interpolación de Lagrange
+     * @return 
+     */
     public double interpolacion(){
         int grado = xCordenadasTrabajo.length;
         double res = 0;
