@@ -264,6 +264,7 @@ public class Graficos {
             Pane screen, GraphManager graphManager) {
         Plotter plotter = new Plotter(graphManager.getGraph(), screen);
 
+        graphManager.getGraph().getData().clear();
         ArrayList<CoordinatePair> allPoints = new ArrayList<>();
 
         System.gc();
