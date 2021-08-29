@@ -37,7 +37,7 @@ public class WelcomeController implements Initializable {
     private SidenavContainer sidenavContainer;
 
     private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante,
-            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange, bpPolinomial, bpTrapecio;
+            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange, bpPolinomial, bpTrapecio, bpSimpson13, bpSimpson38;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -110,6 +110,14 @@ public class WelcomeController implements Initializable {
         buttonList = new ArrayList<>();
         bt = new JFXButton("Regla del Trapecio");
         bt.setOnMouseClicked(e -> CargarVista(bpTrapecio));
+        buttonList.add(bt);
+
+        bt = new JFXButton("Regla de Simpson 1/3");
+        bt.setOnMouseClicked(e -> CargarVista(bpSimpson13));
+        buttonList.add(bt);
+        
+        bt = new JFXButton("Regla de Simpson 3/8");
+        bt.setOnMouseClicked(e -> CargarVista(bpSimpson38));
         buttonList.add(bt);
 
         sidenavContainer.addItem(new SidenavItem("Integración numérica", buttonList), ivIntegracionNumerica);
@@ -200,6 +208,16 @@ public class WelcomeController implements Initializable {
                     getClass().getResource("/Vistas/IntegracionNewtonCotes/VistaReglaTrapecio.fxml")
             );
             bpTrapecio.setPadding(new Insets(0, 0, 0, 64));
+            
+            bpSimpson13 = FXMLLoader.load(
+                    getClass().getResource("/Vistas/IntegracionNewtonCotes/VistaSimpson13.fxml")
+            );
+            bpSimpson13.setPadding(new Insets(0, 0, 0, 64));
+            
+            bpSimpson38 = FXMLLoader.load(
+                    getClass().getResource("/Vistas/IntegracionNewtonCotes/VistaSimpson38.fxml")
+            );
+            bpSimpson38.setPadding(new Insets(0, 0, 0, 64));
 
         } catch (IOException ex) {
             ex.printStackTrace();
