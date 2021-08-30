@@ -25,7 +25,7 @@ public class GraphManager {
     private Double x0;
     private Double x1;
 
-    public GraphManager(Double xcero, Double xuno) {
+    public GraphManager(Double xcero, Double xuno, boolean mostrarBordes) {
         xAxis.setAutoRanging(false);
         yAxis.setAutoRanging(false);
 
@@ -77,7 +77,9 @@ public class GraphManager {
                             });
                             getPlotChildren().add(polygon);
                             polygon.toFront();
-                            polygon.setStroke(new Color(1, 0, 0.1, 0.80));
+                            if(mostrarBordes){
+                                polygon.setStroke(new Color(1, 0, 0.1, 0.80));
+                            }
                             polygon.setFill(new Color(1, 0, 0.1, 0.60));
                         }
                     }
