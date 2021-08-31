@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import Modelos.Interpolacion.InterpolacionLagrange;
 
 /**
  * FXML Controller class de la vista Simpson 1/3
@@ -63,7 +64,7 @@ public class VistaSimpson13Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        graphManager = new GraphManager(x0, x1);
+        graphManager = new GraphManager(x0, x1, false);
         tfXL.setText(xl + "");
         tfXR.setText(xr + "");
         tfYU.setText(yu + "");
@@ -127,7 +128,7 @@ public class VistaSimpson13Controller implements Initializable {
                     if (Matematico.validarExpresion(funcion)) {
                         x0 = Graficos.validarTextFieldDouble(tfx0);
                         x1 = Graficos.validarTextFieldDouble(tfx1);
-                        n = 1;
+                        n = 2;
                         if (x0 != null && x1 != null) {
                             simpson13 = new Simpson13(funcion, x0, x1);
                             try {
@@ -174,7 +175,7 @@ public class VistaSimpson13Controller implements Initializable {
                                 Graficos.lanzarMensajeError("Error de validación", "Tuvimos un inconveniente al "
                                         + "interpretar el número se segmentos "
                                         + "a través de este método."
-                                + " El número de segmentos máximo es 50");
+                                        + " El número de segmentos máximo es 50");
                             }
 
                         } else {
@@ -223,21 +224,38 @@ public class VistaSimpson13Controller implements Initializable {
             graphManager.setX0(x0);
             graphManager.setX1(x1);
             ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
+            ArrayList<CoordinatePair[]> dataset2 = new ArrayList<>();
             dataset.add(Matematico.evaluarFuncion(funcion, xl, xr));
-            CoordinatePair[] puntosGraficar;
-            if (n == 1) {
-                puntosGraficar = new CoordinatePair[4];
+            if (!cbTipoTrapecio.getSelectionModel().selectedItemProperty().getValue().equalsIgnoreCase("Simpson 1/3 Simple")) {
+                double[] xCordenadasTrabajo = {x0, (x0 + x1) / n, x1};
+                double[] yCordenadasTrabajo = {Matematico.evaluarFuncion(funcion, x0), Matematico.evaluarFuncion(funcion, (x0 + x1) / n), Matematico.evaluarFuncion(funcion, x1)};
+                InterpolacionLagrange interpolar = new InterpolacionLagrange(xCordenadasTrabajo, yCordenadasTrabajo, x0 + (x1 - x0) / 3);
+                interpolar.interpolacion();
+                CoordinatePair[] puntosGraficar = Matematico.evaluarFuncion(interpolar.getFuncion(), x0, x1);
+                dataset.add(puntosGraficar);
             } else {
-                puntosGraficar = new CoordinatePair[n + 1];
+                double xs0 = x0, xs1, xs2;
+                for (int i = 0; i < n; i++) {
+                    xs1 = xs0 + (x1 - x0) / n;
+                    xs2 = xs1 + (x1 - x0) / n;
+                    double[] xCordenadasTrabajo = {xs0, xs1, xs2};
+                    double[] yCordenadasTrabajo = {Matematico.evaluarFuncion(funcion, xs0), Matematico.evaluarFuncion(funcion, xs1), Matematico.evaluarFuncion(funcion, xs2)};
+                    InterpolacionLagrange interpolar = new InterpolacionLagrange(xCordenadasTrabajo, yCordenadasTrabajo, x0 + (x1 - x0) / 3);
+                    interpolar.interpolacion();
+                    CoordinatePair[] puntosGraficar = Matematico.evaluarFuncion(interpolar.getFuncion(), xs0, xs2);
+                    xs0 = xs2;
+                    dataset2.add(puntosGraficar);
+                }
+                int j = 0;
+                CoordinatePair[] set2 = new CoordinatePair[1501 * dataset2.size()];
+                for (CoordinatePair[] coordinatePair : dataset2) {
+                    for (int i = 0; i < 1501; i++) {
+                        set2[j] = coordinatePair[i];
+                        j++;
+                    }
+                }
+                dataset.add(set2);
             }
-
-            double x = x0;
-            for (int i = 0; i < (puntosGraficar.length); i++) {
-
-                puntosGraficar[i] = new CoordinatePair(x, Matematico.evaluarFuncion(funcion, x));
-                x += (x1 - x0) / n;
-            }
-            dataset.add(puntosGraficar);
             Graficos.plotBairstow(dataset, bpChart, graphManager);
 
         } catch (Exception e) {

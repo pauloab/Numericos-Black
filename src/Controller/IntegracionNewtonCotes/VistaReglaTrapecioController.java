@@ -62,7 +62,7 @@ public class VistaReglaTrapecioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        graphManager = new GraphManager(x0, x1);
+        graphManager = new GraphManager(x0, x1, true);
         tfXL.setText(xl + "");
         tfXR.setText(xr + "");
         tfYU.setText(yu + "");

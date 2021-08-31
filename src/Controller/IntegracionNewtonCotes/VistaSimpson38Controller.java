@@ -2,6 +2,7 @@ package Controller.IntegracionNewtonCotes;
 
 import Controller.MetodosAproxRaices.*;
 import Modelos.IntegracionNewtonCotes.Simpson38;
+import Modelos.Interpolacion.InterpolacionLagrange;
 import Modelos.MetodosAproxRaices.PuntoFijo;
 import Plotter.Models.CoordinatePair;
 import Plotter.Views.GraphManager;
@@ -51,12 +52,13 @@ public class VistaSimpson38Controller implements Initializable {
     private final double DEFAULT_AXIS_VALUES = 50;
     private String funcion;
     private Double punto = null;
+    private double x0, x1;
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        graphManager = new GraphManager();
+        graphManager = new GraphManager(x0, x1, false);
         tfXL.setText(xl + "");
         tfXR.setText(xr + "");
         tfYU.setText(yu + "");
@@ -92,6 +94,8 @@ public class VistaSimpson38Controller implements Initializable {
                     simpson38 = new Simpson38(funcion, x0, x1);
                     try {
                         punto = simpson38.Simpson38Simple();
+                        this.x0 = x0; 
+                        this.x1 = x1;
                         lbResultado.setText(""+punto);                       
                     } catch (Exception ex) {
                         error = true;
@@ -153,13 +157,23 @@ public class VistaSimpson38Controller implements Initializable {
         return res;
     }
       private void Graficar() {
+         
         try {
-            CoordinatePair puntoCords = new CoordinatePair(punto,
-                    Matematico.evaluarFuncion(funcion, punto));
-
+            graphManager.setX0(x0);
+            graphManager.setX1(x1);
             ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
             dataset.add(Matematico.evaluarFuncion(funcion, xl, xr));
-            Graficos.plotPoints(dataset, bpChart, graphManager, puntoCords);
+             if(x0>x1){
+                double aux = x0; x0 = x1; x1 = aux;
+            }
+            double [] xCordenadasTrabajo = {x0, ((x1-x0)/3)+ x0,((x1-x0)/3)*2+ x0 , x1};
+            double [] yCordenadasTrabajo = {Matematico.evaluarFuncion(funcion, x0), Matematico.evaluarFuncion(funcion, ((x1-x0)/3)+ x0), Matematico.evaluarFuncion(funcion, ((x1-x0)/3)*2+ x0), Matematico.evaluarFuncion(funcion, x1)};
+            InterpolacionLagrange interpolar = new InterpolacionLagrange(xCordenadasTrabajo, yCordenadasTrabajo, x0+(x1-x0)/4);
+            interpolar.interpolacion();
+            CoordinatePair[] puntosGraficar = Matematico.evaluarFuncion(interpolar.getFuncion(), x0, x1);
+            dataset.add(puntosGraficar);
+            Graficos.plotBairstow(dataset, bpChart, graphManager);
+            
         } catch (Exception e) {
             e.printStackTrace();
             Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "
