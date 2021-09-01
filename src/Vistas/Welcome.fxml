@@ -14,7 +14,7 @@
 
 <BorderPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@welcome.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WelcomeController">
    <top>
-      <BorderPane prefHeight="10.0" prefWidth="518.0" BorderPane.alignment="CENTER">
+      <BorderPane id="topBar" prefHeight="10.0" prefWidth="518.0" BorderPane.alignment="CENTER">
          <left>
             <ImageView fx:id="menu" fitHeight="32.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
@@ -31,17 +31,17 @@
          <right>
             <HBox prefHeight="25.0" prefWidth="59.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="minimo" fitHeight="21.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="minimo" fitHeight="21.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" styleClass="control-buttons">
                      <image>
                         <Image url="@../images/logo%20amarilloRecurso%203.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="maximo" fitHeight="21.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="maximo" fitHeight="21.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" styleClass="control-buttons">
                      <image>
                         <Image url="@../images/logo%20verdeRecurso%204.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="exit" fitHeight="21.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="exit" fitHeight="21.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" styleClass="control-buttons">
                      <image>
                         <Image url="@../images/logo%20rojoRecurso%202.png" />
                      </image>
@@ -66,7 +66,7 @@
                <left>
                   <HBox prefHeight="687.0" prefWidth="1179.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Pane prefHeight="687.0" prefWidth="61.0" style="-fx-background-color: #ffffff;">
+                        <Pane id="sideBar" prefHeight="687.0" prefWidth="61.0" style="-fx-background-color: #ffffff;">
                            <children>
                               <ImageView fx:id="ivTaylor" fitHeight="48.0" fitWidth="44.0" layoutX="11.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

@@ -142,7 +142,7 @@ public class Plotter {
             for (CoordinatePair intersection : intersections) {
 
                 if (roundPair(intersection).equals(roundPair(point))) {
-                    graphPoint.setFill(Color.RED);
+                    graphPoint.setFill(Color.WHITE);
                     graphPoint.setOnMouseClicked(event -> {
                         coordinateView = new CoordinateView(roundDecimals(point.getKey(), 3), roundDecimals(point.getValue(), 3));
 

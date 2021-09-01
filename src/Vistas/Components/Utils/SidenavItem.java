@@ -40,6 +40,7 @@ public class SidenavItem extends VBox {
         for (JFXButton b : buttonList) {
             b.setPrefHeight(40);
             b.setPrefWidth(260);
+            b.getStyleClass().add("side-navbar-subitem");
             b.setAlignment(Pos.CENTER_LEFT);
             this.vBoxItems.getChildren().add(b);
         }
@@ -91,10 +92,8 @@ public class SidenavItem extends VBox {
     public void playCollapse() {
         if (isOpened) {
             collapseUpAniation.play();
-            topButton.getStyleClass().add("side-navbar-item-selected");
         } else {
             collapseAnimation.play();
-            topButton.getStyleClass().setAll("side-navbar-item");
         }
         isOpened = !isOpened;
     }

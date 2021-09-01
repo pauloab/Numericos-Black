@@ -22,14 +22,13 @@
 
 <BorderPane prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MetodosAproxRaices.VistaBiseccionController">
    <top>
-      <VBox prefHeight="140.0" prefWidth="906.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="110.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="61.0" prefWidth="906.0" />
             <AnchorPane prefHeight="114.0" prefWidth="906.0" style="-fx-background-color: #080b16;">
                <children>
-                  <Label layoutX="25.0" layoutY="24.0" prefHeight="70.0" prefWidth="527.0" text="Método de Bisección" textFill="WHITE">
+                  <Label layoutX="25.0" layoutY="20.0" prefHeight="70.0" prefWidth="527.0" text="Método de Bisección" textFill="WHITE">
                      <font>
-                        <Font name="Britannic Bold" size="48.0" />
+                        <Font name="MS Outlook" size="48.0" />
                      </font>
                   </Label>
                </children>
@@ -40,55 +39,51 @@
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <center>
-            <HBox prefHeight="234.0" prefWidth="871.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="234.0" prefWidth="871.0" styleClass="primary-pane" BorderPane.alignment="CENTER">
                <children>
-                  <TitledPane animated="false" minWidth="314.0" prefHeight="346.0" prefWidth="508.0" text="Ingreso de datos" HBox.hgrow="NEVER">
-                     <content>
-                        <VBox minHeight="219.0" prefHeight="219.0" prefWidth="526.0">
+                  <VBox alignment="CENTER" minHeight="219.0" prefHeight="361.0" prefWidth="475.0">
+                     <children>
+                        <Pane fx:id="pFormula" prefHeight="115.0" prefWidth="472.0">
                            <children>
-                              <Pane fx:id="pFormula" prefHeight="115.0" prefWidth="472.0">
-                                 <children>
-                                    <TextField fx:id="tfFormula" layoutX="19.0" layoutY="53.0" prefHeight="43.0" prefWidth="420.0" />
-                                    <Label layoutX="19.0" layoutY="26.0" text="Ingresar la fórmula:" />
-                                 </children>
-                              </Pane>
-                              <AnchorPane prefHeight="159.0" prefWidth="472.0">
-                                 <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="130.0" layoutY="8.0" text="xl" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" layoutY="47.0" text="xu" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="84.0" text="Error de tolerancia:" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="290.0" layoutY="84.0" text="Iteraciones" />
-                                    <TextField fx:id="tfcotainferior" layoutX="150.0" layoutY="3.0" prefHeight="26.0" prefWidth="91.0" />
-                                    <TextField fx:id="tfcotasuperior" layoutX="150.0" layoutY="42.0" prefHeight="26.0" prefWidth="91.0" />
-                                    <TextField fx:id="tfErrorTolerancia" layoutX="150.0" layoutY="79.0" prefHeight="26.0" prefWidth="91.0" />
-                                    <TextField fx:id="tfIterMax" layoutX="367.0" layoutY="79.0" prefHeight="26.0" prefWidth="91.0" />
-                                    <Button fx:id="btProcesar" layoutX="268.0" layoutY="3.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Procesar" />
-                                    <Button fx:id="btLimpiar" layoutX="364.0" layoutY="3.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Limpiar" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="75.0" layoutY="124.0" text="Resultado:" />
-                                    <Label fx:id="lbResultado" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="124.0" />
-                                 </children>
-                              </AnchorPane>
+                              <TextField fx:id="tfFormula" layoutX="19.0" layoutY="53.0" prefHeight="43.0" prefWidth="420.0" />
+                              <Label layoutX="19.0" layoutY="26.0" text="Ingresar la fórmula:" />
                            </children>
-                        </VBox>
-                     </content>
-                  </TitledPane>
-                  <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="346.0" prefWidth="269.0">
+                        </Pane>
+                        <AnchorPane prefHeight="159.0" prefWidth="472.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="130.0" layoutY="8.0" text="xl" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" layoutY="47.0" text="xu" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="84.0" text="Error de tolerancia:" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="280.0" layoutY="84.0" text="Iteraciones" />
+                              <TextField fx:id="tfcotainferior" layoutX="150.0" layoutY="3.0" prefHeight="26.0" prefWidth="91.0" />
+                              <TextField fx:id="tfcotasuperior" layoutX="150.0" layoutY="42.0" prefHeight="26.0" prefWidth="91.0" />
+                              <TextField fx:id="tfErrorTolerancia" layoutX="150.0" layoutY="79.0" prefHeight="26.0" prefWidth="91.0" />
+                              <TextField fx:id="tfIterMax" layoutX="357.0" layoutY="79.0" prefHeight="26.0" prefWidth="91.0" />
+                              <Button fx:id="btProcesar" layoutX="268.0" layoutY="3.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Procesar" />
+                              <Button fx:id="btLimpiar" layoutX="364.0" layoutY="3.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Limpiar" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="75.0" layoutY="124.0" text="Resultado:" />
+                              <Label fx:id="lbResultado" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="124.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" fillWidth="false" prefHeight="346.0" prefWidth="269.0">
                      <children>
                         <AnchorPane prefHeight="250.0" prefWidth="190.0">
                            <children>
                               <Label layoutX="81.0" layoutY="14.0" text="Control de ejes" />
-                              <TextField fx:id="tfXL" layoutX="47.0" layoutY="110.0" prefHeight="31.0" prefWidth="52.0" />
+                              <TextField fx:id="tfXL" layoutX="40.0" layoutY="99.0" prefHeight="31.0" prefWidth="52.0" />
                               <TextField fx:id="tfXR" layoutX="164.0" layoutY="99.0" prefHeight="31.0" prefWidth="52.0" />
                               <TextField fx:id="tfYU" layoutX="105.0" layoutY="67.0" prefHeight="31.0" prefWidth="52.0" />
                               <TextField fx:id="tfYD" layoutX="105.0" layoutY="130.0" prefHeight="31.0" prefWidth="52.0" />
                               <JFXButton fx:id="btAjustar" layoutX="62.0" layoutY="205.0" prefHeight="31.0" prefWidth="138.0" text="Ajustar" />
-                              <Label layoutX="6.0" layoutY="104.0" text="Xmin" />
+                              <Label layoutY="104.0" text="Xmin" />
                               <Label layoutX="225.0" layoutY="104.0" text="Xmax" />
                               <Label layoutX="114.0" layoutY="161.0" text="Ymin" />
                               <Label layoutX="111.0" layoutY="46.0" prefHeight="21.0" prefWidth="40.0" text="Ymax" />
                            </children>
                            <VBox.margin>
-                              <Insets top="35.0" />
+                              <Insets />
                            </VBox.margin>
                         </AnchorPane>
                      </children>
@@ -96,7 +91,7 @@
                         <Insets top="20.0" />
                      </padding>
                   </VBox>
-                  <BorderPane fx:id="bpChart1" prefHeight="378.0" prefWidth="530.0" />
+                  <BorderPane fx:id="bpChart1" prefHeight="391.0" prefWidth="427.0" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </center>
