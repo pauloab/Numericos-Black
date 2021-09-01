@@ -49,8 +49,8 @@ public class VistaRegresionLinealController implements Initializable {
     private BorderPane bpChart;
 
     private GraphManager graphManager;
-    private double yu = 50, yd = -50, xl = -50, xr = 50;
-    private final double DEFAULT_AXIS_VALUES = 50;
+    private double yu = 30, yd = -30, xl = -30, xr = 30;
+    private final double DEFAULT_AXIS_VALUES = 30;
 
     private RegresionLineal regresor;
     private CoordinatePair[] dataInput;

@@ -48,8 +48,8 @@ public class VistaSimpson38Controller implements Initializable {
     @FXML
     private JFXButton btAjustar;
     private GraphManager graphManager;
-    private double yu = 50, yd = -50, xl = -50, xr = 50;
-    private final double DEFAULT_AXIS_VALUES = 50;
+    private double yu = 30, yd = -30, xl = -30, xr = 30;
+    private final double DEFAULT_AXIS_VALUES = 30;
     private String funcion;
     private Double punto = null;
     private double x0, x1;
