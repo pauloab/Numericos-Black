@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
@@ -16,16 +23,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.IntegracionNewtonCotes.VistaSimpson13Controller">
+<BorderPane prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.IntegracionNewtonCotes.VistaSimpson13Controller">
    <top>
-      <VBox prefHeight="140.0" prefWidth="906.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="111.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="61.0" prefWidth="906.0" />
-            <AnchorPane prefHeight="114.0" prefWidth="906.0" style="-fx-background-color: #080b16;">
+            <AnchorPane prefHeight="114.0" prefWidth="906.0" style="-fx-background-color: #080b16;" styleClass="top-title-bar">
                <children>
-                  <Label layoutX="25.0" layoutY="24.0" prefHeight="48.0" prefWidth="635.0" text="Método de Simpson 1/3" textFill="WHITE">
+                  <Label layoutX="23.0" layoutY="28.0" prefHeight="48.0" prefWidth="635.0" text="Método de Simpson 1/3" textFill="WHITE">
                      <font>
-                        <Font name="Britannic Bold" size="48.0" />
+                        <Font name="MS Outlook" size="48.0" />
                      </font>
                   </Label>
                </children>
@@ -34,42 +40,38 @@
       </VBox>
    </top>
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="primary-pane" BorderPane.alignment="CENTER">
          <center>
             <HBox prefHeight="234.0" prefWidth="871.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="660.0" prefWidth="471.0">
+                  <VBox alignment="CENTER" fillWidth="false" prefHeight="660.0" prefWidth="471.0">
                      <children>
-                        <TitledPane animated="false" minWidth="314.0" prefHeight="291.0" prefWidth="470.0" text="Ingreso de datos">
-                           <content>
-                              <VBox minHeight="274.0" prefHeight="274.0" prefWidth="482.0">
+                        <VBox minHeight="274.0" prefHeight="274.0" prefWidth="482.0">
+                           <children>
+                              <Pane fx:id="pFormula" prefHeight="98.0" prefWidth="458.0">
                                  <children>
-                                    <Pane fx:id="pFormula" prefHeight="98.0" prefWidth="458.0">
-                                       <children>
-                                          <TextField fx:id="tfFormula" layoutX="19.0" layoutY="41.0" prefHeight="43.0" prefWidth="420.0" />
-                                          <Label layoutX="19.0" layoutY="14.0" text="Ingresar la fórmula:" />
-                                       </children>
-                                    </Pane>
-                                    <AnchorPane prefHeight="178.0" prefWidth="448.0">
-                                       <children>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="212.0" layoutY="22.0" text="a" />
-                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="213.0" layoutY="58.0" text="b" />
-                                          <Label fx:id="labeln" alignment="CENTER" contentDisplay="CENTER" layoutX="213.0" layoutY="95.0" text="n" />
-                                          <TextField fx:id="tfx0" layoutX="245.0" layoutY="17.0" prefHeight="26.0" prefWidth="91.0" />
-                                          <TextField fx:id="tfx1" layoutX="245.0" layoutY="53.0" prefHeight="26.0" prefWidth="91.0" />
-                                          <TextField fx:id="tfn" layoutX="245.0" layoutY="90.0" prefHeight="26.0" prefWidth="91.0" />
-                                          <Button fx:id="btProcesar" layoutX="353.0" layoutY="15.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Procesar" />
-                                          <Button fx:id="btLimpiar" layoutX="352.0" layoutY="51.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Limpiar" />
-                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="163.0" layoutY="133.0" text="Resultado:" />
-                                          <Label layoutX="20.0" layoutY="31.0" prefHeight="17.0" prefWidth="127.0" text="Regla de Simpson por:" />
-                                          <Label fx:id="lbResultado" alignment="CENTER" layoutX="245.0" layoutY="133.0" prefHeight="17.0" />
-                                          <ComboBox fx:id="cbTipoTrapecio" layoutX="14.0" layoutY="54.0" prefWidth="150.0" promptText="&lt;Selecciona&gt;" />
-                                       </children>
-                                    </AnchorPane>
+                                    <TextField fx:id="tfFormula" layoutX="19.0" layoutY="41.0" prefHeight="43.0" prefWidth="420.0" />
+                                    <Label layoutX="19.0" layoutY="14.0" text="Ingresar la fórmula:" />
                                  </children>
-                              </VBox>
-                           </content>
-                        </TitledPane>
+                              </Pane>
+                              <AnchorPane prefHeight="178.0" prefWidth="448.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="212.0" layoutY="22.0" text="a" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="213.0" layoutY="58.0" text="b" />
+                                    <Label fx:id="labeln" alignment="CENTER" contentDisplay="CENTER" layoutX="213.0" layoutY="95.0" text="n" />
+                                    <TextField fx:id="tfx0" layoutX="245.0" layoutY="17.0" prefHeight="26.0" prefWidth="91.0" />
+                                    <TextField fx:id="tfx1" layoutX="245.0" layoutY="53.0" prefHeight="26.0" prefWidth="91.0" />
+                                    <TextField fx:id="tfn" layoutX="245.0" layoutY="90.0" prefHeight="26.0" prefWidth="91.0" />
+                                    <Button fx:id="btProcesar" layoutX="353.0" layoutY="15.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Procesar" />
+                                    <Button fx:id="btLimpiar" layoutX="352.0" layoutY="51.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Limpiar" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="163.0" layoutY="133.0" text="Resultado:" />
+                                    <Label layoutX="20.0" layoutY="31.0" prefHeight="17.0" prefWidth="127.0" text="Regla de Simpson por:" />
+                                    <Label fx:id="lbResultado" alignment="CENTER" layoutX="245.0" layoutY="133.0" prefHeight="17.0" />
+                                    <ComboBox fx:id="cbTipoTrapecio" layoutX="14.0" layoutY="54.0" prefWidth="150.0" promptText="&lt;Selecciona&gt;" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
                         <AnchorPane prefHeight="250.0" prefWidth="190.0">
                            <children>
                               <Label layoutX="81.0" layoutY="14.0" text="Control de ejes" />

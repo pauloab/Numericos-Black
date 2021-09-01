@@ -25,7 +25,7 @@
    <top>
       <VBox prefHeight="113.0" prefWidth="1216.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="114.0" prefWidth="906.0" style="-fx-background-color: #080b16;">
+            <AnchorPane prefHeight="114.0" prefWidth="906.0" styleClass="top-title-bar">
                <children>
                   <Label layoutX="26.0" layoutY="29.0" prefHeight="48.0" prefWidth="582.0" text="Serie de Taylor" textFill="WHITE">
                      <font>

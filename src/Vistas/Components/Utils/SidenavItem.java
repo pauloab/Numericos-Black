@@ -47,11 +47,14 @@ public class SidenavItem extends VBox {
         this.topButton.getStyleClass().setAll("side-navbar-item");
 
         this.getChildren().addAll(topButton, vBoxItems);
-        this.topButton.setOnMouseClicked(event -> playCollapse());
+        this.topButton.setOnMouseClicked(event -> {
+            playCollapse();
+            ((SidenavContainer)this.getParent().getParent()).collapseUpExcept(this);
+        });
         this.vBoxItems.setMinHeight(0);
         this.vBoxItems.setFillWidth(true);
 
-        startSize = 30 * buttonList.size();
+        startSize = 32 * buttonList.size();
         collapseAnimation = new Transition() {
             {
                 setCycleDuration(Duration.millis(200));
@@ -90,11 +93,17 @@ public class SidenavItem extends VBox {
      * Reproduce la animación de colapsar o de-colapsar los subitems
      */
     public void playCollapse() {
-        if (isOpened) {
+        isOpened = !isOpened;
+        if (!isOpened) {
             collapseUpAniation.play();
         } else {
             collapseAnimation.play();
         }
-        isOpened = !isOpened;
+        
     }
+
+    public boolean isOpened() {
+        return isOpened;
+    }
+    
 }

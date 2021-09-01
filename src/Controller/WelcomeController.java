@@ -30,7 +30,7 @@ public class WelcomeController implements Initializable {
 
     @FXML
     private ImageView exit, menu, maximo, minimo, ivAproximacionRaices,
-            ivTaylor, ivCurves, ivIntegracionNumerica, ivRungeKutta, ivInterpolacion;
+            ivTaylor, ivCurves, ivIntegracionNumerica, ivRungeKutta, ivInterpolacion, ivIntegracionEcuaciones, ivAcercaDe;
 
     @FXML
     private BorderPane panefront, panelCarga;
@@ -127,21 +127,36 @@ public class WelcomeController implements Initializable {
 
         buttonList = new ArrayList<>();
         bt = new JFXButton("Regla del Trapecio");
-        bt.setOnMouseClicked(e -> CargarVista(bpTrapecio));
+        bt.setOnMouseClicked(e -> CargarVista(bpTrapecio,e));
         buttonList.add(bt);
+        sideNavSubItems.add(bt);
 
         bt = new JFXButton("Regla de Simpson 1/3");
-        bt.setOnMouseClicked(e -> CargarVista(bpSimpson13));
+        bt.setOnMouseClicked(e -> CargarVista(bpSimpson13,e));
         buttonList.add(bt);
+        sideNavSubItems.add(bt);
         
         bt = new JFXButton("Regla de Simpson 3/8");
-        bt.setOnMouseClicked(e -> CargarVista(bpSimpson38));
+        bt.setOnMouseClicked(e -> CargarVista(bpSimpson38,e));
         buttonList.add(bt);
+        sideNavSubItems.add(bt);
 
         sidenavContainer.addItem(new SidenavItem("Integración numérica", buttonList), ivIntegracionNumerica);
 
         buttonList = new ArrayList<>();
+        
+        bt = new JFXButton("Gauss-Legendre");
+        //bt.setOnMouseClicked(e -> CargarVista(bpSimpson38,e));
+        buttonList.add(bt);
+        sideNavSubItems.add(bt);
+        
+        sidenavContainer.addItem(new SidenavItem("Integración de ecuaciones", buttonList), ivIntegracionEcuaciones);
+        
+        buttonList = new ArrayList<>();
         sidenavContainer.addItem(new SidenavItem("Métodos Runge-Kutta", buttonList), ivRungeKutta);
+        
+         buttonList = new ArrayList<>();
+        sidenavContainer.addItem(new SidenavItem("Acerca De", buttonList), ivAcercaDe);
         panefront.setLeft(sidenavContainer);
 
         exit.setOnMouseClicked(

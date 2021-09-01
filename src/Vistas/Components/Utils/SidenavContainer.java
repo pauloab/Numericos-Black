@@ -1,5 +1,6 @@
 package Vistas.Components.Utils;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
@@ -58,13 +59,21 @@ public class SidenavContainer extends HBox {
         iconsPane.setLayoutX(19);
         iconsPane.getChildren().add(icon);
         itemsPane.getChildren().add(item);
-        icon.setScaleY(icon.getScaleY() * 0.8);
-        icon.setScaleX(icon.getScaleX() * 0.8);
+        icon.setScaleY(icon.getScaleY()*1.1);
+        icon.setScaleX(icon.getScaleX()*1.1);
         icon.setOnMouseClicked(e -> hideOrShow());
         item.setHeightTopButton(icon.getFitHeight() + 20);
-        icon.layoutYProperty().bind(item.layoutYProperty().add(10));
+        icon.layoutYProperty().bind(item.layoutYProperty().add(18));
     }
 
+    protected void collapseUpExcept(SidenavItem item){
+        for (Node node : itemsPane.getChildren()) {
+            if (!((SidenavItem)node).equals(item) && ((SidenavItem)node).isOpened()) {
+                ((SidenavItem)node).playCollapse();
+            }
+        }
+    }
+    
     /**
      * Abre o cierra el menú lateral
      */
