@@ -128,18 +128,22 @@ public class VistaReglaTrapecioController implements Initializable {
                         x1 = Graficos.validarTextFieldDouble(tfx1);
                         n = 1;
                         if (x0 != null && x1 != null) {
-                            reglatrapecio = new ReglaTrapecio(funcion, x0, x1);
-                            try {
-                                punto = reglatrapecio.trapecioSimple();
-                                lbResultado.setText("" + punto);
-                            } catch (Exception ex) {
-                                error = true;
-                                Graficos.lanzarMensajeError("Error de procesamiento", "Tuvimos un inconveniente al "
-                                        + "interpretar o procesar la función "
-                                        + "a travéz de este método.");
-                            }
-                            if (!error) {
-                                Graficar(x0, x1);
+                            if (x1 > x0) {
+                                reglatrapecio = new ReglaTrapecio(funcion, x0, x1);
+                                try {
+                                    punto = reglatrapecio.trapecioSimple();
+                                    lbResultado.setText("" + punto);
+                                } catch (Exception ex) {
+                                    error = true;
+                                    Graficos.lanzarMensajeError("Error de procesamiento", "Tuvimos un inconveniente al "
+                                            + "interpretar o procesar la función "
+                                            + "a travéz de este método.");
+                                }
+                                if (!error) {
+                                    Graficar(x0, x1);
+                                }
+                            } else {
+                                Graficos.lanzarMensajeAdvertencia("Verifique el intervalo", "Verifique que el punto a sea menor que b");
                             }
                         } else {
                             Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
@@ -155,27 +159,30 @@ public class VistaReglaTrapecioController implements Initializable {
                         x1 = Graficos.validarTextFieldDouble(tfx1);
                         n = Graficos.validarTextFieldEnteros(tfn);
                         if (x0 != null && x1 != null && n != null) {
-                            if (n > 1 && n <= 50) {
-                                reglatrapecio = new ReglaTrapecio(funcion, x0, x1, n);
-                                try {
-                                    punto = reglatrapecio.trapecioSegmentosMultiples();
-                                    lbResultado.setText("" + punto);
-                                } catch (Exception ex) {
-                                    error = true;
-                                    Graficos.lanzarMensajeError("Error de procesamiento", "Tuvimos un inconveniente al "
-                                            + "interpretar o procesar la función "
-                                            + "a travéz de este método.");
-                                }
-                                if (!error) {
-                                    Graficar(x0, x1);
+                            if (x1 > x0) {
+                                if (n > 1 && n <= 50) {
+                                    reglatrapecio = new ReglaTrapecio(funcion, x0, x1, n);
+                                    try {
+                                        punto = reglatrapecio.trapecioSegmentosMultiples();
+                                        lbResultado.setText("" + punto);
+                                    } catch (Exception ex) {
+                                        error = true;
+                                        Graficos.lanzarMensajeError("Error de procesamiento", "Tuvimos un inconveniente al "
+                                                + "interpretar o procesar la función "
+                                                + "a travéz de este método.");
+                                    }
+                                    if (!error) {
+                                        Graficar(x0, x1);
+                                    }
+                                } else {
+                                    Graficos.lanzarMensajeError("Error de validación", "Tuvimos un inconveniente al "
+                                            + "interpretar el número se segmentos "
+                                            + "a través de este método."
+                                            + " El número de segmentos máximo es 50");
                                 }
                             } else {
-                                Graficos.lanzarMensajeError("Error de validación", "Tuvimos un inconveniente al "
-                                        + "interpretar el número se segmentos "
-                                        + "a través de este método."
-                                + " El número de segmentos máximo es 50");
+                                Graficos.lanzarMensajeAdvertencia("Verifique el intervalo", "Verifique que el punto a sea menor que b");
                             }
-
                         } else {
                             Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
                         }
@@ -224,11 +231,7 @@ public class VistaReglaTrapecioController implements Initializable {
             ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
             dataset.add(Matematico.evaluarFuncion(funcion, xl, xr));
             CoordinatePair[] puntosGraficar;
-            if (n == 1) {
-                puntosGraficar = new CoordinatePair[4];
-            } else {
-                puntosGraficar = new CoordinatePair[n + 1];
-            }
+            puntosGraficar = new CoordinatePair[n + 1];
 
             double x = x0;
             for (int i = 0; i < (puntosGraficar.length); i++) {

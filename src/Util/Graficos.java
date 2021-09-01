@@ -289,4 +289,31 @@ public class Graficos {
 
         System.gc();
     }
+    
+     /**
+     * Imprime los valores de varios sets de datos como funciones continuas sin intersecciones
+     *
+     * @param coordinateArrayList Arreglo de coordenadas
+     * @param screen Panel donde se imprime el gráfico
+     * @param graphManager Manejador de gráfico
+     */
+    public static void plotNoInterseciones(ArrayList<CoordinatePair[]> coordinateArrayList,
+        Pane screen, GraphManager graphManager) {
+        Plotter plotter = new Plotter(graphManager.getGraph(), screen);
+
+        graphManager.getGraph().getData().clear();
+        ArrayList<CoordinatePair> allPoints = new ArrayList<>();
+
+        System.gc();
+
+        for (CoordinatePair[] pairArray : coordinateArrayList) {
+            Collections.addAll(allPoints, pairArray);
+        }
+
+        for (CoordinatePair[] coordinateArray : coordinateArrayList) {
+            plotter.plotNoIntersections(coordinateArray);
+        }
+
+        System.gc();
+    }
 }

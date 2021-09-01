@@ -130,18 +130,22 @@ public class VistaSimpson13Controller implements Initializable {
                         x1 = Graficos.validarTextFieldDouble(tfx1);
                         n = 2;
                         if (x0 != null && x1 != null) {
-                            simpson13 = new Simpson13(funcion, x0, x1);
-                            try {
-                                punto = simpson13.Simpson13Simple();
-                                lbResultado.setText("" + punto);
-                            } catch (Exception ex) {
-                                error = true;
-                                Graficos.lanzarMensajeError("Error de procesamiento", "Tuvimos un inconveniente al "
-                                        + "interpretar o procesar la función "
-                                        + "a travéz de este método.");
-                            }
-                            if (!error) {
-                                Graficar(x0, x1);
+                            if (x1 > x0) {
+                                simpson13 = new Simpson13(funcion, x0, x1);
+                                try {
+                                    punto = simpson13.Simpson13Simple();
+                                    lbResultado.setText("" + punto);
+                                } catch (Exception ex) {
+                                    error = true;
+                                    Graficos.lanzarMensajeError("Error de procesamiento", "Tuvimos un inconveniente al "
+                                            + "interpretar o procesar la función "
+                                            + "a travéz de este método.");
+                                }
+                                if (!error) {
+                                    Graficar(x0, x1);
+                                }
+                            } else {
+                                Graficos.lanzarMensajeAdvertencia("Verifique el intervalo", "Verifique que el punto a sea menor que b");
                             }
                         } else {
                             Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
@@ -157,27 +161,30 @@ public class VistaSimpson13Controller implements Initializable {
                         x1 = Graficos.validarTextFieldDouble(tfx1);
                         n = Graficos.validarTextFieldEnteros(tfn);
                         if (x0 != null && x1 != null && n != null) {
-                            if (n > 1 && n <= 50) {
-                                simpson13 = new Simpson13(funcion, x0, x1, n);
-                                try {
-                                    punto = simpson13.Simpson13MultipleSegmentos();
-                                    lbResultado.setText("" + punto);
-                                } catch (Exception ex) {
-                                    error = true;
-                                    Graficos.lanzarMensajeError("Error de procesamiento", "Tuvimos un inconveniente al "
-                                            + "interpretar o procesar la función "
-                                            + "a travéz de este método.");
-                                }
-                                if (!error) {
-                                    Graficar(x0, x1);
+                            if (x1 > x0) {
+                                if (n > 1 && n <= 50) {
+                                    simpson13 = new Simpson13(funcion, x0, x1, n);
+                                    try {
+                                        punto = simpson13.Simpson13MultipleSegmentos();
+                                        lbResultado.setText("" + punto);
+                                    } catch (Exception ex) {
+                                        error = true;
+                                        Graficos.lanzarMensajeError("Error de procesamiento", "Tuvimos un inconveniente al "
+                                                + "interpretar o procesar la función "
+                                                + "a travéz de este método.");
+                                    }
+                                    if (!error) {
+                                        Graficar(x0, x1);
+                                    }
+                                } else {
+                                    Graficos.lanzarMensajeError("Error de validación", "Tuvimos un inconveniente al "
+                                            + "interpretar el número se segmentos "
+                                            + "a través de este método."
+                                            + " El número de segmentos máximo es 50");
                                 }
                             } else {
-                                Graficos.lanzarMensajeError("Error de validación", "Tuvimos un inconveniente al "
-                                        + "interpretar el número se segmentos "
-                                        + "a través de este método."
-                                        + " El número de segmentos máximo es 50");
+                                Graficos.lanzarMensajeAdvertencia("Verifique el intervalo", "Verifique que el punto a sea menor que b");
                             }
-
                         } else {
                             Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
                         }
@@ -226,7 +233,7 @@ public class VistaSimpson13Controller implements Initializable {
             ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
             ArrayList<CoordinatePair[]> dataset2 = new ArrayList<>();
             dataset.add(Matematico.evaluarFuncion(funcion, xl, xr));
-            if (!cbTipoTrapecio.getSelectionModel().selectedItemProperty().getValue().equalsIgnoreCase("Simpson 1/3 Simple")) {
+            if (cbTipoTrapecio.getSelectionModel().selectedItemProperty().getValue().equalsIgnoreCase("Simpson 1/3 Simple")) {
                 double[] xCordenadasTrabajo = {x0, (x0 + x1) / n, x1};
                 double[] yCordenadasTrabajo = {Matematico.evaluarFuncion(funcion, x0), Matematico.evaluarFuncion(funcion, (x0 + x1) / n), Matematico.evaluarFuncion(funcion, x1)};
                 InterpolacionLagrange interpolar = new InterpolacionLagrange(xCordenadasTrabajo, yCordenadasTrabajo, x0 + (x1 - x0) / 3);
@@ -240,7 +247,7 @@ public class VistaSimpson13Controller implements Initializable {
                     xs2 = xs1 + (x1 - x0) / n;
                     double[] xCordenadasTrabajo = {xs0, xs1, xs2};
                     double[] yCordenadasTrabajo = {Matematico.evaluarFuncion(funcion, xs0), Matematico.evaluarFuncion(funcion, xs1), Matematico.evaluarFuncion(funcion, xs2)};
-                    InterpolacionLagrange interpolar = new InterpolacionLagrange(xCordenadasTrabajo, yCordenadasTrabajo, x0 + (x1 - x0) / 3);
+                    InterpolacionLagrange interpolar = new InterpolacionLagrange(xCordenadasTrabajo, yCordenadasTrabajo, xs0 + (xs1 - xs0) / 3);
                     interpolar.interpolacion();
                     CoordinatePair[] puntosGraficar = Matematico.evaluarFuncion(interpolar.getFuncion(), xs0, xs2);
                     xs0 = xs2;
@@ -256,7 +263,7 @@ public class VistaSimpson13Controller implements Initializable {
                 }
                 dataset.add(set2);
             }
-            Graficos.plotBairstow(dataset, bpChart, graphManager);
+            Graficos.plotNoInterseciones(dataset, bpChart, graphManager);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -80,7 +80,7 @@ public class GraphManager {
                             if(mostrarBordes){
                                 polygon.setStroke(new Color(1, 0, 0.1, 0.80));
                             }
-                            polygon.setFill(new Color(1, 0, 0.1, 0.60));
+                            polygon.setFill(new Color(1, 0.1, 0.4, 0.40));
                         }
                     }
                 }

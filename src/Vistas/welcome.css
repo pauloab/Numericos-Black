@@ -128,7 +128,7 @@
     -fx-stroke: #FFFFFF;
 }
 .chart-alternative-row-fill {
-    -fx-fill: #1C1D23;
+    /*-fx-fill: #1C1D23;*/
     -fx-stroke: transparent;
     -fx-stroke-width: 0;
 }
@@ -145,14 +145,15 @@
 }
 
 .chart-vertical-zero-line{
-    -fx-stroke: #ACD3F2;
+    -fx-stroke: black;
     -fx-stroke-width: 4px;
 }
 .chart-horizontal-zero-line{
-    -fx-stroke: #ACD3F2;
+    -fx-stroke: black;
     -fx-stroke-width: 4px;
 }
-.default-color1.chart-series-line { -fx-stroke: #FFFFFF; }
+.default-color0.chart-series-line { -fx-stroke: violet; }
+.default-color1.chart-series-line { -fx-stroke: lightblue; }
 
 /* tableView styles */
 
@@ -210,6 +211,13 @@
 
 .table-view .filler{
     -fx-background-color: #24262C;
+}
+
+.table-view  .scroll-bar:vertical {
+    -fx-background-color:#1A1A1F;
+}
+.table-view  .scroll-bar:vertical .thumb {
+    -fx-background-color:#24262C;
 }
 
 .table-row-cell{

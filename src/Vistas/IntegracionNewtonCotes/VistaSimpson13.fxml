@@ -65,9 +65,9 @@
                                     <Button fx:id="btProcesar" layoutX="353.0" layoutY="15.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Procesar" />
                                     <Button fx:id="btLimpiar" layoutX="352.0" layoutY="51.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Limpiar" />
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="163.0" layoutY="133.0" text="Resultado:" />
-                                    <Label layoutX="20.0" layoutY="31.0" prefHeight="17.0" prefWidth="127.0" text="Regla de Simpson por:" />
+                                    <Label layoutX="14.0" layoutY="16.0" prefHeight="21.0" prefWidth="162.0" text="Regla de Simpson por:" />
                                     <Label fx:id="lbResultado" alignment="CENTER" layoutX="245.0" layoutY="133.0" prefHeight="17.0" />
-                                    <ComboBox fx:id="cbTipoTrapecio" layoutX="14.0" layoutY="54.0" prefWidth="150.0" promptText="&lt;Selecciona&gt;" />
+                                    <ComboBox fx:id="cbTipoTrapecio" layoutX="14.0" layoutY="39.0" prefWidth="150.0" promptText="&lt;Selecciona&gt;" />
                                  </children>
                               </AnchorPane>
                            </children>

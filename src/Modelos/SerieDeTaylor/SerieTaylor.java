@@ -14,7 +14,7 @@ public class SerieTaylor extends MetodoAproximadorRaices implements MetodoImprim
     private double valorAproximar;
     private double tamanoPaso;
     private double valorVerdadero;
-
+    private double valorInicial;
     /**
      * Constructor de la clase
      *
@@ -30,10 +30,11 @@ public class SerieTaylor extends MetodoAproximadorRaices implements MetodoImprim
     public SerieTaylor(String funcion, double errorTolerancia,
             int iteracionesMaximas, double valorAproximar,
             double tamanoPaso) throws Exception {
-
+        
         super(funcion, errorTolerancia, iteracionesMaximas, new String[iteracionesMaximas][3]);
         this.valorAproximar = valorAproximar;
         this.tamanoPaso = tamanoPaso;
+        this.valorInicial = valorAproximar-tamanoPaso;
         this.valorVerdadero = Matematico.evaluarFuncion(getFuncion(), valorAproximar);
     }
 
@@ -44,7 +45,7 @@ public class SerieTaylor extends MetodoAproximadorRaices implements MetodoImprim
      * @throws Exception Ocurre cuando hay un error al evaluar una función.
      */
     public double SerieTaylor() throws Exception {
-        double valorInicial = valorAproximar - tamanoPaso;
+        tamanoPaso = valorAproximar-valorInicial;
         double errorAprox = 1, errorVerdadero, valorAproximado = 0, valorAnt = 0;
         String derivada, terminoN, funcion = getFuncion();
         int i = 0;
@@ -93,6 +94,10 @@ public class SerieTaylor extends MetodoAproximadorRaices implements MetodoImprim
         }
     }
 
+    public void setValorInicial(double valorInicial) {
+        this.valorInicial = valorInicial;
+    }
+    
     public void setValorAproximar(double valorAproximar) {
         this.valorAproximar = valorAproximar;
     }

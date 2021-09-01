@@ -43,7 +43,7 @@ public class Plotter {
             }
             XYChart.Data dataPoint = new XYChart.Data<>(point.getKey(), point.getValue());
 
-            final Circle graphPoint = new Circle(5);
+            final Circle graphPoint = new Circle(3);
             graphPoint.setFill(Color.BLACK);  // only here to later check whether it has been initialized
 
             for (CoordinatePair intersection : intersections) {
@@ -136,7 +136,7 @@ public class Plotter {
             }
             XYChart.Data dataPoint = new XYChart.Data<>(point.getKey(), point.getValue());
 
-            final Circle graphPoint = new Circle(5);
+            final Circle graphPoint = new Circle(3);
             graphPoint.setFill(Color.BLACK);  // only here to later check whether it has been initialized
 
             for (CoordinatePair intersection : intersections) {
@@ -166,6 +166,45 @@ public class Plotter {
             if (arePoints) {
                 graphPoint.setFill(Color.BLUE);
             }
+
+            graphPoint.setOnMouseEntered(event -> {
+                coordinateView = new CoordinateView(roundDecimals(point.getKey(), 3), roundDecimals(point.getValue(), 3));
+
+                coordinateView.setLayoutX(graphPoint.getLayoutX() + 50);
+                coordinateView.setLayoutY(graphPoint.getLayoutY() + 50);
+
+                screen.getChildren().add(coordinateView);
+            });
+
+            graphPoint.setOnMouseExited(event -> {
+                screen.getChildren().remove(coordinateView);
+
+                coordinateView = null;
+            });
+
+            dataPoint.setNode(graphPoint);
+            point.setGraphPoint(graphPoint);
+
+            dataSeries.getData().add(dataPoint);
+
+            allPoints.add(point);
+        }
+        graph.getData().add(dataSeries);
+    }
+    
+    public void plotNoIntersections(CoordinatePair[] pointsArray) {
+        ArrayList<CoordinatePair> allPoints = new ArrayList<>();
+        
+        XYChart.Series dataSeries = new XYChart.Series();
+
+        for (final CoordinatePair point : pointsArray) {
+            if (point == null) {
+                continue;
+            }
+            XYChart.Data dataPoint = new XYChart.Data<>(point.getKey(), point.getValue());
+
+            final Circle graphPoint = new Circle(3);
+            graphPoint.setFill(Color.TRANSPARENT);            
 
             graphPoint.setOnMouseEntered(event -> {
                 coordinateView = new CoordinateView(roundDecimals(point.getKey(), 3), roundDecimals(point.getValue(), 3));
