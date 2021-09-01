@@ -55,6 +55,8 @@ public class VistaRegresionLinealController implements Initializable {
     private RegresionLineal regresor;
     private CoordinatePair[] dataInput;
 
+    private static final int NUM_MAXIMO_COORDS = 30;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         graphManager = new GraphManager();
@@ -180,12 +182,18 @@ public class VistaRegresionLinealController implements Initializable {
     }
 
     private void addCordFilds() {
-        TextField tf = new TextField();
-        Graficos.convertirEnInputFlotantes(tf);
-        vbXValues.getChildren().add(tf);
-        tf = new TextField();
-        Graficos.convertirEnInputFlotantes(tf);
-        vbYValues.getChildren().add(tf);
+        if (NUM_MAXIMO_COORDS > vbXValues.getChildren().size()) {
+            TextField tf = new TextField();
+            Graficos.convertirEnInputFlotantes(tf);
+            vbXValues.getChildren().add(tf);
+            tf = new TextField();
+            Graficos.convertirEnInputFlotantes(tf);
+            vbYValues.getChildren().add(tf);
+        } else {
+            Graficos.lanzarMensajeAdvertencia("Número máximo de puntos",
+                    "Ha alcanzado el número máximo de puntos que se pueden ingresar: "
+                    + NUM_MAXIMO_COORDS);
+        }
     }
 
     private void Graficar(CoordinatePair[] dataInput, double a0, double a1) {

@@ -1,7 +1,5 @@
-
 package Controller.AjusteCurvas;
 
-import Modelos.AjusteDeCurvas.RegresionLineal;
 import Modelos.AjusteDeCurvas.RegresionCuadratica;
 import Plotter.Models.CoordinatePair;
 import Plotter.Views.GraphManager;
@@ -11,8 +9,6 @@ import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,7 +21,8 @@ import javafx.scene.layout.VBox;
  *
  * @author Javier Matamoros
  */
-public class VistaRegresionCuadraticaController implements Initializable{
+public class VistaRegresionCuadraticaController implements Initializable {
+
     @FXML
     private Button btProcesar;
     @FXML
@@ -39,7 +36,7 @@ public class VistaRegresionCuadraticaController implements Initializable{
     @FXML
     private VBox vbXValues, vbYValues;
     @FXML
-    private Label lbasubcero, lbasubuno,lbasubdos, lbDesviacion, lbErrorEstandar,
+    private Label lbasubcero, lbasubuno, lbasubdos, lbDesviacion, lbErrorEstandar,
             lbCoeficienteDet, lbCoeficienteCor;
     @FXML
     private TextField tfInput, tfOutput;
@@ -56,7 +53,9 @@ public class VistaRegresionCuadraticaController implements Initializable{
 
     private RegresionCuadratica polinomial;
     private CoordinatePair[] dataInput;
-     private String funcion;
+    private String funcion;
+
+    private static final int NUM_MAXIMO_COORDS = 30;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -108,7 +107,7 @@ public class VistaRegresionCuadraticaController implements Initializable{
             }
             if (Matematico.validarRepetidosDouble(x)) {
                 if (error == false) {
-                    polinomial = new RegresionCuadratica(x,y,2);
+                    polinomial = new RegresionCuadratica(x, y, 2);
                     try {
                         polinomial.regresionPolinomial();
                     } catch (Exception ex) {
@@ -195,12 +194,19 @@ public class VistaRegresionCuadraticaController implements Initializable{
     }
 
     private void addCordFilds() {
-        TextField tf = new TextField();
-        Graficos.convertirEnInputFlotantes(tf);
-        vbXValues.getChildren().add(tf);
-        tf = new TextField();
-        Graficos.convertirEnInputFlotantes(tf);
-        vbYValues.getChildren().add(tf);
+        if (NUM_MAXIMO_COORDS > vbXValues.getChildren().size()) {
+            TextField tf = new TextField();
+            Graficos.convertirEnInputFlotantes(tf);
+            vbXValues.getChildren().add(tf);
+            tf = new TextField();
+            Graficos.convertirEnInputFlotantes(tf);
+            vbYValues.getChildren().add(tf);
+        }else{
+            Graficos.lanzarMensajeAdvertencia("Número máximo de puntos",
+                    "Ha alcanzado el número máximo de puntos que se pueden ingresar: "
+                            +NUM_MAXIMO_COORDS);
+        }
+
     }
 
     private void Graficar(CoordinatePair[] dataInput) {
