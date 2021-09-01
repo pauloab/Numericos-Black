@@ -38,7 +38,7 @@ public class WelcomeController implements Initializable {
     private SidenavContainer sidenavContainer;
 
     private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante,
-            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange, bpPolinomial;
+            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange, bpPolinomial, bpTrapecio, bpSimpson13, bpSimpson38;
 
     private ArrayList<JFXButton> sideNavSubItems;
     
@@ -108,24 +108,38 @@ public class WelcomeController implements Initializable {
         buttonList.add(bt);
         sideNavSubItems.add(bt);
         
+
         bt = new JFXButton("Regresión Cuadrática");
         bt.setOnMouseClicked(e -> CargarVista(bpPolinomial,e));
         buttonList.add(bt);
         sideNavSubItems.add(bt);
 
         sidenavContainer.addItem(new SidenavItem("Ajuste de curvas", buttonList), ivCurves);
-        
+
         buttonList = new ArrayList<>();
         bt = new JFXButton("Lagrange");
         bt.setOnMouseClicked(e -> CargarVista(bpLagrange,e));
         buttonList.add(bt);
         sideNavSubItems.add(bt);
         
+
         sidenavContainer.addItem(new SidenavItem("Interpolación", buttonList), ivInterpolacion);
-        
+
         buttonList = new ArrayList<>();
-        sidenavContainer.addItem(new SidenavItem("Integración numérica", buttonList), ivIntegracionNumerica);
+        bt = new JFXButton("Regla del Trapecio");
+        bt.setOnMouseClicked(e -> CargarVista(bpTrapecio));
+        buttonList.add(bt);
+
+        bt = new JFXButton("Regla de Simpson 1/3");
+        bt.setOnMouseClicked(e -> CargarVista(bpSimpson13));
+        buttonList.add(bt);
         
+        bt = new JFXButton("Regla de Simpson 3/8");
+        bt.setOnMouseClicked(e -> CargarVista(bpSimpson38));
+        buttonList.add(bt);
+
+        sidenavContainer.addItem(new SidenavItem("Integración numérica", buttonList), ivIntegracionNumerica);
+
         buttonList = new ArrayList<>();
         sidenavContainer.addItem(new SidenavItem("Métodos Runge-Kutta", buttonList), ivRungeKutta);
         panefront.setLeft(sidenavContainer);
@@ -154,7 +168,7 @@ public class WelcomeController implements Initializable {
 
     public void precargarVistas() {
         try {
-           bpBiseccion = FXMLLoader.load(
+            bpBiseccion = FXMLLoader.load(
                     getClass().getResource("/Vistas/MetodosAproxRaices/VistaBiseccion.fxml")
             );
             bpBiseccion.setPadding(new Insets(0, 0, 0, 64));
@@ -201,16 +215,28 @@ public class WelcomeController implements Initializable {
             bpPolinomial = FXMLLoader.load(
                     getClass().getResource("/Vistas/AjusteCurvas/VistaRegresionCuadratica.fxml")
             );
-             bpPolinomial.setPadding(new Insets(0, 0, 0, 64));
-   
+            bpPolinomial.setPadding(new Insets(0, 0, 0, 64));
+
             bpLagrange = FXMLLoader.load(
                     getClass().getResource("/Vistas/Interpolacion/VistaLagrange.fxml")
             );
             bpLagrange.setPadding(new Insets(0, 0, 0, 64));
+
+            bpTrapecio = FXMLLoader.load(
+                    getClass().getResource("/Vistas/IntegracionNewtonCotes/VistaReglaTrapecio.fxml")
+            );
+            bpTrapecio.setPadding(new Insets(0, 0, 0, 64));
             
+            bpSimpson13 = FXMLLoader.load(
+                    getClass().getResource("/Vistas/IntegracionNewtonCotes/VistaSimpson13.fxml")
+            );
+            bpSimpson13.setPadding(new Insets(0, 0, 0, 64));
             
-            
-            
+            bpSimpson38 = FXMLLoader.load(
+                    getClass().getResource("/Vistas/IntegracionNewtonCotes/VistaSimpson38.fxml")
+            );
+            bpSimpson38.setPadding(new Insets(0, 0, 0, 64));
+
         } catch (IOException ex) {
             ex.printStackTrace();
             Graficos.lanzarMensajeError("Error de carga de recursos", "Existe un "

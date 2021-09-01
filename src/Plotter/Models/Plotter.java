@@ -125,9 +125,9 @@ public class Plotter {
     }
 
     public void plot(CoordinatePair[] pointsArray,
-        ArrayList<CoordinatePair> intersections, boolean arePoints) {
+            ArrayList<CoordinatePair> intersections, boolean arePoints) {
         ArrayList<CoordinatePair> allPoints = new ArrayList<>();
-
+        
         XYChart.Series dataSeries = new XYChart.Series();
 
         for (final CoordinatePair point : pointsArray) {
@@ -159,7 +159,7 @@ public class Plotter {
                     break;
                 }
             }
-            
+
             if (graphPoint.getFill().equals(Color.BLACK)) {
                 graphPoint.setFill(Color.TRANSPARENT);
             }

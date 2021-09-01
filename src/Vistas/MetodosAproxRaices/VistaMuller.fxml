@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
@@ -21,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MetodosAproxRaices.VistaMullerController">
+<BorderPane prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MetodosAproxRaices.VistaMullerController">
    <top>
       <VBox prefHeight="114.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
          <children>
@@ -100,7 +93,8 @@
                   <BorderPane fx:id="bpChart" prefHeight="154.0" prefWidth="420.0" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets bottom="10.0" />
-                     </HBox.margin></BorderPane>
+                     </HBox.margin>
+                  </BorderPane>
                </children>
             </HBox>
          </center>

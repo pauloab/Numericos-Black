@@ -111,8 +111,8 @@ public class VistaRegresionLinealController implements Initializable {
                     lbInterseccion.setText("a0 = " + regresor.getInterseccion());
                     lbDerviacion.setText("Sy = " + regresor.getDesviacionEstandar());
                     lbErrorEstandar.setText("Sy/x = " + regresor.getErrorEstandar());
-                    lbCoeficienteCor.setText("r2 = " + regresor.getCoeficienteCorrelacion());
-                    lbCoeficienteDet.setText("r = " + regresor.getCoeficienteDeterminacion());
+                    lbCoeficienteCor.setText("r = " + regresor.getCoeficienteCorrelacion());
+                    lbCoeficienteDet.setText("r2 = " + regresor.getCoeficienteDeterminacion());
                     btPronosticar.setDisable(false);
                     dataInput = new CoordinatePair[n];
                     for (int i = 0; i < n; i++) {
