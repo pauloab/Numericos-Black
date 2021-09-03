@@ -40,17 +40,21 @@ public class SidenavItem extends VBox {
         for (JFXButton b : buttonList) {
             b.setPrefHeight(40);
             b.setPrefWidth(260);
+            b.getStyleClass().add("side-navbar-subitem");
             b.setAlignment(Pos.CENTER_LEFT);
             this.vBoxItems.getChildren().add(b);
         }
         this.topButton.getStyleClass().setAll("side-navbar-item");
 
         this.getChildren().addAll(topButton, vBoxItems);
-        this.topButton.setOnMouseClicked(event -> playCollapse());
+        this.topButton.setOnMouseClicked(event -> {
+            playCollapse();
+            ((SidenavContainer)this.getParent().getParent()).collapseUpExcept(this);
+        });
         this.vBoxItems.setMinHeight(0);
         this.vBoxItems.setFillWidth(true);
 
-        startSize = 30 * buttonList.size();
+        startSize = 32 * buttonList.size();
         collapseAnimation = new Transition() {
             {
                 setCycleDuration(Duration.millis(200));
@@ -89,13 +93,17 @@ public class SidenavItem extends VBox {
      * Reproduce la animación de colapsar o de-colapsar los subitems
      */
     public void playCollapse() {
-        if (isOpened) {
+        isOpened = !isOpened;
+        if (!isOpened) {
             collapseUpAniation.play();
-            topButton.getStyleClass().add("side-navbar-item-selected");
         } else {
             collapseAnimation.play();
-            topButton.getStyleClass().setAll("side-navbar-item");
         }
-        isOpened = !isOpened;
+        
     }
+
+    public boolean isOpened() {
+        return isOpened;
+    }
+    
 }

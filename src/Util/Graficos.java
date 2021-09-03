@@ -10,7 +10,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import Plotter.Views.GraphManager;
+import Principal.main;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -68,6 +70,9 @@ public class Graficos {
     public static void lanzarMensajeError(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initStyle(StageStyle.UTILITY);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                main.class.getResource("/Vistas/welcome.css").toExternalForm());
         alert.setTitle("Error - Numeric Blacks");
         alert.setHeaderText(header);
         alert.setContentText(content);
@@ -83,6 +88,9 @@ public class Graficos {
     public static void lanzarMensajeAdvertencia(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.initStyle(StageStyle.UTILITY);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                main.class.getResource("/Vistas/welcome.css").toExternalForm());
         alert.setTitle("Error - Numeric Blacks");
         alert.setHeaderText(header);
         alert.setContentText(content);
@@ -253,6 +261,7 @@ public class Graficos {
 
         System.gc();
     }
+
     /**
      * Imprime los valores de varios sets de datos como funcionaes continuas
      *
@@ -276,6 +285,33 @@ public class Graficos {
         ArrayList<CoordinatePair> intersections = plotter.findIntersections(allPoints);
         for (CoordinatePair[] coordinateArray : coordinateArrayList) {
             plotter.plot(coordinateArray, intersections, false);
+        }
+
+        System.gc();
+    }
+    
+     /**
+     * Imprime los valores de varios sets de datos como funciones continuas sin intersecciones
+     *
+     * @param coordinateArrayList Arreglo de coordenadas
+     * @param screen Panel donde se imprime el gráfico
+     * @param graphManager Manejador de gráfico
+     */
+    public static void plotNoInterseciones(ArrayList<CoordinatePair[]> coordinateArrayList,
+        Pane screen, GraphManager graphManager) {
+        Plotter plotter = new Plotter(graphManager.getGraph(), screen);
+
+        graphManager.getGraph().getData().clear();
+        ArrayList<CoordinatePair> allPoints = new ArrayList<>();
+
+        System.gc();
+
+        for (CoordinatePair[] pairArray : coordinateArrayList) {
+            Collections.addAll(allPoints, pairArray);
+        }
+
+        for (CoordinatePair[] coordinateArray : coordinateArrayList) {
+            plotter.plotNoIntersections(coordinateArray);
         }
 
         System.gc();

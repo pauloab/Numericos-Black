@@ -21,6 +21,7 @@ public class SerieTaylorTest {
     public void probrarPrimerCaso() throws Exception {
         String funcion = "exp(x)";
         double x = 1;
+        double x0 = 0;
         double tamanoPaso = 1;
         int numeroIteracionesMaxima = 10;
         double errorTolerancia = 0.0005;
@@ -38,6 +39,7 @@ public class SerieTaylorTest {
     public void probarSegundoCaso() throws Exception {
         String funcion = " 1/(1-x) ";
         double x = 0.15;
+        double x0 = 0;
         double tamanoPaso = 0.15;
         int numeroIteracionesMaxima = 10;
         double errorTolerancia = 0.0005;

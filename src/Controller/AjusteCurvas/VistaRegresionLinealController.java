@@ -49,11 +49,13 @@ public class VistaRegresionLinealController implements Initializable {
     private BorderPane bpChart;
 
     private GraphManager graphManager;
-    private double yu = 50, yd = -50, xl = -50, xr = 50;
-    private final double DEFAULT_AXIS_VALUES = 50;
+    private double yu = 30, yd = -30, xl = -30, xr = 30;
+    private final double DEFAULT_AXIS_VALUES = 30;
 
     private RegresionLineal regresor;
     private CoordinatePair[] dataInput;
+
+    private static final int NUM_MAXIMO_COORDS = 30;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -180,12 +182,18 @@ public class VistaRegresionLinealController implements Initializable {
     }
 
     private void addCordFilds() {
-        TextField tf = new TextField();
-        Graficos.convertirEnInputFlotantes(tf);
-        vbXValues.getChildren().add(tf);
-        tf = new TextField();
-        Graficos.convertirEnInputFlotantes(tf);
-        vbYValues.getChildren().add(tf);
+        if (NUM_MAXIMO_COORDS > vbXValues.getChildren().size()) {
+            TextField tf = new TextField();
+            Graficos.convertirEnInputFlotantes(tf);
+            vbXValues.getChildren().add(tf);
+            tf = new TextField();
+            Graficos.convertirEnInputFlotantes(tf);
+            vbYValues.getChildren().add(tf);
+        } else {
+            Graficos.lanzarMensajeAdvertencia("Número máximo de puntos",
+                    "Ha alcanzado el número máximo de puntos que se pueden ingresar: "
+                    + NUM_MAXIMO_COORDS);
+        }
     }
 
     private void Graficar(CoordinatePair[] dataInput, double a0, double a1) {

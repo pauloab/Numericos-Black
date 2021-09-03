@@ -29,7 +29,7 @@ public class main extends Application {
             primaryStage.setX(event.getScreenX() - x);
             primaryStage.setY(event.getScreenY() - y);
         });
-
+        primaryStage.setTitle("Numéricos Blacks - Aproximador por métodos numéricos");
         primaryStage.setScene(new Scene(root, 1280, 800));
         primaryStage.show();
     }

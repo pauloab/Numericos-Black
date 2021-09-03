@@ -26,7 +26,7 @@ import javafx.scene.layout.Pane;
 public class VistaSerieTaylorController implements Initializable {
 
     @FXML
-    private TextField tfH;
+    private TextField tfx0;
     @FXML
     private TextField tfFormula;
     @FXML
@@ -46,17 +46,17 @@ public class VistaSerieTaylorController implements Initializable {
     @FXML
     private BorderPane bpChart;
     @FXML
-    private Label lbResultado;
-    
+    private Label lbResultado,lbH;
+
     @FXML
     private TextField tfYU, tfYD, tfXL, tfXR;
     @FXML
     private JFXButton btAjustar;
     private GraphManager graphManager;
-    private double yu = 50, yd = -50, xl = -50, xr = 50;
-    private final double DEFAULT_AXIS_VALUES = 50;
+    private double yu = 30, yd = -30, xl = -30, xr = 30;
+    private final double DEFAULT_AXIS_VALUES = 30;
     private String funcion;
-    private Double punto = null;
+    private Double punto = null, x1 = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -82,7 +82,7 @@ public class VistaSerieTaylorController implements Initializable {
         Graficos.convertirEnInputFlotantes(tfYD);
 
         Graficos.convertirEnInputFlotantes(tfX1);
-        Graficos.convertirEnInputFlotantes(tfH);
+        Graficos.convertirEnInputFlotantes(tfx0);
         Graficos.convertirEnInputFlotantes(tfErrorTolerancia);
         Graficos.convertirEnInputEnteros(tfIterMax);
 
@@ -91,16 +91,18 @@ public class VistaSerieTaylorController implements Initializable {
             SerieTaylor taylor;
             boolean error = false;
             if (Matematico.validarExpresion(funcion)) {
-                Double x1 = Graficos.validarTextFieldDouble(tfX1);
-                Double h = Graficos.validarTextFieldDouble(tfH);
+                x1 = Graficos.validarTextFieldDouble(tfX1);
+                Double x0 = Graficos.validarTextFieldDouble(tfx0);
                 Double eTolerancia = Graficos.validarTextFieldDouble(tfErrorTolerancia);
                 Integer imax = Graficos.validarTextFieldEnteros(tfIterMax);
-                if (x1 != null && h != null && eTolerancia != null && imax != null) {
+                if (x1 != null && x0 != null && eTolerancia != null && imax != null) {
                     try {
-                        taylor = new SerieTaylor(funcion, eTolerancia, imax, x1, h);
+                        taylor = new SerieTaylor(funcion, eTolerancia, imax, x1, 2);
+                        taylor.setValorInicial(x0);
                         punto = taylor.SerieTaylor();
-                        lbResultado.setText(""+punto);
-                        String[] headers = {"xAprox", "Error verdadero", "Error de aproximación"};
+                        lbH.setText(""+(x1-x0));
+                        lbResultado.setText("" + punto);
+                        String[] headers = {"f(x) Aprox.", "Error verdadero", "Error de aproximación"};
                         Graficos.cargarEnTableView(tvResultados, taylor.getMatrizDeDatos(), headers);
                     } catch (Exception ex) {
                         error = true;
@@ -132,7 +134,8 @@ public class VistaSerieTaylorController implements Initializable {
             tfFormula.clear();
             tfErrorTolerancia.setText("");
             tfIterMax.setText("");
-            tfH.setText("");
+            tfx0.setText("");
+            lbH.setText("");
             tfX1.setText("");
             tvResultados.getItems().clear();
         });
@@ -140,12 +143,16 @@ public class VistaSerieTaylorController implements Initializable {
 
     private void Graficar() {
         try {
-            CoordinatePair puntoCords = new CoordinatePair(punto,
-                    Matematico.evaluarFuncion(funcion, punto));
-
+            graphManager.getGraph().getData().clear();
+            CoordinatePair puntoCords1 = new CoordinatePair(x1,
+                    Matematico.evaluarFuncion(funcion, x1));
+            CoordinatePair puntoCords2 = new CoordinatePair(x1,punto);
+            CoordinatePair[] set2 = {puntoCords1,puntoCords2};
+            
             ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
+            dataset.add(set2);
             dataset.add(Matematico.evaluarFuncion(funcion, xl, xr));
-            Graficos.plotPoints(dataset, bpChart, graphManager, puntoCords);
+            Graficos.plotPuntosLineas(dataset, bpChart, graphManager);
         } catch (Exception e) {
             Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "
                     + "interpretar o procesar la función "
