@@ -29,6 +29,8 @@ import javafx.scene.layout.Pane;
  */
 public class Graficos {
 
+    public static final double RANGO_GRAFICACION_MAX = 150;
+
     /**
      * Conveirte un TextField en un campo que solo admite digitos y '-'
      *
@@ -289,16 +291,17 @@ public class Graficos {
 
         System.gc();
     }
-    
-     /**
-     * Imprime los valores de varios sets de datos como funciones continuas sin intersecciones
+
+    /**
+     * Imprime los valores de varios sets de datos como funciones continuas sin
+     * intersecciones
      *
      * @param coordinateArrayList Arreglo de coordenadas
      * @param screen Panel donde se imprime el gráfico
      * @param graphManager Manejador de gráfico
      */
     public static void plotNoInterseciones(ArrayList<CoordinatePair[]> coordinateArrayList,
-        Pane screen, GraphManager graphManager) {
+            Pane screen, GraphManager graphManager) {
         Plotter plotter = new Plotter(graphManager.getGraph(), screen);
 
         graphManager.getGraph().getData().clear();

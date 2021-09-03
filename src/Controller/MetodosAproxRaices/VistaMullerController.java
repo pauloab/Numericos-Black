@@ -18,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
-
 /**
  * FXML Controller class de la vista Muller
  *
@@ -50,7 +49,7 @@ public class VistaMullerController implements Initializable {
     private BorderPane bpChart;
     @FXML
     private Label lbResultado;
-    
+
     @FXML
     private TextField tfYU, tfYD, tfXL, tfXR;
     @FXML
@@ -60,8 +59,7 @@ public class VistaMullerController implements Initializable {
     private final double DEFAULT_AXIS_VALUES = 30;
     private String funcion;
     private Double punto = null;
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         graphManager = new GraphManager();
@@ -85,13 +83,13 @@ public class VistaMullerController implements Initializable {
         Graficos.convertirEnInputFlotantes(tfXR);
         Graficos.convertirEnInputFlotantes(tfYU);
         Graficos.convertirEnInputFlotantes(tfYD);
-        
+
         Graficos.convertirEnInputFlotantes(tfx0);
         Graficos.convertirEnInputFlotantes(tfx1);
         Graficos.convertirEnInputFlotantes(tfx2);
         Graficos.convertirEnInputFlotantes(tfErrorTolerancia);
         Graficos.convertirEnInputEnteros(tfIterMax);
-        
+
         btProcesar.setOnMouseClicked(event -> {
             funcion = tfFormula.getText();
             Muller muller;
@@ -106,7 +104,7 @@ public class VistaMullerController implements Initializable {
                     muller = new Muller(funcion, eTolerancia, imax, x2, x1, x0);
                     try {
                         punto = muller.metodoMuller();
-                        lbResultado.setText(""+punto);
+                        lbResultado.setText("" + punto);
                         String[] headers = {"x0", "x1", "x2", "xr", "Error de aproximación"};
                         Graficos.cargarEnTableView(tvResultados, muller.getMatrizDeDatos(), headers);
                     } catch (Exception ex) {
@@ -117,9 +115,9 @@ public class VistaMullerController implements Initializable {
                     }
                     if (!error) {
                         Graficar();
-                    }    
-                }else{
-                    Graficos.lanzarMensajeError("Error de conversión","Por favor, verifica el ingreso de datos antes de proceder.");
+                    }
+                } else {
+                    Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
                 }
             } else {
                 Graficos.lanzarMensajeError("Error de conversión", "Hubo un error al interpretar la fórmula ingresada.");
@@ -144,9 +142,9 @@ public class VistaMullerController implements Initializable {
             tfx2.setText("");
             tvResultados.getItems().clear();
         });
-    }    
-    
-     private void Graficar() {
+    }
+
+    private void Graficar() {
         try {
             CoordinatePair puntoCords = new CoordinatePair(punto,
                     Matematico.evaluarFuncion(funcion, punto));
@@ -164,28 +162,37 @@ public class VistaMullerController implements Initializable {
     }
 
     private boolean definirLimites() {
-        boolean res = true;
+        boolean res = false;
         Double xl = Graficos.validarTextFieldDouble(tfXL);
         Double xr = Graficos.validarTextFieldDouble(tfXR);
         Double yu = Graficos.validarTextFieldDouble(tfYU);
         Double yd = Graficos.validarTextFieldDouble(tfYD);
         if (xl != null && xr != null && yu != null && yd != null) {
             if (xl < xr && yu > yd) {
-                this.xl = xl;
-                this.xr = xr;
-                this.yu = yu;
-                this.yd = yd;
-                graphManager.setDomain(xl, xr);
-                graphManager.setRange(yd, yu);
+                if (Math.abs(xl - xr) <= Graficos.RANGO_GRAFICACION_MAX) {
+                    if (Math.abs(yu - yd) <= Graficos.RANGO_GRAFICACION_MAX) {
+                        this.xl = xl;
+                        this.xr = xr;
+                        this.yu = yu;
+                        this.yd = yd;
+                        graphManager.setDomain(xl, xr);
+                        graphManager.setRange(yd, yu);
+                        res = true;
+                    } else {
+                        Graficos.lanzarMensajeError("Error de validación",
+                                "La diferencia entre yMax y yMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                    }
+                } else {
+                    Graficos.lanzarMensajeError("Error de validación",
+                            "La diferencia entre xMax y xMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                }
             } else {
                 Graficos.lanzarMensajeAdvertencia("Verifique los intervalos.",
                         "Verifique que el rango y el dominio. El intervalo debe ir de menor a mayor.");
-                res = false;
             }
         } else {
             Graficos.lanzarMensajeError("Error de conversión.",
                     "Verifique los valores ingresados en los campos de control de gráfica.");
-            res = false;
         }
         return res;
     }

@@ -218,28 +218,37 @@ public class VistaBairstowController implements Initializable {
     }
 
     private boolean definirLimites() {
-        boolean res = true;
+        boolean res = false;
         Double xl = Graficos.validarTextFieldDouble(tfXL);
         Double xr = Graficos.validarTextFieldDouble(tfXR);
         Double yu = Graficos.validarTextFieldDouble(tfYU);
         Double yd = Graficos.validarTextFieldDouble(tfYD);
         if (xl != null && xr != null && yu != null && yd != null) {
             if (xl < xr && yu > yd) {
-                this.xl = xl;
-                this.xr = xr;
-                this.yu = yu;
-                this.yd = yd;
-                graphManager.setDomain(xl, xr);
-                graphManager.setRange(yd, yu);
+                if (Math.abs(xl - xr) <= Graficos.RANGO_GRAFICACION_MAX) {
+                    if (Math.abs(yu - yd) <= Graficos.RANGO_GRAFICACION_MAX) {
+                        this.xl = xl;
+                        this.xr = xr;
+                        this.yu = yu;
+                        this.yd = yd;
+                        graphManager.setDomain(xl, xr);
+                        graphManager.setRange(yd, yu);
+                        res = true;
+                    } else {
+                        Graficos.lanzarMensajeError("Error de validación",
+                                "La diferencia entre yMax y yMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                    }
+                } else {
+                    Graficos.lanzarMensajeError("Error de validación",
+                            "La diferencia entre xMax y xMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                }
             } else {
                 Graficos.lanzarMensajeAdvertencia("Verifique los intervalos.",
                         "Verifique que el rango y el dominio. El intervalo debe ir de menor a mayor.");
-                res = false;
             }
         } else {
             Graficos.lanzarMensajeError("Error de conversión.",
                     "Verifique los valores ingresados en los campos de control de gráfica.");
-            res = false;
         }
         return res;
     }

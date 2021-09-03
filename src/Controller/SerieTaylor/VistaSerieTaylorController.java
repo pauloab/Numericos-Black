@@ -46,7 +46,7 @@ public class VistaSerieTaylorController implements Initializable {
     @FXML
     private BorderPane bpChart;
     @FXML
-    private Label lbResultado,lbH;
+    private Label lbResultado, lbH;
 
     @FXML
     private TextField tfYU, tfYD, tfXL, tfXR;
@@ -101,7 +101,7 @@ public class VistaSerieTaylorController implements Initializable {
                         taylor = new SerieTaylor(funcion, eTolerancia, imax, x1, 2);
                         taylor.setValorInicial(x0);
                         punto = taylor.SerieTaylor();
-                        lbH.setText(""+(x1-x0));
+                        lbH.setText("" + (x1 - x0));
                         lbResultado.setText("" + punto);
                         String[] headers = {"f(x) Aprox.", "Error verdadero", "Error de aproximación"};
                         Graficos.cargarEnTableView(tvResultados, taylor.getMatrizDeDatos(), headers);
@@ -147,9 +147,9 @@ public class VistaSerieTaylorController implements Initializable {
             graphManager.getGraph().getData().clear();
             CoordinatePair puntoCords1 = new CoordinatePair(x1,
                     Matematico.evaluarFuncion(funcion, x1));
-            CoordinatePair puntoCords2 = new CoordinatePair(x1,punto);
-            CoordinatePair[] set2 = {puntoCords1,puntoCords2};
-            
+            CoordinatePair puntoCords2 = new CoordinatePair(x1, punto);
+            CoordinatePair[] set2 = {puntoCords1, puntoCords2};
+
             ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
             dataset.add(set2);
             dataset.add(Matematico.evaluarFuncion(funcion, xl, xr));
@@ -163,28 +163,37 @@ public class VistaSerieTaylorController implements Initializable {
     }
 
     private boolean definirLimites() {
-        boolean res = true;
+        boolean res = false;
         Double xl = Graficos.validarTextFieldDouble(tfXL);
         Double xr = Graficos.validarTextFieldDouble(tfXR);
         Double yu = Graficos.validarTextFieldDouble(tfYU);
         Double yd = Graficos.validarTextFieldDouble(tfYD);
         if (xl != null && xr != null && yu != null && yd != null) {
             if (xl < xr && yu > yd) {
-                this.xl = xl;
-                this.xr = xr;
-                this.yu = yu;
-                this.yd = yd;
-                graphManager.setDomain(xl, xr);
-                graphManager.setRange(yd, yu);
+                if (Math.abs(xl - xr) <= Graficos.RANGO_GRAFICACION_MAX) {
+                    if (Math.abs(yu - yd) <= Graficos.RANGO_GRAFICACION_MAX) {
+                        this.xl = xl;
+                        this.xr = xr;
+                        this.yu = yu;
+                        this.yd = yd;
+                        graphManager.setDomain(xl, xr);
+                        graphManager.setRange(yd, yu);
+                        res = true;
+                    } else {
+                        Graficos.lanzarMensajeError("Error de validación",
+                                "La diferencia entre yMax y yMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                    }
+                } else {
+                    Graficos.lanzarMensajeError("Error de validación",
+                            "La diferencia entre xMax y xMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                }
             } else {
                 Graficos.lanzarMensajeAdvertencia("Verifique los intervalos.",
                         "Verifique que el rango y el dominio. El intervalo debe ir de menor a mayor.");
-                res = false;
             }
         } else {
             Graficos.lanzarMensajeError("Error de conversión.",
                     "Verifique los valores ingresados en los campos de control de gráfica.");
-            res = false;
         }
         return res;
     }
