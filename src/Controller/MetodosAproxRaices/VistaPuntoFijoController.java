@@ -59,7 +59,7 @@ public class VistaPuntoFijoController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        tvResultados.setPlaceholder(new Label(""));
         graphManager = new GraphManager();
         tfXL.setText(xl + "");
         tfXR.setText(xr + "");

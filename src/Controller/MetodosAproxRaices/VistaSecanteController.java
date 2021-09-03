@@ -63,6 +63,7 @@ public class VistaSecanteController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         graphManager = new GraphManager();
+        tvResultados.setPlaceholder(new Label(""));
         tfXL.setText(xl + "");
         tfXR.setText(xr + "");
         tfYU.setText(yu + "");
