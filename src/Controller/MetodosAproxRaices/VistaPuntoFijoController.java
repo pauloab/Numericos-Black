@@ -18,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
-
 /**
  * FXML Controller class de la vista Punto Fijo
  *
@@ -55,11 +54,10 @@ public class VistaPuntoFijoController implements Initializable {
     private final double DEFAULT_AXIS_VALUES = 30;
     private String funcion;
     private Double punto = null;
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        tvResultados.setPlaceholder(new Label(""));
         graphManager = new GraphManager();
         tfXL.setText(xl + "");
         tfXR.setText(xr + "");
@@ -80,12 +78,12 @@ public class VistaPuntoFijoController implements Initializable {
         Graficos.convertirEnInputFlotantes(tfXR);
         Graficos.convertirEnInputFlotantes(tfYU);
         Graficos.convertirEnInputFlotantes(tfYD);
-     
+
         // Se agrega la validación de los inputs
         Graficos.convertirEnInputFlotantes(tfx0);
         Graficos.convertirEnInputFlotantes(tfErrorTolerancia);
         Graficos.convertirEnInputEnteros(tfIterMax);
-        
+
         btProcesar.setOnMouseClicked(event -> {
             funcion = tfFormula.getText();
             PuntoFijo puntofijo;
@@ -98,8 +96,8 @@ public class VistaPuntoFijoController implements Initializable {
                     puntofijo = new PuntoFijo(funcion, eTolerancia, imax, x0);
                     try {
                         punto = puntofijo.metodoPuntoFijo();
-                        lbResultado.setText(""+punto);
-                        String[] headers = {"xi+1","g(x)", "Error de aproximación"};
+                        lbResultado.setText("" + punto);
+                        String[] headers = {"xi+1", "g(x)", "Error de aproximación"};
                         Graficos.cargarEnTableView(tvResultados, puntofijo.getMatrizDeDatos(), headers);
                     } catch (Exception ex) {
                         error = true;
@@ -108,11 +106,11 @@ public class VistaPuntoFijoController implements Initializable {
                                 + "a travéz de este método.");
                     }
                     if (!error) {
-                      Graficar();
-                        
-                    }    
-                }else{
-                    Graficos.lanzarMensajeError("Error de conversión","Por favor, verifica el ingreso de datos antes de proceder.");
+                        Graficar();
+
+                    }
+                } else {
+                    Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
                 }
             } else {
                 Graficos.lanzarMensajeError("Error de conversión", "Hubo un error al interpretar la fórmula ingresada.");
@@ -135,34 +133,45 @@ public class VistaPuntoFijoController implements Initializable {
             tfx0.setText("");
             tvResultados.getItems().clear();
         });
-    } 
-     private boolean definirLimites() {
-        boolean res = true;
+    }
+
+    private boolean definirLimites() {
+        boolean res = false;
         Double xl = Graficos.validarTextFieldDouble(tfXL);
         Double xr = Graficos.validarTextFieldDouble(tfXR);
         Double yu = Graficos.validarTextFieldDouble(tfYU);
         Double yd = Graficos.validarTextFieldDouble(tfYD);
         if (xl != null && xr != null && yu != null && yd != null) {
             if (xl < xr && yu > yd) {
-                this.xl = xl;
-                this.xr = xr;
-                this.yu = yu;
-                this.yd = yd;
-                graphManager.setDomain(xl, xr);
-                graphManager.setRange(yd, yu);
+                if (Math.abs(xl - xr) <= Graficos.RANGO_GRAFICACION_MAX) {
+                    if (Math.abs(yu - yd) <= Graficos.RANGO_GRAFICACION_MAX) {
+                        this.xl = xl;
+                        this.xr = xr;
+                        this.yu = yu;
+                        this.yd = yd;
+                        graphManager.setDomain(xl, xr);
+                        graphManager.setRange(yd, yu);
+                        res = true;
+                    } else {
+                        Graficos.lanzarMensajeError("Error de validación",
+                                "La diferencia entre yMax y yMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                    }
+                } else {
+                    Graficos.lanzarMensajeError("Error de validación",
+                            "La diferencia entre xMax y xMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                }
             } else {
                 Graficos.lanzarMensajeAdvertencia("Verifique los intervalos.",
                         "Verifique que el rango y el dominio. El intervalo debe ir de menor a mayor.");
-                res = false;
             }
         } else {
             Graficos.lanzarMensajeError("Error de conversión.",
                     "Verifique los valores ingresados en los campos de control de gráfica.");
-            res = false;
         }
         return res;
     }
-      private void Graficar() {
+
+    private void Graficar() {
         try {
             CoordinatePair puntoCords = new CoordinatePair(punto,
                     Matematico.evaluarFuncion(funcion, punto));

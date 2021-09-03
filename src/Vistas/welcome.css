@@ -219,6 +219,13 @@
 .table-view  .scroll-bar:vertical .thumb {
     -fx-background-color:#24262C;
 }
+.table-view  .scroll-bar:horizontal {
+    -fx-background-color:#1A1A1F;
+}
+
+.table-view  .scroll-bar:horizontal .thumb {
+    -fx-background-color:#24262C;
+}
 
 .table-row-cell{
     -fx-background-color: #202020;

@@ -14,7 +14,7 @@ public class BiseccionTest {
     private Biseccion biseccion;
     private static final double delta = 0.001;
 
-    @Test
+    @Test   
     public void probrarPrimerCaso() throws Exception {
         String funcion = "x^3 - 7*x^2 + 14*x - 6 ";
         double cotaInferior = 1;
