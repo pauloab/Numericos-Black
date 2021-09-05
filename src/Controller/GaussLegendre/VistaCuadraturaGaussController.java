@@ -18,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 /**
  * FXML Controller class de la vista de cuadratura de Gauss
@@ -46,7 +47,8 @@ public class VistaCuadraturaGaussController implements Initializable {
     private BorderPane bpChart;
     @FXML
     private Label lbResultado;
-
+    @FXML
+    private StackPane spGrafico;
     @FXML
     private TextField tfYU, tfYD, tfXL, tfXR;
     @FXML
@@ -68,7 +70,7 @@ public class VistaCuadraturaGaussController implements Initializable {
         tfYD.setText(yd + "");
         definirLimites();
 
-        bpChart.setCenter(graphManager.getGraph());
+        spGrafico.getChildren().add(0, graphManager.getGraph());
         funcion = null;
         btAjustar.setOnMouseClicked(event -> {
             boolean limitesDefinidos = definirLimites();
@@ -151,7 +153,7 @@ public class VistaCuadraturaGaussController implements Initializable {
             graphManager.setX1(b);
             dataset.add(Matematico.evaluarFuncion(funcion, xl, xr));
             dataset.add(Matematico.evaluarFuncion(funcion, a, b));
-            Graficos.plotNoInterseciones(dataset, pFormula, graphManager);
+            Graficos.plotNoInterseciones(dataset, bpChart, graphManager);
         } catch (Exception e) {
             e.printStackTrace();
             Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "
