@@ -38,7 +38,7 @@ public class WelcomeController implements Initializable {
     private SidenavContainer sidenavContainer;
 
     private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante,
-            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange, bpPolinomial, bpTrapecio, bpSimpson13, bpSimpson38;
+            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange, bpPolinomial, bpTrapecio, bpSimpson13, bpSimpson38, bpGaussL;
 
     private ArrayList<JFXButton> sideNavSubItems;
     
@@ -146,7 +146,7 @@ public class WelcomeController implements Initializable {
         buttonList = new ArrayList<>();
         
         bt = new JFXButton("Gauss-Legendre");
-        //bt.setOnMouseClicked(e -> CargarVista(bpSimpson38,e));
+        bt.setOnMouseClicked(e -> CargarVista(bpGaussL,e));
         buttonList.add(bt);
         sideNavSubItems.add(bt);
         
@@ -251,6 +251,11 @@ public class WelcomeController implements Initializable {
                     getClass().getResource("/Vistas/IntegracionNewtonCotes/VistaSimpson38.fxml")
             );
             bpSimpson38.setPadding(new Insets(0, 0, 0, 64));
+            
+             bpGaussL = FXMLLoader.load(
+                    getClass().getResource("/Vistas/GaussLegendre/VistaCuadraturaGauss.fxml")
+            );
+            bpGaussL.setPadding(new Insets(0, 0, 0, 64));
 
         } catch (IOException ex) {
             ex.printStackTrace();
