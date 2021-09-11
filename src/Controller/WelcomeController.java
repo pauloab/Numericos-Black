@@ -40,7 +40,7 @@ public class WelcomeController implements Initializable {
     private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante,
             bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange,
             bpPolinomial, bpTrapecio, bpSimpson13, bpSimpson38, bpGaussL,
-            bpInterpolacionNewton;
+            bpInterpolacionNewton,bpEuler;
 
     private ArrayList<JFXButton> sideNavSubItems;
     
@@ -159,9 +159,16 @@ public class WelcomeController implements Initializable {
         sidenavContainer.addItem(new SidenavItem("Integración de ecuaciones", buttonList), ivIntegracionEcuaciones);
         
         buttonList = new ArrayList<>();
+                
+        bt = new JFXButton("Método de Euler");
+        bt.setOnMouseClicked(e -> CargarVista(bpEuler,e));
+        buttonList.add(bt);
+        sideNavSubItems.add(bt);
+        
+        
         sidenavContainer.addItem(new SidenavItem("Métodos Runge-Kutta", buttonList), ivRungeKutta);
         
-         buttonList = new ArrayList<>();
+        buttonList = new ArrayList<>();
         sidenavContainer.addItem(new SidenavItem("Acerca De", buttonList), ivAcercaDe);
         panefront.setLeft(sidenavContainer);
 
@@ -263,10 +270,15 @@ public class WelcomeController implements Initializable {
             );
             bpSimpson38.setPadding(new Insets(0, 0, 0, 64));
             
-             bpGaussL = FXMLLoader.load(
+            bpGaussL = FXMLLoader.load(
                     getClass().getResource("/Vistas/GaussLegendre/VistaCuadraturaGauss.fxml")
             );
             bpGaussL.setPadding(new Insets(0, 0, 0, 64));
+            
+            bpEuler = FXMLLoader.load(
+                    getClass().getResource("/Vistas/RungeKutta/VistaEuler.fxml")
+            );
+            bpEuler.setPadding(new Insets(0, 0, 0, 64));
 
         } catch (IOException ex) {
             ex.printStackTrace();
