@@ -53,4 +53,41 @@ public class RKCuartoOrdenTest {
         }
         RK4.imprimirMatriz();
     }
+    
+    @Test
+    public void probrarTercerCaso() throws Exception {
+        System.out.println("\nTercer caso\n");
+        String EDO = "-2*x*y";
+        double x0 = 0;
+        double y0 = 2;
+        double b = 3;
+        double h = 0.25;
+        String[][] datosAproximados;
+        double[] valoresEsperados = {
+        2.00000,
+1.87882,
+1.55759,
+1.13957,
+0.73587,
+0.41956,
+0.21142,
+0.09434,
+0.03742,
+0.01328,
+0.00427,
+0.00126,
+0.00035,
+
+        };
+        RK4 = new RKCuartoOrden(x0, y0,b,EDO,h);
+        RK4.RKCuarto();
+        datosAproximados = RK4.getDatos();
+        RK4.imprimirMatriz();
+        for (int i = 1; i < datosAproximados.length; i++) {
+            assertEquals(valoresEsperados[i], Double.parseDouble(datosAproximados[i][1]), delta);
+            System.out.println("Valor Aproximado: "+datosAproximados[i][1]+
+                    " - Valor esperado: "+valoresEsperados[i]);
+        }
+        
+    }
 }
