@@ -17,7 +17,7 @@ public class Matematico {
       djep = new DJep();
       // agrega funciones estandares cos(x), sin(x)
       djep.addStandardFunctions();
-
+      
       // agrega constantes estandares, pi, e, etc
       djep.addStandardConstants();
 
@@ -58,6 +58,7 @@ public class Matematico {
 
     jep.addStandardFunctions();
     jep.addStandardConstants();
+    jep.setImplicitMul(true);
     jep.addVariable("x", x);
     jep.parseExpression(funcion);
     if (jep.hasError()) {
@@ -95,6 +96,7 @@ public class Matematico {
     jep.addStandardFunctions();
     jep.addStandardConstants();
     jep.addVariable("x", 0);
+    jep.setImplicitMul(true);
     jep.parseExpression(exrpesion);
     return !jep.hasError();
   }

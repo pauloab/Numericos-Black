@@ -38,7 +38,9 @@ public class WelcomeController implements Initializable {
     private SidenavContainer sidenavContainer;
 
     private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante,
-            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange, bpPolinomial, bpTrapecio, bpSimpson13, bpSimpson38, bpGaussL;
+            bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange,
+            bpPolinomial, bpTrapecio, bpSimpson13, bpSimpson38, bpGaussL,
+            bpInterpolacionNewton;
 
     private ArrayList<JFXButton> sideNavSubItems;
     
@@ -122,6 +124,10 @@ public class WelcomeController implements Initializable {
         buttonList.add(bt);
         sideNavSubItems.add(bt);
         
+        bt = new JFXButton("Newton por DD");
+        bt.setOnMouseClicked(e -> CargarVista(bpInterpolacionNewton,e));
+        buttonList.add(bt);
+        sideNavSubItems.add(bt);
 
         sidenavContainer.addItem(new SidenavItem("Interpolación", buttonList), ivInterpolacion);
 
@@ -237,6 +243,11 @@ public class WelcomeController implements Initializable {
             );
             bpLagrange.setPadding(new Insets(0, 0, 0, 64));
 
+            bpInterpolacionNewton = FXMLLoader.load(
+                    getClass().getResource("/Vistas/Interpolacion/VistaInterpolacionNewton.fxml")
+            );
+            bpInterpolacionNewton.setPadding(new Insets(0, 0, 0, 64));
+            
             bpTrapecio = FXMLLoader.load(
                     getClass().getResource("/Vistas/IntegracionNewtonCotes/VistaReglaTrapecio.fxml")
             );
