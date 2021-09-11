@@ -134,6 +134,51 @@ public class Graficos {
         }
         tableview.setItems(dataColumns);
     }
+    
+    /**
+     * Carga los datos de una matriz de datos en un tableview de JavaFx,
+     * utilizando sus encabezados, pero ignorando el conteo de índice cuando
+     * la primera columna del dataset es null
+     *
+     * @param tableview TableView sobre el que se va a aplicar la carga
+     * @param data Matriz de datos en String que se carga en las celdas
+     * @param headers Encabezados de el tableview
+     */
+    public static void cargarEnTableViewSelectivo(TableView tableview, String[][] data, String[] headers) {
+        ObservableList<ObservableList> dataColumns = FXCollections.observableArrayList();
+        String head = "#";
+        tableview.getColumns().clear();
+        int k = 0;
+        for (int i = -1; i < headers.length; i++) {
+            final int j = i + 1;
+            head = i >= 0 ? headers[i] : head;
+            TableColumn col = new TableColumn(head);
+            col.setCellValueFactory(new Callback<CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(j).toString());
+                }
+            });
+
+            tableview.getColumns().addAll(col);
+        }
+
+        
+        for (int i = 0; i < data.length; i++) {
+            ObservableList<String> row = FXCollections.observableArrayList();
+            if (data[i][0] != null ) {
+                row.add(k + "");
+                k++;
+            }else{
+                row.add("");
+            }
+            
+            for (int j = 0; j < headers.length; j++) {
+                row.add(data[i][j] == null ? "" : data[i][j]);
+            }
+            dataColumns.add(row);
+        }
+        tableview.setItems(dataColumns);
+    }
 
     /**
      * Carga los datos de una matriz de datos en un tableview de JavaFx,

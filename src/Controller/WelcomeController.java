@@ -40,7 +40,7 @@ public class WelcomeController implements Initializable {
     private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante,
             bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange,
             bpPolinomial, bpTrapecio, bpSimpson13, bpSimpson38, bpGaussL,
-            bpInterpolacionNewton,bpEuler;
+            bpInterpolacionNewton,bpEuler,bpRK4;
 
     private ArrayList<JFXButton> sideNavSubItems;
     
@@ -165,6 +165,10 @@ public class WelcomeController implements Initializable {
         buttonList.add(bt);
         sideNavSubItems.add(bt);
         
+        bt = new JFXButton("RK de Cuarto Orden");
+        bt.setOnMouseClicked(e -> CargarVista(bpRK4,e));
+        buttonList.add(bt);
+        sideNavSubItems.add(bt);
         
         sidenavContainer.addItem(new SidenavItem("Métodos Runge-Kutta", buttonList), ivRungeKutta);
         
@@ -280,6 +284,11 @@ public class WelcomeController implements Initializable {
             );
             bpEuler.setPadding(new Insets(0, 0, 0, 64));
 
+            bpRK4 = FXMLLoader.load(
+                    getClass().getResource("/Vistas/RungeKutta/VistaRKCuarto.fxml")
+            );
+            bpRK4.setPadding(new Insets(0, 0, 0, 64));
+            
         } catch (IOException ex) {
             ex.printStackTrace();
             Graficos.lanzarMensajeError("Error de carga de recursos", "Existe un "
