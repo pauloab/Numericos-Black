@@ -47,6 +47,28 @@ public class Euler {
     public String[][] getDatos() {
         return datos;
     }
+
+    public void setX0(double x0) {
+        this.x0 = x0;
+    }
+
+    public void setY0(double y0) {
+        this.y0 = y0;
+    }
+
+    public void setB(double b) {
+        this.b = b;
+    }
+
+    public void setEDO(String EDO) {
+        this.EDO = EDO;
+    }
+
+    public void setH(double h) {
+        this.h = h;
+    }
+    
+    
     
     public void imprimirMatriz() {
         int x = 0, y = 1, fx = 2;
