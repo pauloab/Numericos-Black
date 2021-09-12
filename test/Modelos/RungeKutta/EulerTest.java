@@ -45,10 +45,7 @@ public class EulerTest {
         double b = 5;
         double h = 0.5;
         String[][] datosAproximados;
-   
-
         double[] valoresEsperados = { 3.00000,2.94804,2.89653,2.84547,2.79487,2.74471,2.69501,2.64576,2.59696,2.54862,2.50073};
-        
         euler = new Euler(x0, y0,b,EDO,h);
         datosAproximados = euler.euler();
         for (int i = 1; i < datosAproximados.length; i++) {

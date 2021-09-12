@@ -40,7 +40,7 @@ public class WelcomeController implements Initializable {
     private BorderPane bpBiseccion, bpFalsaPosicion, bpNewtonRaphson, bpSecante,
             bpBairstow, bpMuller, bpTaylor, bpPuntoFijo, bpRegresionLineal, bpLagrange,
             bpPolinomial, bpTrapecio, bpSimpson13, bpSimpson38, bpGaussL,
-            bpInterpolacionNewton,bpEuler,bpRK4;
+            bpInterpolacionNewton,bpEuler,bpRK4, bpHeun, bpPuntoMedio;
 
     private ArrayList<JFXButton> sideNavSubItems;
     
@@ -170,6 +170,16 @@ public class WelcomeController implements Initializable {
         buttonList.add(bt);
         sideNavSubItems.add(bt);
         
+        bt = new JFXButton("Heun con Iteraciones");
+        bt.setOnMouseClicked(e -> CargarVista(bpHeun,e));
+        buttonList.add(bt);
+        sideNavSubItems.add(bt);
+        
+        bt = new JFXButton("Método de Punto Medio");
+        bt.setOnMouseClicked(e -> CargarVista(bpPuntoMedio,e));
+        buttonList.add(bt);
+        sideNavSubItems.add(bt);
+        
         sidenavContainer.addItem(new SidenavItem("Métodos Runge-Kutta", buttonList), ivRungeKutta);
         
         buttonList = new ArrayList<>();
@@ -283,6 +293,16 @@ public class WelcomeController implements Initializable {
                     getClass().getResource("/Vistas/RungeKutta/VistaEuler.fxml")
             );
             bpEuler.setPadding(new Insets(0, 0, 0, 64));
+            
+            bpHeun = FXMLLoader.load(
+                    getClass().getResource("/Vistas/RungeKutta/VistaHeun.fxml")
+            );
+            bpHeun.setPadding(new Insets(0, 0, 0, 64));
+            
+            bpPuntoMedio = FXMLLoader.load(
+                    getClass().getResource("/Vistas/RungeKutta/VistaPuntoMedio.fxml")
+            );
+            bpPuntoMedio.setPadding(new Insets(0, 0, 0, 64));
 
             bpRK4 = FXMLLoader.load(
                     getClass().getResource("/Vistas/RungeKutta/VistaRKCuarto.fxml")
