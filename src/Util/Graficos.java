@@ -331,9 +331,8 @@ public class Graficos {
 
         ArrayList<CoordinatePair> intersections = plotter.findIntersections(allPoints);
         for (CoordinatePair[] coordinateArray : coordinateArrayList) {
-            plotter.plot(coordinateArray, intersections, false);
+                 plotter.plot(coordinateArray, intersections, false);
         }
-
         System.gc();
     }
 
