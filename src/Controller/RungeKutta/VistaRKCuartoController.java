@@ -1,11 +1,11 @@
 package Controller.RungeKutta;
 
-import Modelos.RungeKutta.Euler;
 import Modelos.RungeKutta.RKCuartoOrden;
 import Plotter.Models.CoordinatePair;
 import Plotter.Views.GraphManager;
 import Util.Graficos;
 import Util.Matematico;
+import Util.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ArrayList;
@@ -91,35 +91,32 @@ public class VistaRKCuartoController implements Initializable {
                 Double x1 = Graficos.validarTextFieldDouble(tfY0);
                 Double b = Graficos.validarTextFieldDouble(tfB);
                 Double h = Graficos.validarTextFieldDouble(tfH);
-                if ((b-x0)%h!=0) {
+                if ((b - x0) % h != 0) {
                     error = true;
-                    Graficos.lanzarMensajeError("Error de ingreso", "El tamaño de paso no permite "
-                            + "dividir el intervalo en partes iguales.");
+                    Graficos.lanzarMensajeError(Mensajes.E_VALIDACION, Mensajes.ERROR_VALIDACION_TAMANO_PASO);
                 }
-                if (b<x0) {
+                if (b < x0) {
                     error = true;
-                    Graficos.lanzarMensajeError("Error de ingreso", "b debe der menor que la cota inferior (x0).");
+                    Graficos.lanzarMensajeError(Mensajes.E_VALIDACION, Mensajes.EROR_VALIDACION_B_X0);
                 }
                 if (x0 != null && x1 != null && b != null && h != null && !error) {
                     rK4 = new RKCuartoOrden(x0, x1, b, funcion, h);
                     try {
                         rK4.RKCuarto();
-                        String[] headers = {"x", "y" , "K1", "K2", "K3", "K4"};
+                        String[] headers = {"x", "y", "K1", "K2", "K3", "K4"};
                         Graficos.cargarEnTableView(tvResultados, rK4.getDatos(), headers);
                     } catch (Exception ex) {
                         error = true;
-                        Graficos.lanzarMensajeError("Error de procesamiento", "Tuvimos un inconveniente al "
-                                + "interpretar o procesar la función "
-                                + "a travéz de este método.");
+                        Graficos.lanzarMensajeError(Mensajes.E_PROCESAMIENTO, Mensajes.ERROR_PROCESAMIENTO_METODO);
                     }
                     if (!error) {
                         Graficar();
                     }
                 } else {
-                    Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
+                    Graficos.lanzarMensajeError(Mensajes.E_CONVERSION, Mensajes.ERROR_CONVERSION);
                 }
             } else {
-                Graficos.lanzarMensajeError("Error de conversión", "Hubo un error al interpretar la fórmula ingresada.");
+                Graficos.lanzarMensajeError(Mensajes.E_CONVERSION, Mensajes.ERROR_CONVERSION_FORMULA);
             }
         });
         btLimpiar.setOnMouseClicked(e -> {
@@ -145,18 +142,14 @@ public class VistaRKCuartoController implements Initializable {
         try {
             String[][] datos = rK4.getDatos();
             CoordinatePair[] puntos = new CoordinatePair[datos.length];
-            for (int i = 0; i < datos.length;i++) {
+            for (int i = 0; i < datos.length; i++) {
                 puntos[i] = new CoordinatePair(Double.parseDouble(datos[i][0]), Double.parseDouble(datos[i][1]));
             }
             ArrayList<CoordinatePair[]> dataset = new ArrayList<>();
             dataset.add(puntos);
             Graficos.plotBairstow(dataset, bpChart, graphManager);
         } catch (Exception e) {
-            e.printStackTrace();
-            Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "
-                    + "interpretar o procesar la función "
-                    + "a travéz de este método, por tanto"
-                    + "la gráfica no se pudo procesar.");
+            Graficos.lanzarMensajeError(Mensajes.E_GRAFICA, Mensajes.ERROR_GRAFICA);
         }
     }
 
@@ -178,20 +171,18 @@ public class VistaRKCuartoController implements Initializable {
                         graphManager.setRange(yd, yu);
                         res = true;
                     } else {
-                        Graficos.lanzarMensajeError("Error de validación",
-                                "La diferencia entre yMax y yMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                        Graficos.lanzarMensajeError(Mensajes.E_VALIDACION,
+                                Mensajes.ERROR_VALIDACION_EJE_Y + Graficos.RANGO_GRAFICACION_MAX);
                     }
                 } else {
-                    Graficos.lanzarMensajeError("Error de validación",
-                            "La diferencia entre xMax y xMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                    Graficos.lanzarMensajeError(Mensajes.E_VALIDACION,
+                            Mensajes.ERROR_VALIDACION_EJE_X + Graficos.RANGO_GRAFICACION_MAX);
                 }
             } else {
-                Graficos.lanzarMensajeAdvertencia("Verifique los intervalos.",
-                        "Verifique que el rango y el dominio. El intervalo debe ir de menor a mayor.");
+                Graficos.lanzarMensajeAdvertencia(Mensajes.A_INTERVALOS, Mensajes.ADVERTENCIA_INTERVALOS);
             }
         } else {
-            Graficos.lanzarMensajeError("Error de conversión.",
-                    "Verifique los valores ingresados en los campos de control de gráfica.");
+            Graficos.lanzarMensajeError(Mensajes.ERROR_CONVERSION, Mensajes.ERROR_CONVERSION_CONTROL_EJES);
         }
         return res;
     }

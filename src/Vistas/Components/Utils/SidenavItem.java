@@ -105,5 +105,11 @@ public class SidenavItem extends VBox {
     public boolean isOpened() {
         return isOpened;
     }
+
+    public JFXButton getTopButton() {
+        return topButton;
+    }
+    
+    
     
 }

@@ -70,7 +70,7 @@
                               <TextField fx:id="tfxitermax" layoutX="153.0" layoutY="160.0" prefHeight="26.0" prefWidth="91.0" />
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="68.0" layoutY="163.0" prefHeight="21.0" prefWidth="73.0" text="Iteraciones" />
                               <TextField fx:id="tfxerrorTolerancia" layoutX="153.0" layoutY="199.0" prefHeight="26.0" prefWidth="91.0" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="202.0" prefHeight="21.0" prefWidth="36.0" text="ea" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="202.0" prefHeight="21.0" prefWidth="36.0" text="es" />
                            </children>
                         </AnchorPane>
                      </children>

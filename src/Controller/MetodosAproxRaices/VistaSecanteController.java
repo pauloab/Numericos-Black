@@ -5,6 +5,7 @@ import Plotter.Models.CoordinatePair;
 import Plotter.Views.GraphManager;
 import Util.Graficos;
 import Util.Matematico;
+import Util.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ArrayList;
@@ -106,18 +107,16 @@ public class VistaSecanteController implements Initializable {
                         Graficos.cargarEnTableView(tvResultados, secante.getMatrizDeDatos(), headers);
                     } catch (Exception ex) {
                         error = true;
-                        Graficos.lanzarMensajeError("Error de procesamiento", "Tuvimos un inconveniente al "
-                                + "interpretar o procesar la función "
-                                + "a travéz de este método.");
+                        Graficos.lanzarMensajeError(Mensajes.E_PROCESAMIENTO, Mensajes.ERROR_PROCESAMIENTO_METODO);
                     }
                     if (!error) {
                         Graficar();
                     }
                 } else {
-                    Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
+                    Graficos.lanzarMensajeError(Mensajes.E_CONVERSION, Mensajes.ERROR_CONVERSION);
                 }
             } else {
-                Graficos.lanzarMensajeError("Error de conversión", "Hubo un error al interpretar la fórmula ingresada.");
+                Graficos.lanzarMensajeError(Mensajes.E_CONVERSION, Mensajes.ERROR_CONVERSION_FORMULA);
             }
         });
         btLimpiar.setOnMouseClicked(e -> {
@@ -149,11 +148,7 @@ public class VistaSecanteController implements Initializable {
             dataset.add(Matematico.evaluarFuncion(funcion, xl, xr));
             Graficos.plotPoints(dataset, bpChart, graphManager, puntoCords);
         } catch (Exception e) {
-            e.printStackTrace();
-            Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "
-                    + "interpretar o procesar la función "
-                    + "a travéz de este método, por tanto"
-                    + "la gráfica no se pudo procesar.");
+            Graficos.lanzarMensajeError(Mensajes.E_GRAFICA, Mensajes.ERROR_GRAFICA);
         }
     }
 
@@ -175,20 +170,18 @@ public class VistaSecanteController implements Initializable {
                         graphManager.setRange(yd, yu);
                         res = true;
                     } else {
-                        Graficos.lanzarMensajeError("Error de validación",
-                                "La diferencia entre yMax y yMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                        Graficos.lanzarMensajeError(Mensajes.E_VALIDACION,
+                                Mensajes.ERROR_VALIDACION_EJE_Y + Graficos.RANGO_GRAFICACION_MAX);
                     }
                 } else {
-                    Graficos.lanzarMensajeError("Error de validación",
-                            "La diferencia entre xMax y xMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                    Graficos.lanzarMensajeError(Mensajes.E_VALIDACION,
+                            Mensajes.ERROR_VALIDACION_EJE_X + Graficos.RANGO_GRAFICACION_MAX);
                 }
             } else {
-                Graficos.lanzarMensajeAdvertencia("Verifique los intervalos.",
-                        "Verifique que el rango y el dominio. El intervalo debe ir de menor a mayor.");
+                Graficos.lanzarMensajeAdvertencia(Mensajes.A_INTERVALOS, Mensajes.ADVERTENCIA_INTERVALOS);
             }
         } else {
-            Graficos.lanzarMensajeError("Error de conversión.",
-                    "Verifique los valores ingresados en los campos de control de gráfica.");
+            Graficos.lanzarMensajeError(Mensajes.ERROR_CONVERSION, Mensajes.ERROR_CONVERSION_CONTROL_EJES);
         }
         return res;
     }

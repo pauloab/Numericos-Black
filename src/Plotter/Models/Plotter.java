@@ -137,12 +137,12 @@ public class Plotter {
             XYChart.Data dataPoint = new XYChart.Data<>(point.getKey(), point.getValue());
 
             final Circle graphPoint = new Circle(3);
-            graphPoint.setFill(Color.BLACK);  // only here to later check whether it has been initialized
+            graphPoint.setFill(Color.WHEAT);  // only here to later check whether it has been initialized
 
             for (CoordinatePair intersection : intersections) {
 
                 if (roundPair(intersection).equals(roundPair(point))) {
-                    graphPoint.setFill(Color.WHITE);
+                    graphPoint.setFill(Color.BLACK);
                     graphPoint.setOnMouseClicked(event -> {
                         coordinateView = new CoordinateView(roundDecimals(point.getKey(), 3), roundDecimals(point.getValue(), 3));
 
@@ -160,7 +160,7 @@ public class Plotter {
                 }
             }
 
-            if (graphPoint.getFill().equals(Color.BLACK)) {
+            if (graphPoint.getFill().equals(Color.WHEAT)) {
                 graphPoint.setFill(Color.TRANSPARENT);
             }
             if (arePoints) {

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="708.0" prefWidth="1133.0" styleClass="background-2" stylesheets="@acercade.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AcercaDeController">
+   <top>
+      <VBox alignment="CENTER" prefHeight="258.0" prefWidth="1133.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="ivLogo" fitHeight="167.0" fitWidth="380.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" VBox.vgrow="ALWAYS">
+               <image>
+                  <Image url="@../images/logoapp-T.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="49.0" prefWidth="301.0" text="NUMÉRICOS BLACKS">
+               <font>
+                  <Font name="Eras Demi ITC" size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="sub-background" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="116.0" prefWidth="730.0" text="Numéricos Blacks es una herramienta de cálculo de aproximaciones mediante métodos numéricos, desarrollado como proyecto de fin de semestre de la asignatura de Métodos Numéricos" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <GridPane alignment="CENTER" prefHeight="274.0" prefWidth="1133.0" VBox.vgrow="ALWAYS">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="172.0" minHeight="10.0" prefHeight="117.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="155.0" minHeight="2.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="209.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label alignment="CENTER" prefHeight="32.0" prefWidth="483.0" text="Equipo de desarrollo" GridPane.halignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="89.0" stroke="WHITE" strokeType="INSIDE" width="3.0">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Rectangle>
+                        <VBox alignment="CENTER_LEFT" prefHeight="112.0" prefWidth="505.0">
+                           <children>
+                              <Label prefHeight="21.0" prefWidth="343.0" text="Freddy Stalin Lamar Peña" />
+                              <Label prefHeight="21.0" prefWidth="343.0" text="Javier Alberto Matamoros Toro" />
+                              <Label prefHeight="21.0" prefWidth="343.0" text="Geovanny Andrés Vega Mite" />
+                              <Label prefHeight="21.0" prefWidth="343.0" text="Paulo Daniel Aguilar Becerra" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER" prefHeight="62.0" prefWidth="567.0" text="Project Manager" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="62.0" prefWidth="567.0" text="Docente" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="20.0" stroke="WHITE" strokeType="INSIDE" width="3.0">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Rectangle>
+                        <Label prefHeight="21.0" prefWidth="343.0" text="Gustavo Hidalgo" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="20.0" stroke="WHITE" strokeType="INSIDE" width="3.0">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Rectangle>
+                        <Label prefHeight="21.0" prefWidth="343.0" text="Ing. Fausto Redrován Castillo" />
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="516.0" text="© Copyright 2021 - Todos los derechos reservados" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
