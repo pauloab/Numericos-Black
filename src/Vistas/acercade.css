@@ -1,0 +1,21 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.background-2 {
+    -fx-background-color: #1C1D23;
+}
+.sub-background{
+    -fx-background-color:#24262C;
+}
+.label{
+    -fx-text-fill:#FFFFFF;
+}
+
+.logo:hover {
+    -fx-scale-x: 1.3;
+    -fx-scale-y: 1.3;
+    -fx-scale-z: 1.3;
+}
+
+

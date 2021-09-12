@@ -5,6 +5,7 @@ import Plotter.Models.CoordinatePair;
 import Plotter.Views.GraphManager;
 import Util.Graficos;
 import Util.Matematico;
+import Util.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ArrayList;
@@ -85,8 +86,7 @@ public class VistaLagrangeController implements Initializable {
         // Se agrega un elemnto al vector de coeficientes
         btAdd.setOnMouseClicked(event -> {
             if (vbXValues.getChildren().size() == MAX_PUNTOS) {
-                Graficos.lanzarMensajeAdvertencia("Máximo de puntos",
-                        "Ha alcanzado el número máximo de puntos a agregar.");
+                Graficos.lanzarMensajeAdvertencia(Mensajes.A_MAX_PUNTOS, Mensajes.ADVERENCIA_MAX_PUNTOS + MAX_PUNTOS);
             } else {
                 addCordFilds();
             }
@@ -119,8 +119,7 @@ public class VistaLagrangeController implements Initializable {
                         interpolador = new InterpolacionLagrange(x, y, xIn);
                     } catch (Exception ex) {
                         error = true;
-                        Graficos.lanzarMensajeError("Error de validación",
-                                "Verifique que x se encuentre en el dominio de los datos");
+                        Graficos.lanzarMensajeError(Mensajes.E_VALIDACION, Mensajes.ERROR_VALIDACION_DOMINIO);
                     }
                     if (!error) {
                         res = interpolador.interpolacion();
@@ -134,10 +133,10 @@ public class VistaLagrangeController implements Initializable {
                         Graficar(dataInput);
                     }
                 } else {
-                    Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
+                    Graficos.lanzarMensajeError(Mensajes.E_CONVERSION, Mensajes.ERROR_CONVERSION);
                 }
             } else {
-                Graficos.lanzarMensajeError("Error de validación", "Verifique que los puntos de x sean en las coordenadas distintos.");
+                Graficos.lanzarMensajeError(Mensajes.E_VALIDACION, Mensajes.ERROR_VALIDACION_CORD_DISTINTAS);
             }
 
         });
@@ -204,10 +203,7 @@ public class VistaLagrangeController implements Initializable {
             dataset.add(Matematico.evaluarFuncion(funcion, xl, xr));
             Graficos.plotPuntosLineas(dataset, bpChart, graphManager);
         } catch (Exception e) {
-            Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "
-                    + "interpretar o procesar la función "
-                    + "a travéz de este método, por tanto"
-                    + "la gráfica no se pudo procesar.");
+            Graficos.lanzarMensajeError(Mensajes.E_GRAFICA, Mensajes.ERROR_GRAFICA);
         }
     }
 
@@ -234,20 +230,18 @@ public class VistaLagrangeController implements Initializable {
                         graphManager.setRange(yd, yu);
                         res = true;
                     } else {
-                        Graficos.lanzarMensajeError("Error de validación",
-                                "La diferencia entre yMax y yMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                        Graficos.lanzarMensajeError(Mensajes.E_VALIDACION,
+                                Mensajes.ERROR_VALIDACION_EJE_Y + Graficos.RANGO_GRAFICACION_MAX);
                     }
                 } else {
-                    Graficos.lanzarMensajeError("Error de validación",
-                            "La diferencia entre xMax y xMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                    Graficos.lanzarMensajeError(Mensajes.E_VALIDACION,
+                            Mensajes.ERROR_VALIDACION_EJE_X + Graficos.RANGO_GRAFICACION_MAX);
                 }
             } else {
-                Graficos.lanzarMensajeAdvertencia("Verifique los intervalos.",
-                        "Verifique que el rango y el dominio. El intervalo debe ir de menor a mayor.");
+                Graficos.lanzarMensajeAdvertencia(Mensajes.A_INTERVALOS, Mensajes.ADVERTENCIA_INTERVALOS);
             }
         } else {
-            Graficos.lanzarMensajeError("Error de conversión.",
-                    "Verifique los valores ingresados en los campos de control de gráfica.");
+            Graficos.lanzarMensajeError(Mensajes.ERROR_CONVERSION, Mensajes.ERROR_CONVERSION_CONTROL_EJES);
         }
         return res;
     }

@@ -81,7 +81,7 @@ public class Heun {
             dx = Util.Matematico.evaluarFuncionDosVariables(EDO, x, y);
             predictora = y + dx * tamanoPaso;
             fila = new String [6];
-            fila [0] = x + "";
+            fila [0] = (x+tamanoPaso) + "";
             fila [1] = dx + "";
             fila [2] = predictora + "";
             iter=0;

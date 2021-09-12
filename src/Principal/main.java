@@ -1,5 +1,7 @@
 package Principal;
 
+import Controller.WelcomeController;
+import Util.ResizeHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,27 +12,24 @@ import javafx.stage.StageStyle;
 
 public class main extends Application {
 
-    double x, y = 0;
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/Vistas/Welcome.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/Welcome.fxml"));
+        Parent root = (Parent) loader.load();
         primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setResizable(true);
+        
+        WelcomeController controller = (WelcomeController) loader.getController();
+        controller.setStage(primaryStage);
         
         Image image = new Image(getClass().getResource("/images/logoapp.png").toExternalForm());
         primaryStage.getIcons().add(image);
-        
-        root.setOnMousePressed(event -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
 
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - x);
-            primaryStage.setY(event.getScreenY() - y);
-        });
         primaryStage.setTitle("Numéricos Blacks - Aproximador por métodos numéricos");
         primaryStage.setScene(new Scene(root, 1280, 800));
+        primaryStage.setMinHeight(800);
+        primaryStage.setMinWidth(1280);
+        ResizeHelper.addResizeListener(primaryStage);
         primaryStage.show();
     }
 

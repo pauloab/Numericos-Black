@@ -1,13 +1,12 @@
 package Controller.IntegracionNewtonCotes;
 
-import Controller.MetodosAproxRaices.*;
 import Modelos.IntegracionNewtonCotes.Simpson38;
 import Modelos.Interpolacion.InterpolacionLagrange;
-import Modelos.MetodosAproxRaices.PuntoFijo;
 import Plotter.Models.CoordinatePair;
 import Plotter.Views.GraphManager;
 import Util.Graficos;
 import Util.Matematico;
+import Util.Mensajes;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,10 +15,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 
 /**
  * FXML Controller class de la vista Simpson 3/8
@@ -88,7 +85,7 @@ public class VistaSimpson38Controller implements Initializable {
             if (Matematico.validarExpresion(funcion)) {
                 Double x0 = Graficos.validarTextFieldDouble(tfx0);
                 Double x1 = Graficos.validarTextFieldDouble(tfx1);
-                if (x0 != null && x1 != null && x0 != null) {
+                if (x0 != null && x1 != null) {
                     if (x1 > x0) {
                         simpson38 = new Simpson38(funcion, x0, x1);
                         try {
@@ -98,21 +95,19 @@ public class VistaSimpson38Controller implements Initializable {
                             lbResultado.setText("" + punto);
                         } catch (Exception ex) {
                             error = true;
-                            Graficos.lanzarMensajeError("Error de procesamiento", "Tuvimos un inconveniente al "
-                                    + "interpretar o procesar la función "
-                                    + "a travéz de este método.");
+                            Graficos.lanzarMensajeError(Mensajes.E_PROCESAMIENTO, Mensajes.ERROR_PROCESAMIENTO_METODO);
                         }
                         if (!error) {
                             Graficar();
                         }
                     } else {
-                        Graficos.lanzarMensajeAdvertencia("Verifique el intervalo", "Verifique que el punto a sea menor que b");
+                        Graficos.lanzarMensajeAdvertencia(Mensajes.A_INTERVALOS, Mensajes.ERROR_VALIDACION_B);
                     }
                 } else {
-                    Graficos.lanzarMensajeError("Error de conversión", "Por favor, verifica el ingreso de datos antes de proceder.");
+                    Graficos.lanzarMensajeError(Mensajes.E_CONVERSION, Mensajes.ERROR_CONVERSION);
                 }
             } else {
-                Graficos.lanzarMensajeError("Error de conversión", "Hubo un error al interpretar la fórmula ingresada.");
+                Graficos.lanzarMensajeError(Mensajes.E_CONVERSION, Mensajes.ERROR_CONVERSION_FORMULA);
             }
         });
         btLimpiar.setOnMouseClicked(e -> {
@@ -150,20 +145,18 @@ public class VistaSimpson38Controller implements Initializable {
                         graphManager.setRange(yd, yu);
                         res = true;
                     } else {
-                        Graficos.lanzarMensajeError("Error de validación",
-                                "La diferencia entre yMax y yMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                        Graficos.lanzarMensajeError(Mensajes.E_VALIDACION,
+                                Mensajes.ERROR_VALIDACION_EJE_Y + Graficos.RANGO_GRAFICACION_MAX);
                     }
                 } else {
-                    Graficos.lanzarMensajeError("Error de validación",
-                            "La diferencia entre xMax y xMin debe ser hasta " + Graficos.RANGO_GRAFICACION_MAX);
+                    Graficos.lanzarMensajeError(Mensajes.E_VALIDACION,
+                            Mensajes.ERROR_VALIDACION_EJE_X + Graficos.RANGO_GRAFICACION_MAX);
                 }
             } else {
-                Graficos.lanzarMensajeAdvertencia("Verifique los intervalos.",
-                        "Verifique que el rango y el dominio. El intervalo debe ir de menor a mayor.");
+                Graficos.lanzarMensajeAdvertencia(Mensajes.A_INTERVALOS, Mensajes.ADVERTENCIA_INTERVALOS);
             }
         } else {
-            Graficos.lanzarMensajeError("Error de conversión.",
-                    "Verifique los valores ingresados en los campos de control de gráfica.");
+            Graficos.lanzarMensajeError(Mensajes.ERROR_CONVERSION, Mensajes.ERROR_CONVERSION_CONTROL_EJES);
         }
         return res;
     }
@@ -189,11 +182,7 @@ public class VistaSimpson38Controller implements Initializable {
             Graficos.plotNoInterseciones(dataset, bpChart, graphManager);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            Graficos.lanzarMensajeError("Error de Graficación", "Tuvimos un inconveniente al "
-                    + "interpretar o procesar la función "
-                    + "a travéz de este método, por tanto"
-                    + "la gráfica no se pudo procesar.");
+            Graficos.lanzarMensajeError(Mensajes.E_GRAFICA, Mensajes.ERROR_GRAFICA);
         }
     }
 }
