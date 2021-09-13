@@ -40,7 +40,7 @@
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <bottom>
-            <TableView fx:id="tvResultados" prefHeight="241.0" prefWidth="1280.0" />
+            <TableView fx:id="tvResultados" prefHeight="202.0" prefWidth="1280.0" />
          </bottom>
          <center>
             <HBox prefHeight="339.0" prefWidth="1280.0" styleClass="primary-pane" BorderPane.alignment="CENTER">
