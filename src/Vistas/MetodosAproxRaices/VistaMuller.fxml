@@ -60,7 +60,7 @@
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="120.0" layoutY="20.0" text="X0" />
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="121.0" layoutY="56.0" text="x1" />
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="121.0" layoutY="93.0" text="x2" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="130.0" text="Error de tolerancia:" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="33.0" layoutY="130.0" text="Error de tolerancia:" />
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="71.0" layoutY="168.0" text="Iteraciones" />
                               <TextField fx:id="tfx0" layoutX="153.0" layoutY="15.0" prefHeight="26.0" prefWidth="91.0" />
                               <TextField fx:id="tfx1" layoutX="153.0" layoutY="51.0" prefHeight="26.0" prefWidth="91.0" />
@@ -80,7 +80,7 @@
                      <children>
                         <AnchorPane prefHeight="250.0" prefWidth="190.0">
                            <children>
-                              <Label layoutX="81.0" layoutY="14.0" text="Control de ejes" />
+                              <Label layoutX="88.0" layoutY="14.0" text="Control de ejes" />
                               <TextField fx:id="tfXL" layoutX="46.0" layoutY="99.0" prefHeight="31.0" prefWidth="52.0" />
                               <TextField fx:id="tfXR" layoutX="164.0" layoutY="99.0" prefHeight="31.0" prefWidth="52.0" />
                               <TextField fx:id="tfYU" layoutX="105.0" layoutY="67.0" prefHeight="31.0" prefWidth="52.0" />

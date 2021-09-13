@@ -53,15 +53,15 @@
                            <children>
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="130.0" layoutY="8.0" text="xl" />
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" layoutY="47.0" text="xu" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="84.0" text="Error de tolerancia:" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="121.0" text="Iteraciones" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="84.0" text="Error de tolerancia:" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="81.0" layoutY="121.0" text="Iteraciones" />
                               <TextField fx:id="tfcotainferior" layoutX="150.0" layoutY="3.0" prefHeight="26.0" prefWidth="91.0" />
                               <TextField fx:id="tfcotasuperior" layoutX="150.0" layoutY="42.0" prefHeight="26.0" prefWidth="91.0" />
                               <TextField fx:id="tfErrorTolerancia" layoutX="150.0" layoutY="79.0" prefHeight="26.0" prefWidth="91.0" />
                               <TextField fx:id="tfIterMax" layoutX="150.0" layoutY="116.0" prefHeight="26.0" prefWidth="91.0" />
                               <Button fx:id="btProcesar" layoutX="268.0" layoutY="3.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Procesar" />
                               <Button fx:id="btLimpiar" layoutX="364.0" layoutY="3.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Limpiar" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="73.0" layoutY="157.0" text="Resultado:" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="157.0" text="Resultado:" />
                               <Label fx:id="lbResultado" alignment="CENTER" contentDisplay="CENTER" layoutX="148.0" layoutY="157.0" />
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="250.0" layoutY="84.0" text="\%" />
                            </children>
@@ -72,7 +72,7 @@
                      <children>
                         <AnchorPane prefHeight="250.0" prefWidth="190.0">
                            <children>
-                              <Label layoutX="81.0" layoutY="14.0" text="Control de ejes" />
+                              <Label layoutX="91.0" layoutY="14.0" text="Control de ejes" />
                               <TextField fx:id="tfXL" layoutX="40.0" layoutY="99.0" prefHeight="31.0" prefWidth="52.0" />
                               <TextField fx:id="tfXR" layoutX="164.0" layoutY="99.0" prefHeight="31.0" prefWidth="52.0" />
                               <TextField fx:id="tfYU" layoutX="105.0" layoutY="67.0" prefHeight="31.0" prefWidth="52.0" />

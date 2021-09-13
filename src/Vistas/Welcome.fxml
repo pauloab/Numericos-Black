@@ -31,17 +31,17 @@
          <right>
             <HBox prefHeight="25.0" prefWidth="59.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="minimo" fitHeight="21.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" styleClass="control-buttons">
+                  <ImageView fx:id="minimo" fitHeight="21.0" fitWidth="37.0" preserveRatio="true" styleClass="control-buttons">
                      <image>
                         <Image url="@../images/logo%20amarilloRecurso%203.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="maximo" fitHeight="21.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" styleClass="control-buttons">
+                  <ImageView fx:id="maximo" fitHeight="21.0" fitWidth="37.0" preserveRatio="true" styleClass="control-buttons">
                      <image>
                         <Image url="@../images/logo%20verdeRecurso%204.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="exit" fitHeight="21.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" styleClass="control-buttons">
+                  <ImageView fx:id="exit" fitHeight="21.0" fitWidth="37.0" preserveRatio="true" styleClass="control-buttons">
                      <image>
                         <Image url="@../images/logo%20rojoRecurso%202.png" />
                      </image>

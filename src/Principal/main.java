@@ -26,8 +26,8 @@ public class main extends Application {
         primaryStage.getIcons().add(image);
 
         primaryStage.setTitle("Numéricos Blacks - Aproximador por métodos numéricos");
-        primaryStage.setScene(new Scene(root, 1280, 745));
-        primaryStage.setMinHeight(745);
+        primaryStage.setScene(new Scene(root, 1280, 740));
+        primaryStage.setMinHeight(740);
         primaryStage.setMinWidth(1280);
         ResizeHelper.addResizeListener(primaryStage);
         primaryStage.show();

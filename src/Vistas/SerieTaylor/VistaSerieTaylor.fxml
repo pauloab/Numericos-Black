@@ -59,7 +59,7 @@
                         <AnchorPane prefHeight="224.0" prefWidth="472.0">
                            <children>
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="63.0" text="X1" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="110.0" text="Error de tolerancia:" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="110.0" text="Error de tolerancia:" />
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="262.0" layoutY="153.0" text="Iteraciones" />
                               <TextField fx:id="tfX1" layoutX="150.0" layoutY="58.0" prefHeight="26.0" prefWidth="91.0" />
                               <TextField fx:id="tfErrorTolerancia" layoutX="150.0" layoutY="105.0" prefHeight="26.0" prefWidth="91.0" />
@@ -68,10 +68,10 @@
                               <Button fx:id="btLimpiar" layoutX="349.0" layoutY="58.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Limpiar" />
                               <TextField fx:id="tfx0" layoutX="150.0" layoutY="14.0" prefHeight="26.0" prefWidth="91.0" />
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="19.0" text="x0" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="67.0" layoutY="189.0" text="Resultado: " />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="79.0" layoutY="189.0" text="Resultado: " />
                               <Label fx:id="lbResultado" alignment="CENTER" contentDisplay="CENTER" layoutX="148.0" layoutY="189.0" />
                               <Label fx:id="lbH" alignment="CENTER" contentDisplay="CENTER" layoutX="148.0" layoutY="153.0" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="153.0" text="Tamaño de paso:" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="153.0" text="Tamaño de paso:" />
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="249.0" layoutY="110.0" text="\%" />
                            </children>
                         </AnchorPane>
@@ -81,7 +81,7 @@
                      <children>
                         <AnchorPane prefHeight="250.0" prefWidth="190.0">
                            <children>
-                              <Label layoutX="81.0" layoutY="14.0" text="Control de ejes" />
+                              <Label layoutX="91.0" layoutY="14.0" text="Control de ejes" />
                               <TextField fx:id="tfXL" layoutX="46.0" layoutY="99.0" prefHeight="31.0" prefWidth="52.0" />
                               <TextField fx:id="tfXR" layoutX="164.0" layoutY="99.0" prefHeight="31.0" prefWidth="52.0" />
                               <TextField fx:id="tfYU" layoutX="105.0" layoutY="67.0" prefHeight="31.0" prefWidth="52.0" />

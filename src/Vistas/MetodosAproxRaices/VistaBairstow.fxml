@@ -41,13 +41,13 @@
          <center>
             <HBox prefHeight="234.0" prefWidth="871.0" styleClass="primary-pane" BorderPane.alignment="CENTER">
                <children>
-                  <VBox alignment="CENTER" minHeight="292.0" prefHeight="292.0" prefWidth="486.0">
+                  <VBox alignment="CENTER" minHeight="0.0" prefHeight="0.0" prefWidth="486.0">
                      <children>
-                        <AnchorPane prefHeight="361.0" prefWidth="486.0">
+                        <AnchorPane prefHeight="322.0" prefWidth="486.0">
                            <children>
-                              <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="294.0" layoutY="13.0" prefHeight="336.0" prefWidth="181.0">
+                              <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="294.0" layoutY="13.0" prefHeight="295.0" prefWidth="181.0">
                                  <content>
-                                    <VBox fx:id="vBoxCoeficientes" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="secondary-pane">
+                                    <VBox fx:id="vBoxCoeficientes" alignment="TOP_CENTER" prefHeight="0.0" prefWidth="179.0" styleClass="secondary-pane">
                                        <children>
                                           <HBox alignment="CENTER" prefHeight="42.0" prefWidth="198.0" spacing="35.0">
                                              <children>
@@ -64,7 +64,7 @@
                                           <HBox alignment="CENTER" prefHeight="45.0" prefWidth="198.0" spacing="35.0">
                                              <children>
                                                 <Button fx:id="btAddCoeficiente" mnemonicParsing="false" text="+" />
-                                                <Button fx:id="btRemoveCoeficiente" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" text="-" />
+                                                <Button fx:id="btRemoveCoeficiente" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="-" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -86,11 +86,11 @@
                         </AnchorPane>
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" fillWidth="false" prefHeight="393.0" prefWidth="269.0">
+                  <VBox alignment="CENTER" fillWidth="false" prefHeight="0.0" prefWidth="269.0">
                      <children>
                         <AnchorPane prefHeight="250.0" prefWidth="190.0">
                            <children>
-                              <Label layoutX="81.0" layoutY="14.0" text="Control de ejes" />
+                              <Label layoutX="88.0" layoutY="14.0" text="Control de ejes" />
                               <TextField fx:id="tfXL" layoutX="46.0" layoutY="99.0" prefHeight="31.0" prefWidth="52.0" />
                               <TextField fx:id="tfXR" layoutX="164.0" layoutY="99.0" prefHeight="31.0" prefWidth="52.0" />
                               <TextField fx:id="tfYU" layoutX="105.0" layoutY="67.0" prefHeight="31.0" prefWidth="52.0" />
@@ -118,7 +118,7 @@
             </HBox>
          </center>
          <bottom>
-            <TableView fx:id="tvResultados" prefHeight="263.0" prefWidth="1280.0">
+            <TableView fx:id="tvResultados" prefHeight="278.0" prefWidth="1280.0">
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy></TableView>

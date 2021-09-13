@@ -242,7 +242,7 @@
     -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-padding: 3 0 2 7;
-    -fx-cell-size: 1.66667em; 
+    
 }
 
 .combo-box-popup .list-view 
@@ -337,4 +337,18 @@
 
 .dialog-pane .button:hover{     
     -fx-background-color:#4156A3;
+}
+
+/* Context menú */
+.context-menu {
+  -fx-background-color: #24262C;
+  -fx-text-fill: white;
+}
+
+.menu-item .label {
+  -fx-text-fill: white;
+}
+
+.menu-item:focused .label {
+  -fx-text-fill: white;
 }
